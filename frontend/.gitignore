@@ -1,0 +1,25 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Ignore everything
+*
+
+# Unignore the .vscode directory and specific files
+!index.html
+!package.json
+!README.md
+!vite.config.js
+!.gitignore
+!public/
+!src/
