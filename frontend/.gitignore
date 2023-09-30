@@ -13,7 +13,7 @@ dist-ssr
 *.local
 
 # Ignore everything
-*
+/*
 
 # Unignore the .vscode directory and specific files
 !index.html
@@ -21,5 +21,5 @@ dist-ssr
 !README.md
 !vite.config.js
 !.gitignore
-!public/
-!src/
+!/public/**/*
+!src
