@@ -1,1 +1,4 @@
-python -m flask run
+pip install fastapi
+pip install uvicorn
+
+python -m uvicorn main:app --reload
