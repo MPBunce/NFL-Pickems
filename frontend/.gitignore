@@ -12,14 +12,16 @@ dist
 dist-ssr
 *.local
 
-# Editor directories and files
-.vscode/*
+# Ignore everything
+*
+
+# Unignore the .vscode directory and specific files
+!.vscode/
 !.vscode/extensions.json
-.idea
-.DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
-./vscode
+!.idea/
+!.DS_Store
+!*.suo
+!*.ntvs*
+!*.njsproj
+!*.sln
+!*.sw?
