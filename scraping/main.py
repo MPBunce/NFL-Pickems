@@ -17,12 +17,52 @@ AFC = soup.find("div", {"id": "all_AFC"})
 NFC = soup.find("div", {"id": "all_NFC"})
 
 afcTable = AFC.find('tbody')
+afcArray = []
 
 for row in afcTable.find_all('tr'):
-    print( row.find("a") )
-    print( row.find("td", {'data-stat': 'wins'}) )
-    print( row.find("td", {'data-stat': 'losses'}) )
-    print('\n')
+    team = row.find("a")
+    if (team != None):
+        teamName = team.contents[0]
+    wins = row.find("td", {'data-stat': 'wins'}) 
+    if (wins != None):
+        totalWins = wins.contents[0]
+    losses = row.find("td", {'data-stat': 'losses'}) 
+    if (losses != None):
+        totalLs = losses.contents[0]
+    
+    if team and wins and losses is not None:
+        total = [teamName, totalWins, totalLs]
+        afcArray.append(total)
+
+nfcTable = NFC.find('tbody')
+nfcArray = []
+
+for row in nfcTable.find_all('tr'):
+    team = row.find("a")
+    if (team != None):
+        teamName = team.contents[0]
+    wins = row.find("td", {'data-stat': 'wins'}) 
+    if (wins != None):
+        totalWins = wins.contents[0]
+    losses = row.find("td", {'data-stat': 'losses'}) 
+    if (losses != None):
+        totalLs = losses.contents[0]
+    
+    if team and wins and losses is not None:
+        total = [teamName, totalWins, totalLs]
+        nfcArray.append(total)
+
+for n in afcArray:
+    print(n)
+
+
+print("\n")
+
+
+for n in nfcArray:
+    print(n)
+
+
 
 #Formatting AFC Teams
 
