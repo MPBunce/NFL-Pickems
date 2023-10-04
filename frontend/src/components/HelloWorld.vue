@@ -26,7 +26,7 @@ const count = ref(0)
     >, the official Vue + Vite starter
   </p>
   <p>
-    Install
+    Install XD
     <a href="https://github.com/vuejs/language-tools" target="_blank">Volar</a>
     in your IDE for a better DX
   </p>
