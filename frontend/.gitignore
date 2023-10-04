@@ -17,6 +17,7 @@ dist-ssr
 
 # Unignore the .vscode directory and specific files
 !index.html
+!package-lock.json
 !package.json
 !README.md
 !vite.config.js
