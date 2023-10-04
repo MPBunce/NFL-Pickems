@@ -15,8 +15,7 @@ jobs:
   deploy-frontend:
 
     runs-on: ubuntu-latest
-    env:
-      working-directory: ./frontend
+
 
 
     steps:
@@ -25,6 +24,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 20.5.1
+        working-directory: ./frontend    
       - run: npm install
       - run: npm run build
 
