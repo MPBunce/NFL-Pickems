@@ -39,8 +39,8 @@ jobs:
           args: --acl public-read --delete
         env:
           AWS_S3_BUCKET: ${{ secrets.Bucket }}
-          AWS_ACCESS_KEY_ID: ${{ secrets.KeyId }}
-          AWS_ACCESS_ACCESS_KEY: ${{ secrets.AccessKey}}
+          AWS_ACCESS_KEY_ID: ${{ secrets.KEYID }}
+          AWS_ACCESS_ACCESS_KEY: ${{ secrets.ACCESS_KEY}}
           AWS_REGION: 'us-east-1'
           SOURCE_DIR: 'dist'
 
@@ -49,8 +49,8 @@ jobs:
         env:
             DISTRIBUTION: ${{  secrets.DISTRUBUTION }}
             PATHS: '/*'
-            AWS_ACCESS_KEY_ID: ${{ secrets.KeyId }}
-            AWS_ACCESS_ACCESS_KEY: ${{ secrets.AccessKey}}
+            AWS_ACCESS_KEY_ID: ${{ secrets.KEYID }}
+            AWS_ACCESS_ACCESS_KEY: ${{ secrets.ACCESS_KEY}}
             AWS_REGION: 'us-east-1'
           
   #deploy-backend:
