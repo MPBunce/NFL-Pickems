@@ -1,19 +1,15 @@
 name: Deploy To AWS
 
 on:
-
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
-
-
   workflow_dispatch:
 
 jobs:
 
   deploy-frontend:
-
     defaults:
       run:
         working-directory: ./frontend
@@ -40,7 +36,7 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.KEYID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.ACCESS_KEY}}
           AWS_REGION: 'us-east-1'
-          SOURCE_DIR: './build'
+          SOURCE_DIR: './frontend/dist/'
 
       - name: Invalidate Cloudfront
         uses: chetan/invalidate-cloudfront-action@v1.3
