@@ -24,3 +24,4 @@ dist-ssr
 !.gitignore
 !/public/**/*
 !src
+!public
