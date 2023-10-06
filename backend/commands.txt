@@ -1,4 +1,7 @@
 pip install fastapi
 pip install uvicorn
+pip install pytest
+pip install requests
+pip freeze > requirements.txt
 
 python -m uvicorn main:app --reload

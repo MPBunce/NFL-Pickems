@@ -6,4 +6,5 @@ this is the file # Ignore everything
 !main.py
 !.gitignore
 !commands.txt
+!requirements.txt
 !backend/__init__.py
