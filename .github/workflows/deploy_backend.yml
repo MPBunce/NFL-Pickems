@@ -9,7 +9,7 @@ on:
 
 jobs:
 
-  deploy-frontend:
+  deploy-backend:
     defaults:
       run:
         working-directory: ./backend
