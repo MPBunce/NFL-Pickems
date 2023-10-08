@@ -2,7 +2,7 @@ from fastapi import FastAPI
 
 app = FastAPI()
 
-@app.get("/health-check", status_code=200)
+@app.get("/api")
 async def root():
     return {"message": "Hello World Health Check"}
 

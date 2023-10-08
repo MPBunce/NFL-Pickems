@@ -1,6 +1,29 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
+  import HelloWorld from './components/HelloWorld.vue'
+  import axios from 'axios';
+  const data = {
+    responseData: null
+  };
+
+  const fetchData = () => {
+  fetch('/')
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      // Handle the response data
+      responseData.value = data; // Assuming you're using Vue 3 Composition API
+    })
+    .catch(error => {
+      console.error('There was a problem with the fetch operation:', error);
+    });
+};
+
 </script>
+
 
 <template>
   <div>
@@ -12,6 +35,12 @@ import HelloWorld from './components/HelloWorld.vue'
     </a>
   </div>
   <HelloWorld msg="Vite + Vue from github actions" />
+
+  <div>
+    <button @click="fetchData">Fetch Data</button>
+    <div>{{ responseData }}</div>
+  </div>
+
 </template>
 
 <style scoped>
