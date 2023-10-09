@@ -4,6 +4,9 @@ this is the file # Ignore everything
 
 # Unignore the .vscode directory and specific files
 !main.py
+!routes.py
+!models.py
+!database.py
 !.gitignore
 !commands.txt
 !requirements.txt
