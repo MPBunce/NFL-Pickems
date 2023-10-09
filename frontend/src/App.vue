@@ -5,22 +5,17 @@
     responseData: null
   };
 
+  
   const fetchData = () => {
-  fetch('/')
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      return response.json();
-    })
-    .then(data => {
-      // Handle the response data
-      responseData.value = data; // Assuming you're using Vue 3 Composition API
-    })
-    .catch(error => {
-      console.error('There was a problem with the fetch operation:', error);
-    });
-};
+    axios.get('prod/') // Specify the full path here
+      .then(response => {
+        data.responseData = response.data;
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+
 
 </script>
 

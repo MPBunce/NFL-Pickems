@@ -6,13 +6,15 @@ import vue from '@vitejs/plugin-vue'
 export default defineConfig({
   plugins: [vue()],
   server: {
+
     proxy: {
-      "^/api": {
+      '^/prod/': {
         target: "https://9ay2z6twpx.us-east-1.awsapprunner.com",
         changeOrigin: true,
         secure: false,
       },
     },
+
   },
 
 })
