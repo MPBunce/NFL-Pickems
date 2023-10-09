@@ -15,8 +15,6 @@ POSTGRES_PORT : str = os.getenv("POSTGRES_PORT",5432) # default postgres port is
 POSTGRES_DB : str = os.getenv("POSTGRES_DB")
 DATABASE_URL = f"postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_SERVER}:{POSTGRES_PORT}/{POSTGRES_DB}"
 
-print(DATABASE_URL)
-
 engine = create_engine(DATABASE_URL)
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
