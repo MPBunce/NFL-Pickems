@@ -5,7 +5,6 @@ from sqlalchemy.ext.declarative import declarative_base
 import os
 from dotenv import load_dotenv
 
-
 load_dotenv()
 
 POSTGRES_USER : str = os.getenv("POSTGRES_USER")
@@ -16,7 +15,6 @@ POSTGRES_DB : str = os.getenv("POSTGRES_DB")
 DATABASE_URL = f"postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_SERVER}:{POSTGRES_PORT}/{POSTGRES_DB}"
 
 engine = create_engine(DATABASE_URL)
-
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 Base = declarative_base()

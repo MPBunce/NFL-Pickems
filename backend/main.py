@@ -1,7 +1,7 @@
 from fastapi import FastAPI, status, Depends, HTTPException
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
-from typing import List, Annotated
+from typing import List
 from models import Users, regular_seasons
 import models
 from database import engine, SessionLocal
@@ -18,10 +18,8 @@ def get_db():
     finally:
         db.close
 
-db_dependency = Annotated[Session, Depends(get_db)]
-
 @app.get('/api/seasons/')
-async def root(year: str, db: db_dependency):
+async def root( year: str, db: Session = Depends(get_db) ):
     try:
         # Assuming you have a model called YourModel
         results = db.query(regular_seasons).filter(regular_seasons.year == year).all()
