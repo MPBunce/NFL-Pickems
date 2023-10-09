@@ -4,6 +4,8 @@ import requests
 
 import psycopg2
 from psycopg2.extras import RealDictCursor
+from psycopg2.extras import execute_values
+
 
 import os
 from dotenv import load_dotenv
@@ -103,4 +105,41 @@ POSTGRES_PORT : str = os.getenv("POSTGRES_PORT",5432) # default postgres port is
 POSTGRES_DB : str = os.getenv("POSTGRES_DB")
 DATABASE_URL = f"postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_SERVER}:{POSTGRES_PORT}/{POSTGRES_DB}"
 
-print(DATABASE_URL)
+table_name = f"nfl-season-{currentYear}"
+
+create_table_sql = f"""
+    DROP TABLE IF EXISTS "{table_name}";
+
+    CREATE TABLE "{table_name}" (
+        id serial PRIMARY KEY,
+        team_name VARCHAR(255),
+        wins INT,
+        losses INT,
+        ties INT,
+        team_division VARCHAR(255)
+    );
+"""
+
+# Define the SQL INSERT statement template
+insert_sql = f"""
+    INSERT INTO "{table_name}" (team_name, wins, losses, ties, team_division)
+    VALUES %s;
+"""
+
+
+# Establish a connection to the database
+try:
+    conn = psycopg2.connect(DATABASE_URL)
+    cursor = conn.cursor()    
+    cursor.execute(create_table_sql)
+    print(f"Table {table_name} dropped and recreated.")
+    execute_values(cursor, insert_sql, afcArray)
+    execute_values(cursor, insert_sql, nfcArray)
+
+
+    conn.commit()
+    cursor.close()
+    conn.close()
+
+except psycopg2.Error as e:
+    print("Error connecting to the database:", e)
