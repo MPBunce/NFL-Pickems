@@ -6,14 +6,16 @@ class Users(Base):
     
     id = Column(Integer, primary_key=True, index=True)
     username = Column(String, unique=True)
+    email = Column(String, unique=True)
     hashed_password = Column(String)
 
-class standings_2023(Base):
-    __tablename__ = 'nfl-season-2023'
+class regular_seasons(Base):
+    __tablename__ = 'nfl-seasons'
 
     id = Column(Integer, primary_key=True, index=True)
     team_name = Column(String)
     wins = Column(Integer)
     losses = Column(Integer)
-    ties =Column(Integer)
+    ties = Column(Integer)
     team_division = Column(String)
+    year = Column(Integer)

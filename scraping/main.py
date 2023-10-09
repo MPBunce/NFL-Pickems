@@ -53,8 +53,9 @@ for row in afcTable.find_all('tr'):
         if ties is None:
             total.append(0)
         else:
-            total.append(ties)
+            total.append(ties.contents[0])
         total.append(currentConference)
+        total.append(currentYear)
         afcArray.append(total)
 
 nfcTable = NFC.find('tbody')
@@ -83,8 +84,9 @@ for row in nfcTable.find_all('tr'):
         if ties is None:
             total.append(0)
         else:
-            total.append(ties)
+            total.append(ties.contents[0])
         total.append(currentConference)
+        total.append(currentYear)
         nfcArray.append(total)
 
 print("\n")
@@ -105,37 +107,22 @@ POSTGRES_PORT : str = os.getenv("POSTGRES_PORT",5432) # default postgres port is
 POSTGRES_DB : str = os.getenv("POSTGRES_DB")
 DATABASE_URL = f"postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_SERVER}:{POSTGRES_PORT}/{POSTGRES_DB}"
 
-table_name = f"nfl-season-{currentYear}"
-
-create_table_sql = f"""
-    DROP TABLE IF EXISTS "{table_name}";
-
-    CREATE TABLE "{table_name}" (
-        id serial PRIMARY KEY,
-        team_name VARCHAR(255),
-        wins INT,
-        losses INT,
-        ties INT,
-        team_division VARCHAR(255)
-    );
-"""
-
-# Define the SQL INSERT statement template
+# Define the SQL INSERT statement template with ON CONFLICT
 insert_sql = f"""
-    INSERT INTO "{table_name}" (team_name, wins, losses, ties, team_division)
-    VALUES %s;
+    INSERT INTO "nfl-seasons" (team_name, wins, losses, ties, team_division, year)
+    VALUES %s
+    ON CONFLICT (team_name, year) DO UPDATE
+    SET wins = excluded.wins, losses = excluded.losses, ties = excluded.ties, team_division = excluded.team_division;
 """
-
 
 # Establish a connection to the database
 try:
     conn = psycopg2.connect(DATABASE_URL)
     cursor = conn.cursor()    
-    cursor.execute(create_table_sql)
-    print(f"Table {table_name} dropped and recreated.")
+    
+    # Assuming afcArray and nfcArray are lists of tuples containing data
     execute_values(cursor, insert_sql, afcArray)
     execute_values(cursor, insert_sql, nfcArray)
-
 
     conn.commit()
     cursor.close()

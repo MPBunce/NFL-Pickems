@@ -2,7 +2,7 @@ from fastapi import FastAPI, status, Depends, HTTPException
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 from typing import List, Annotated
-from models import Users, standings_2023
+from models import Users, regular_seasons
 import models
 from database import engine, SessionLocal
 from sqlalchemy.orm import Session
@@ -20,11 +20,11 @@ def get_db():
 
 db_dependency = Annotated[Session, Depends(get_db)]
 
-@app.get('/api/season_2023/')
-async def root( db: db_dependency):
+@app.get('/api/seasons/')
+async def root(year: str, db: db_dependency):
     try:
         # Assuming you have a model called YourModel
-        results = db.query(standings_2023).all()
+        results = db.query(regular_seasons).filter(regular_seasons.year == year).all()
         return results
     except Exception as e:
         return JSONResponse({"error": str(e)})
