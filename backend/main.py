@@ -1,7 +1,5 @@
 from fastapi import FastAPI, status, Depends, HTTPException
 from fastapi.responses import JSONResponse
-from pydantic import BaseModel
-from typing import List
 from models import Users, regular_seasons
 import models
 from database import engine, SessionLocal
@@ -28,10 +26,6 @@ async def root( year: str, db: Session = Depends(get_db) ):
         return JSONResponse({"error": str(e)})
 
 
-@app.get("/api")
-async def root():
-    return JSONResponse(content={"message": "Hello World Health Check"})
-
 @app.get("/")
 async def root():
-    return JSONResponse(content={"message": "Healthy"})
+    return JSONResponse(content={"message": "Health check, service is running!"})
