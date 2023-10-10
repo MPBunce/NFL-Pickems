@@ -11,3 +11,4 @@ this is the file # Ignore everything
 !commands.txt
 !requirements.txt
 !backend/__init__.py
+!auth
