@@ -1,8 +1,8 @@
 from fastapi import FastAPI, status, Depends, HTTPException
 from fastapi.responses import JSONResponse
-from models import Users, UserLogin, regular_seasons
-import models
-from database import engine, SessionLocal
+from models.models import Users, UserLogin, regular_seasons
+import models.models as models
+from db.database import engine, SessionLocal
 from sqlalchemy.orm import Session
 
 from auth.jwt_handler import signJWT, decodeJWT
