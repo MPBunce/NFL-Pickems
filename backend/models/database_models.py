@@ -1,4 +1,4 @@
-from backend.db.database import Base
+from db.database import Base
 from sqlalchemy import Column, Integer, String
 
 class Users(Base):
@@ -8,6 +8,10 @@ class Users(Base):
     username = Column(String, unique=True)
     email = Column(String, unique=True)
     hashed_password = Column(String)
+
+class UserLogin():
+    email: str
+    password: str
 
 class regular_seasons(Base):
     __tablename__ = 'nfl-seasons'
@@ -19,7 +23,3 @@ class regular_seasons(Base):
     ties = Column(Integer)
     team_division = Column(String)
     year = Column(Integer)
-
-class UserLogin():
-    email: str
-    password: str

@@ -1,7 +1,9 @@
 from fastapi import FastAPI, status, Depends, HTTPException
 from fastapi.responses import JSONResponse
-from models.models import Users, UserLogin, regular_seasons
-import models.models as models
+from models.database_models import Users, UserLogin, regular_seasons
+
+import models.database_models
+
 from db.database import engine, SessionLocal
 from sqlalchemy.orm import Session
 
@@ -9,7 +11,7 @@ from auth.jwt_handler import signJWT, decodeJWT
 
 app = FastAPI()
 
-models.Base.metadata.create_all(bind=engine)
+models.database_models.Base.metadata.create_all(bind=engine)
 
 def get_db():
     db = SessionLocal()
