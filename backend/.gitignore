@@ -1,6 +1,6 @@
 # this is the file # Ignore everything
 /*
-
+auth/__pycache__
 
 # Unignore the .vscode directory and specific files
 !main.py

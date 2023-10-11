@@ -19,3 +19,7 @@ class regular_seasons(Base):
     ties = Column(Integer)
     team_division = Column(String)
     year = Column(Integer)
+
+class UserLogin():
+    email: str
+    password: str
