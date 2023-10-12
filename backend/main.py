@@ -1,7 +1,8 @@
 from fastapi import FastAPI, status, Depends, HTTPException
 from fastapi.responses import JSONResponse
-from models.database_models import Users, UserLogin, regular_seasons
 
+from models.pydantic_models import UserLogin, Users
+from models.database_models import Database_Users, Database_regular_seasons
 import models.database_models
 
 from db.database import engine, SessionLocal
@@ -22,33 +23,15 @@ def get_db():
 
 
 
-# @app.get('/api/auth/register')
-# async def root( newUser: Users, db: Session = Depends(get_db) ):
-#     existing_user = db.query(Users).filter(
-#         Users.username == newUser.username
-#     ).first()
-#     if existing_user:
-#         raise HTTPException(status_code=400, detail="User with this username already exists")
+@app.get('/api/auth/register')
+async def root( newUser: Users, db: Session = Depends(get_db) ):
 
-#     existing_user_email = db.query(Users).filter(
-#         Users.email == newUser.email
-#     ).first()
-#     if existing_user_email:
-#         raise HTTPException(status_code=400, detail="User with this email already exists")
-
-#     # If the user doesn't already exist, create and add the new user
-#     db_user = Users(**newUser.dict())
-#     db.add(db_user)
-#     db.commit()
-#     db.refresh(db_user)
-
-#     return {"message": "User registered successfully"}
+    return {"message": "User registered successfully"}
 
 @app.get('/api/seasons/')
 async def root( year: str, db: Session = Depends(get_db) ):
     try:
-        # Assuming you have a model called YourModel
-        results = db.query(regular_seasons).filter(regular_seasons.year == year).all()
+        results = db.query(Database_regular_seasons).filter(Database_regular_seasons.year == year).all()
         return results
     except Exception as e:
         return JSONResponse({"error": str(e)})

@@ -1,11 +1,7 @@
 from db.database import Base
 from sqlalchemy import Column, Integer, String
 
-class UserLogin():
-    email: str
-    password: str
-
-class regular_seasons(Base):
+class Database_regular_seasons(Base):
     __tablename__ = 'nfl-seasons'
 
     id = Column(Integer, primary_key=True, index=True)
@@ -16,7 +12,7 @@ class regular_seasons(Base):
     team_division = Column(String)
     year = Column(Integer)
 
-class Users(Base):
+class Database_Users(Base):
     __tablename__ = 'users'
     
     id = Column(Integer, primary_key=True, index=True)
