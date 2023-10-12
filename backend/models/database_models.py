@@ -1,14 +1,6 @@
 from db.database import Base
 from sqlalchemy import Column, Integer, String
 
-class Users(Base):
-    __tablename__ = 'users'
-    
-    id = Column(Integer, primary_key=True, index=True)
-    username = Column(String, unique=True)
-    email = Column(String, unique=True)
-    hashed_password = Column(String)
-
 class UserLogin():
     email: str
     password: str
@@ -23,3 +15,11 @@ class regular_seasons(Base):
     ties = Column(Integer)
     team_division = Column(String)
     year = Column(Integer)
+
+class Users(Base):
+    __tablename__ = 'users'
+    
+    id = Column(Integer, primary_key=True, index=True)
+    username = Column(String, unique=True)
+    email = Column(String, unique=True)
+    hashed_password = Column(String)
