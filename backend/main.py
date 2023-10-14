@@ -77,6 +77,13 @@ async def root( form_data: OAuth2PasswordRequestForm = Depends(), db: Session = 
 
     return {"access_token": access_token, "token_type": "bearer"}
 
+@app.get('/api/get_pickspicks/')
+async def root( year: str, token: str = Depends(oauth2_scheme)):
+    return year
+
+@app.post('/api/lockin_picks/')
+async def root( year: str, token: str = Depends(oauth2_scheme)):
+    return year
 
 @app.get('/api/seasons/')
 async def root( year: str, db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
