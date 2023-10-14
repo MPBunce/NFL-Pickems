@@ -11,12 +11,13 @@ import models.database_models
 from db.database import engine, SessionLocal
 from sqlalchemy.orm import Session
 
-from auth.jwt_handler import signJWT, decodeJWT
+from auth.jwt_handler import generate_token
 from auth.password_hashing import hash_password, verify_password
+from datetime import datetime, timedelta
 
 app = FastAPI()
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/login")
 models.database_models.Base.metadata.create_all(bind=engine)
 
 def get_db():
@@ -42,7 +43,7 @@ async def root(newUser: Users, db: Session = Depends(get_db) ):
         raise HTTPException(status_code=400, detail="User with this email already exists")
 
     if newUser.password is None:
-         raise HTTPException(status_code=400, detail="No Password?")       
+        raise HTTPException(status_code=400, detail="No Password?")       
 
     hashed_pwd = hash_password(newUser.password)
 
@@ -58,11 +59,24 @@ async def root(newUser: Users, db: Session = Depends(get_db) ):
 
     return {"message": "User registered successfully"}
 
+
 @app.post('/api/auth/login')
-async def root( newUser: Users, db: Session = Depends(get_db) ):
+async def root( form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db) ):
+ 
+    existing_user = db.query(Database_Users).filter(
+        Database_Users.username == form_data.username
+    ).first()
+    if existing_user is None:
+        raise HTTPException(status_code=400, detail="User does not exist")
+    
+    if verify_password(form_data.password, existing_user.hashed_password) is False:
+        raise HTTPException(status_code=400, detail="Password Issue")    
 
+    access_token_exp = timedelta(minutes=60)
+    access_token = generate_token(data={"Username": existing_user.username}, expires_delta=access_token_exp)
 
-    return {"message": "User Login successfully"}
+    return {"access_token": access_token, "token_type": "bearer"}
+
 
 @app.get('/api/seasons/')
 async def root( year: str, db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
@@ -71,6 +85,7 @@ async def root( year: str, db: Session = Depends(get_db), token: str = Depends(o
         return results
     except Exception as e:
         return JSONResponse({"error": str(e)})
+
 
 @app.get("/")
 async def root():

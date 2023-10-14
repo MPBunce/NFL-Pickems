@@ -1,4 +1,4 @@
-import time 
+from datetime import datetime, timedelta
 import jwt
 
 import os
@@ -10,22 +10,21 @@ JWT_SECRET : str = os.getenv("SECRET")
 ALGO : str = os.getenv("ALGORITHM")
 
 
-def token_response(token: str):
-    return {
-        "access token": token
-    }
+def generate_token(data: dict, expires_delta: timedelta or None = None):
+    to_encode = data.copy()
+    if expires_delta:
+        expire = datetime.utcnow() + expires_delta
+    else:
+        expire= datetime.utcnow() + timedelta(minutes=15)
 
-def signJWT(userId: str):
-    payload = {
-        "userId": userId,
-        "expiry": time.time() + 600
-    }
-    token = jwt.encode(payload, JWT_SECRET, algorith=ALGO)
-    return token_response(token)
+    formatted_datetime = expire.strftime("%Y-%m-%d %H:%M:%S")
+    to_encode.update({ "expires": formatted_datetime })
+    
+    encoded_jwt = jwt.encode(to_encode, JWT_SECRET, algorithm=ALGO)
+    return encoded_jwt
 
-def decodeJWT(token: str):
-    try:
-        decode_token = jwt.decode(token, JWT_SECRET, algorith=ALGO)
-        return decode_token if decode_token['expires'] >= time.time() else None    
-    except:
-        return {}
+def validate_token():
+    return
+
+def decode_token():
+    return
