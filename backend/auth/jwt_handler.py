@@ -27,6 +27,7 @@ def decode_token(token):
     try:
         decoded_data = jwt.decode(token, JWT_SECRET, algorithms=ALGO)
         expires = datetime.strptime(decoded_data["expires"], "%Y-%m-%d %H:%M:%S")
+
         if datetime.utcnow() < expires:
             return decoded_data
         else:

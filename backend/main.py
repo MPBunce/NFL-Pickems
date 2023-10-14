@@ -87,13 +87,20 @@ async def root( year: str, db: Session = Depends(get_db), token: str = Depends(o
         return JSONResponse({"error": str(e)})
 
 @app.get("/tokentest")
-async def read_items(token: str = Depends(oauth2_scheme)):
+async def read_items(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db) ):
+    
     decoded_data = decode_token(token)
+    
     if decoded_data is None:
         raise HTTPException(status_code=401, detail="Token has expired")
-    
-    
-    return decoded_data
+
+    existing_user = db.query(Database_Users).filter(
+        Database_Users.username == decoded_data["Username"]
+    ).first()
+    if existing_user is None:
+        raise HTTPException(status_code=400, detail="User does not exist")
+
+    return existing_user
 
 
 @app.get("/")
