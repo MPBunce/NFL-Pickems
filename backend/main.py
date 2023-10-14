@@ -4,8 +4,8 @@ from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 
 from typing_extensions import Annotated
 
-from models.pydantic_models import UserLogin, Users
-from models.database_models import Database_Users, Database_regular_seasons
+from models.pydantic_models import UserLogin, Users, SeasonPicks
+from models.database_models import Database_Users, Database_regular_seasons, Database_Users_Regular_Season_Picks
 import models.database_models
 
 from db.database import engine, SessionLocal
@@ -77,12 +77,13 @@ async def root( form_data: OAuth2PasswordRequestForm = Depends(), db: Session = 
 
     return {"access_token": access_token, "token_type": "bearer"}
 
+
 @app.get('/api/get_pickspicks/')
 async def root( year: str, token: str = Depends(oauth2_scheme)):
     return year
 
 @app.post('/api/lockin_picks/')
-async def root( year: str, token: str = Depends(oauth2_scheme)):
+async def root( picks: [SeasonPicks], token: str = Depends(oauth2_scheme)):
     return year
 
 @app.get('/api/seasons/')

@@ -13,3 +13,11 @@ class Users(BaseModel):
     email: str
     password: str   
 
+class SeasonPicks(BaseModel):
+    year : int
+    team_name : str
+    team_division : str
+    division_position : int
+
+class PlayoffPicks(BaseModel):
+    wins: str
