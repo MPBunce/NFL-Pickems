@@ -2,7 +2,7 @@ from fastapi import FastAPI, status, Depends, HTTPException, Body, Header, Reque
 from fastapi.responses import JSONResponse
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm 
 
-from typing_extensions import Annotated
+from typing_extensions import Annotated, List
 
 from models.pydantic_models import UserLogin, Users, SeasonPicks
 from models.database_models import Database_Users, Database_regular_seasons, Database_Users_Regular_Season_Picks
@@ -83,8 +83,12 @@ async def root( year: str, token: str = Depends(oauth2_scheme)):
     return year
 
 @app.post('/api/lockin_picks/')
-async def root( picks: [SeasonPicks], token: str = Depends(oauth2_scheme)):
-    return year
+async def root( picks: List[SeasonPicks], token: str = Depends(oauth2_scheme)):
+    i = 0
+    for pick in picks:
+        i = i+1
+
+    return i
 
 @app.get('/api/seasons/')
 async def root( year: str, db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
