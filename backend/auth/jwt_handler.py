@@ -23,8 +23,18 @@ def generate_token(data: dict, expires_delta: timedelta or None = None):
     encoded_jwt = jwt.encode(to_encode, JWT_SECRET, algorithm=ALGO)
     return encoded_jwt
 
-def validate_token():
-    return
-
-def decode_token():
-    return
+def decode_token(token):
+    try:
+        decoded_data = jwt.decode(token, JWT_SECRET, algorithms=ALGO)
+        expires = datetime.strptime(decoded_data["expires"], "%Y-%m-%d %H:%M:%S")
+        if datetime.utcnow() < expires:
+            return decoded_data
+        else:
+            return None
+    except jwt.ExpiredSignatureError:
+        # Token has expired
+        return None
+    except jwt.InvalidTokenError:
+        # Token is invalid
+        return None
+    

@@ -1,4 +1,4 @@
-from fastapi import FastAPI, status, Depends, HTTPException, Body
+from fastapi import FastAPI, status, Depends, HTTPException, Body, Header, Request
 from fastapi.responses import JSONResponse
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm 
 
@@ -11,7 +11,7 @@ import models.database_models
 from db.database import engine, SessionLocal
 from sqlalchemy.orm import Session
 
-from auth.jwt_handler import generate_token
+from auth.jwt_handler import generate_token, decode_token
 from auth.password_hashing import hash_password, verify_password
 from datetime import datetime, timedelta
 
@@ -72,7 +72,7 @@ async def root( form_data: OAuth2PasswordRequestForm = Depends(), db: Session = 
     if verify_password(form_data.password, existing_user.hashed_password) is False:
         raise HTTPException(status_code=400, detail="Password Issue")    
 
-    access_token_exp = timedelta(minutes=60)
+    access_token_exp = timedelta(minutes=1)
     access_token = generate_token(data={"Username": existing_user.username}, expires_delta=access_token_exp)
 
     return {"access_token": access_token, "token_type": "bearer"}
@@ -85,6 +85,15 @@ async def root( year: str, db: Session = Depends(get_db), token: str = Depends(o
         return results
     except Exception as e:
         return JSONResponse({"error": str(e)})
+
+@app.get("/tokentest")
+async def read_items(token: str = Depends(oauth2_scheme)):
+    decoded_data = decode_token(token)
+    if decoded_data is None:
+        raise HTTPException(status_code=401, detail="Token has expired")
+    
+    
+    return decoded_data
 
 
 @app.get("/")
