@@ -118,17 +118,17 @@ async def root( picks: List[SeasonPicks], db: Session = Depends(get_db), token: 
         raise HTTPException(status_code=400, detail="Issues finding user details")
 
     user_picks = db.query(Database_Users_Regular_Season_Picks).filter(
-        (Database_Users_Regular_Season_Picks.userId == existing_user.id) &
+        (Database_Users_Regular_Season_Picks.user_id == existing_user.id) &
         (Database_Users_Regular_Season_Picks.year == picks[0].year)
     ).all()
 
-    if user_picks is not None:
+    if len(user_picks) == 32:
         raise HTTPException(status_code=400, detail="You have already locked in your picks for this year")
 
     for pick in picks:
-        
+
         new_database_pick = Database_Users_Regular_Season_Picks(
-            userId = existing_user.id,
+            user_id = existing_user.id,
             year = pick.year,
             team_name = pick.team_name,
             team_division = pick.team_division,
@@ -140,7 +140,7 @@ async def root( picks: List[SeasonPicks], db: Session = Depends(get_db), token: 
         db.refresh(new_database_pick) 
 
     existing_user = db.query(Database_Users_Regular_Season_Picks).filter(
-        Database_Users_Regular_Season_Picks.userId == existing_user.id
+        Database_Users_Regular_Season_Picks.user_id == existing_user.id
     ).all()
 
     return len(picks)

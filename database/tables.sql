@@ -9,7 +9,7 @@ CREATE TABLE public."users-regular-season-picks" (
 ALTER TABLE public."users-regular-season-picks" ADD CONSTRAINT "users-regular-season-picks_pkey" PRIMARY KEY (pickId);
 
 
-CREATE TABLE public.users (
+CREATE TABLE public."users" (
   id integer NOT NULL,
   username character varying NULL,
   email character varying NULL,

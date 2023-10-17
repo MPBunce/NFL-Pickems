@@ -25,8 +25,8 @@ class Database_Users(Base):
 class Database_Users_Regular_Season_Picks(Base):
     __tablename__ = 'users-regular-season-picks'
     
-    pickId = Column(Integer, primary_key=True, index=True)
-    userId = Column(Integer)
+    pick_id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer)
     year = Column(Integer)
     team_name = Column(String)
     team_division = Column(String)
