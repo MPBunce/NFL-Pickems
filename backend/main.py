@@ -30,6 +30,8 @@ def get_db():
 @app.post('/api/auth/register')
 async def root(newUser: Users, db: Session = Depends(get_db) ):
 
+    newUser.email = newUser.email.lower()
+
     existing_user = db.query(Database_Users).filter(
         Database_Users.username == newUser.username
     ).first()
@@ -59,7 +61,6 @@ async def root(newUser: Users, db: Session = Depends(get_db) ):
 
     return {"message": "User registered successfully"}
 
-
 @app.post('/api/auth/login')
 async def root( form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db) ):
  
@@ -72,23 +73,78 @@ async def root( form_data: OAuth2PasswordRequestForm = Depends(), db: Session = 
     if verify_password(form_data.password, existing_user.hashed_password) is False:
         raise HTTPException(status_code=400, detail="Password Issue")    
 
-    access_token_exp = timedelta(minutes=1)
+    access_token_exp = timedelta(minutes=120)
     access_token = generate_token(data={"Username": existing_user.username}, expires_delta=access_token_exp)
 
     return {"access_token": access_token, "token_type": "bearer"}
 
+@app.get('/api/get_pickspicks')
+async def root( year: str, db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
+    decoded_data = decode_token(token)
 
-@app.get('/api/get_pickspicks/')
-async def root( year: str, token: str = Depends(oauth2_scheme)):
-    return year
+    if decoded_data is None:
+        raise HTTPException(status_code=401, detail="Token has expired")
 
-@app.post('/api/lockin_picks/')
-async def root( picks: List[SeasonPicks], token: str = Depends(oauth2_scheme)):
-    i = 0
+    existing_user = db.query(Database_Users).filter(
+        Database_Users.username == decoded_data["Username"]
+    ).first()
+    if existing_user is None:
+        raise HTTPException(status_code=400, detail="Issues finding user details")
+    
+    user_picks = db.query(Database_Users_Regular_Season_Picks).filter(
+        (Database_Users_Regular_Season_Picks.userId == existing_user.id) &
+        (Database_Users_Regular_Season_Picks.year == year)
+    ).all()
+
+    return user_picks
+
+
+
+@app.post('/api/lockin_picks')
+async def root( picks: List[SeasonPicks], db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
+    if len(picks) != 32:
+        raise HTTPException(status_code=400, detail="Issue with picks data")
+    
+    decoded_data = decode_token(token)
+
+    if decoded_data is None:
+        raise HTTPException(status_code=401, detail="Token has expired")
+
+    existing_user = db.query(Database_Users).filter(
+        Database_Users.username == decoded_data["Username"]
+    ).first()
+    
+    if existing_user is None:
+        raise HTTPException(status_code=400, detail="Issues finding user details")
+
+    user_picks = db.query(Database_Users_Regular_Season_Picks).filter(
+        (Database_Users_Regular_Season_Picks.userId == existing_user.id) &
+        (Database_Users_Regular_Season_Picks.year == picks[0].year)
+    ).all()
+
+    if user_picks is not None:
+        raise HTTPException(status_code=400, detail="You have already locked in your picks for this year")
+
     for pick in picks:
-        i = i+1
+        
+        new_database_pick = Database_Users_Regular_Season_Picks(
+            userId = existing_user.id,
+            year = pick.year,
+            team_name = pick.team_name,
+            team_division = pick.team_division,
+            division_position = pick.division_position,
+        )
 
-    return i
+        db.add(new_database_pick)
+        db.commit()
+        db.refresh(new_database_pick) 
+
+    existing_user = db.query(Database_Users_Regular_Season_Picks).filter(
+        Database_Users_Regular_Season_Picks.userId == existing_user.id
+    ).all()
+
+    return len(picks)
+
 
 @app.get('/api/seasons/')
 async def root( year: str, db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
@@ -113,7 +169,6 @@ async def read_items(token: str = Depends(oauth2_scheme), db: Session = Depends(
         raise HTTPException(status_code=400, detail="User does not exist")
 
     return existing_user
-
 
 @app.get("/")
 async def root():
