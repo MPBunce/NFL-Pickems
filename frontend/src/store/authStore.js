@@ -18,5 +18,8 @@ export const authStore = defineStore('authStore', {
             state.token = null;
             localStorage.setItem('token', JSON.stringify(null) )
         }
+    },
+    actions: {
+
     }
 })
