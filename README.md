@@ -1,7 +1,7 @@
 # NFL-Pickems
 
-Vue Frontend:
 
+Vue Frontend:
 https://d3nsp1xpq5b06f.cloudfront.net
 
 
