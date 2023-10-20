@@ -21,7 +21,7 @@ export const authStore = defineStore('authStore', {
     },
     actions: {
         async test(){ 
-            const res = await axios.get('/api');
+            const res = await axios.get('https://nmpymrjsvh.us-east-1.awsapprunner.com/');
             return res.data; // Return the response from the Axios request
         }
     }

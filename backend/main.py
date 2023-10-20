@@ -1,6 +1,7 @@
 from fastapi import FastAPI, status, Depends, HTTPException, Body, Header, Request
 from fastapi.responses import JSONResponse
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm 
+from fastapi.middleware.cors import CORSMiddleware
 
 from typing_extensions import Annotated, List
 
@@ -16,6 +17,19 @@ from auth.password_hashing import hash_password, verify_password
 from datetime import datetime, timedelta
 
 app = FastAPI()
+
+origins = [
+    "https://d3nsp1xpq5b06f.cloudfront.net/",
+    "https://192.168.2.18:5173"
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/login")
 models.database_models.Base.metadata.create_all(bind=engine)
