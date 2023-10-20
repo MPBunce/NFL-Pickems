@@ -19,8 +19,8 @@ from datetime import datetime, timedelta
 app = FastAPI()
 
 origins = [
-    "https://d3nsp1xpq5b06f.cloudfront.net/",
-    "https://192.168.2.18:5173"
+    "https://d3nsp1xpq5b06f.cloudfront.net",
+    "http://192.168.2.18:5173"
 ]
 
 app.add_middleware(
