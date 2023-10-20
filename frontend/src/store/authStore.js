@@ -20,6 +20,9 @@ export const authStore = defineStore('authStore', {
         }
     },
     actions: {
-
+        async test(){ 
+            const res = await axios.get('/api');
+            return res.data; // Return the response from the Axios request
+        }
     }
 })
