@@ -17,13 +17,16 @@ export const picksStore = defineStore('picksStore', {
             const auth = authStore()
             const bearerToken = auth.token
 
+            var res
+
             const headers = {
                 'Authorization': `Bearer ${bearerToken}`,
             };
             
             try {
 
-                const res = await axios.get(`${base_url}/api/get_pickspicks?year=${this_year}`, {headers});
+                res = await axios.get(`${base_url}/api/get_picks?year=${this_year}`, {headers});
+                console.log(res.data)
                 this.picks = res.data;
                 localStorage.setItem('picks', JSON.stringify(res.data));
 

@@ -34,8 +34,6 @@ router.beforeEach((to, from, next) => {
     const auth = authStore();
     const isAuthenticated = auth.token
 
-    console.log(isAuthenticated)
-
     if (isAuthenticated !== null && to.name === 'Register') {
         console.log("1" + isAuthenticated)
         next({ name: 'Home' })

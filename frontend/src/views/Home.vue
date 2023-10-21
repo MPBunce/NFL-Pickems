@@ -4,7 +4,7 @@
     import { ref, onMounted } from 'vue';
     import { authStore } from '../store/authStore';
     import { picksStore } from '../store/picksStore';
-import router from '../router';
+    import router from '../router';
 
     const authStoreInstance = authStore();
     const picksStoreInstance = picksStore()
@@ -14,29 +14,28 @@ import router from '../router';
     onMounted(async () => {
         
         res.value = await authStoreInstance.test();
+        const result = await picksStoreInstance.getPicks();
+        user_picks.value = result;
 
     });
 
-    const getPicks = async () => {
-
-        res = await picksStoreInstance.getPicks();
-        // if(res == "Token"){
-        //     authStoreInstance.logout()
-        //     router.push('Login')
-        // }
-
-        user_picks.value = res  
-    }
 
 </script>
 
 <template>
     <Navbar/>
+
     <div>
-      hello home
-      <p>{{ res }}</p>
-      <p>{{ user_picks }}</p>
+        <h1>User Picks</h1>
+        <div v-for="division in user_picks" :key="division.team_division">
+            <h2>{{ division.team_division }}</h2>
+            <ul>
+                <li>
+                    {{ division.team_name }} {{ division.division_position}} 
+                </li>
+            </ul>
+        </div>
     </div>
-    <button @click="getPicks">log res</button>
+
 </template>
 

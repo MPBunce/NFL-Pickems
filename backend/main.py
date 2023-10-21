@@ -142,6 +142,7 @@ async def root( picks: List[SeasonPicks], db: Session = Depends(get_db), token: 
 
 @app.get('/api/get_picks')
 async def root( year: str, db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
+    
     decoded_data = decode_token(token)
 
     if decoded_data is None:
