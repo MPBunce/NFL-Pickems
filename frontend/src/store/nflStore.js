@@ -5,14 +5,14 @@ import axios from "axios"
 const base_url = 'https://nmpymrjsvh.us-east-1.awsapprunner.com'
 const this_year = 2023
 
-export const picksStore = defineStore('picksStore', {
+export const nflStore = defineStore('nflStore', {
     state: () => {
         return { 
-            picks: localStorage.getItem('picks') ? JSON.parse(localStorage.getItem('picks')) : null
+            picks: localStorage.getItem('nflStandings') ? JSON.parse(localStorage.getItem('nflStandings')) : null
         }
     },
     actions: {
-        async getPicks(){ 
+        async getStandings(){ 
 
             const auth = authStore()
             const bearerToken = auth.token
@@ -25,10 +25,10 @@ export const picksStore = defineStore('picksStore', {
             
             try {
 
-                res = await axios.get(`${base_url}/api/get_picks?year=${this_year}`, {headers});
+                res = await axios.get(`${base_url}/api/seasons/?year=${this_year}`, {headers});
                 console.log(res.data)
                 this.picks = res.data;
-                localStorage.setItem('picks', JSON.stringify(res.data));
+                localStorage.setItem('nflStandings', JSON.stringify(res.data));
 
             } catch (error) {
                 // Check if the error contains a response object with data
@@ -48,8 +48,6 @@ export const picksStore = defineStore('picksStore', {
             
             return res.data
         },
-        async lockInPicks(){
-            
-        }
+
     }
 })

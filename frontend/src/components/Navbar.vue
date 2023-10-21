@@ -21,7 +21,6 @@
         }
     });
 
-
     const logout = () => {
         console.log("logout")
         auth.logout()
@@ -29,7 +28,6 @@
     }
 
 </script>
-
 
 <template>
 
@@ -49,22 +47,32 @@
 
             <div class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden lg:block pt-6 lg:pt-0" id="nav-content">
                 <ul class="list-reset lg:flex justify-end flex-1 items-center">
-                    <li class="mr-3">
+                    <li class="mr-3" v-if="!auth.token">
                         <a class="inline-block text-gray-600 no-underline hover:text-gray-200 hover:text-underline py-2 px-4">
                             <router-link to="/" class="underline decoration-white text-white">Home</router-link>
                         </a>
                     </li>
-                    <li class="mr-3">
+                    <li class="mr-3" v-if="!auth.token">
                         <a class="inline-block text-gray-600 no-underline hover:text-gray-200 hover:text-underline py-2 px-4">
                             <router-link to="/Login" class="underline decoration-white text-white">Login</router-link>
                         </a>
                     </li>
-                    <li class="mr-3">
+                    <li class="mr-3" v-if="!auth.token">
                         <a class="inline-block text-gray-600 no-underline hover:text-gray-200 hover:text-underline py-2 px-4">
                             <router-link to="/Register" class="underline decoration-white text-white">Register</router-link>
                         </a>
                     </li>
-                    <li class="mr-3">
+                    <li class="mr-3" v-if="auth.token">
+                        <a class="inline-block text-gray-600 no-underline hover:text-gray-200 hover:text-underline py-2 px-4">
+                            <router-link to="/Register" class="underline decoration-white text-white">Your Picks</router-link>
+                        </a>
+                    </li>
+                    <li class="mr-3" v-if="auth.token">
+                        <a class="inline-block text-gray-600 no-underline hover:text-gray-200 hover:text-underline py-2 px-4">
+                            <router-link to="/Register" class="underline decoration-white text-white">NFL Standings</router-link>
+                        </a>
+                    </li>
+                    <li class="mr-3" v-if="auth.token">
                         <a @click="logout" class="inline-block text-gray-600 no-underline hover:text-gray-200 hover:text-underline py-2 px-4">
                             <a  class="underline decoration-white text-white">Logout</a>
                         </a>

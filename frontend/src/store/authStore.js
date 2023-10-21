@@ -26,8 +26,6 @@ export const authStore = defineStore('authStore', {
                     "Content-Type": "multipart/form-data"}
                 });
 
-                console.log(res)
-
                 const new_token = res.data.access_token;
                 this.token = new_token;
                 localStorage.setItem('token', JSON.stringify(new_token));

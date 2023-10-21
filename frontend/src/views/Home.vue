@@ -1,15 +1,39 @@
 <script setup>
 
     import Navbar from '../components/Navbar.vue';
+    import DivisionCard from '../components/DivisionCard.vue';
     import { ref, onMounted } from 'vue';
     import { authStore } from '../store/authStore';
     import { picksStore } from '../store/picksStore';
-    import router from '../router';
+    import { nflStore } from '../store/nflStore';
 
     const authStoreInstance = authStore();
     const picksStoreInstance = picksStore()
     const user_picks = ref(null);
     const res = ref(null);
+
+    const afcEast = ref(null);
+    const afcNorth = ref(null);
+    const afcWest = ref(null);
+    const afcSouth = ref(null);
+
+    const nfcEast = ref(null);
+    const nfcNorth = ref(null);
+    const nfcWest = ref(null);
+    const nfcSouth = ref(null);
+
+    const nflSeason = nflStore();
+    const regularSeason = ref(null);
+
+    const afcEastSeason = ref(null);
+    const afcNorthSeason = ref(null);
+    const afcWestSeason = ref(null);
+    const afcSouthSeason = ref(null);
+
+    const nfcEastSeason = ref(null);
+    const nfcNorthSeason = ref(null);
+    const nfcWestSeason = ref(null);
+    const nfcSouthSeason = ref(null);
 
     onMounted(async () => {
         
@@ -17,23 +41,67 @@
         const result = await picksStoreInstance.getPicks();
         user_picks.value = result;
 
+        if(user_picks.value){
+
+            //AFC
+            afcEast.value = user_picks.value.filter(pick => pick.team_division === 'AFC East');
+            afcNorth.value = user_picks.value.filter(pick => pick.team_division === 'AFC North');
+            afcWest.value = user_picks.value.filter(pick => pick.team_division === 'AFC West');
+            afcSouth.value = user_picks.value.filter(pick => pick.team_division === 'AFC South');
+
+            //NFC
+            nfcEast.value = user_picks.value.filter(pick => pick.team_division === 'NFC East');
+            nfcNorth.value = user_picks.value.filter(pick => pick.team_division === 'NFC North');
+            nfcWest.value = user_picks.value.filter(pick => pick.team_division === 'NFC West');
+            nfcSouth.value = user_picks.value.filter(pick => pick.team_division === 'NFC South');       
+
+        }
+
+        const season_res = await nflSeason.getStandings();
+        console.log(season_res)
+        regularSeason.value = season_res;
+
+        if(regularSeason.value){
+
+            //AFC
+            afcEastSeason.value = regularSeason.value.filter(pick => pick.team_division.trim() === 'AFC East');
+            afcNorthSeason.value = regularSeason.value.filter(pick => pick.team_division.trim() === 'AFC North');
+            afcWestSeason.value = regularSeason.value.filter(pick => pick.team_division.trim() === 'AFC West');
+            afcSouthSeason.value = regularSeason.value.filter(pick => pick.team_division.trim() === 'AFC South');
+
+            //NFC
+            nfcEastSeason.value = regularSeason.value.filter(pick => pick.team_division.trim() === 'NFC East');
+            nfcNorthSeason.value = regularSeason.value.filter(pick => pick.team_division.trim() === 'NFC North');
+            nfcWestSeason.value = regularSeason.value.filter(pick => pick.team_division.trim() === 'NFC West');
+            nfcSouthSeason.value = regularSeason.value.filter(pick => pick.team_division.trim() === 'NFC South');  
+        }
+
     });
 
+    const log = () => {
+        console.log(nfcSouthSeason.value);
+    };
 
 </script>
 
 <template>
+
     <Navbar/>
 
     <div>
         <h1>User Picks</h1>
-        <div v-for="division in user_picks" :key="division.team_division">
-            <h2>{{ division.team_division }}</h2>
-            <ul>
-                <li>
-                    {{ division.team_name }} {{ division.division_position}} 
-                </li>
-            </ul>
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-1 text-white h-48">
+
+            <DivisionCard v-if="afcEast && afcEastSeason" :picks="afcEast" :nflSeason="afcEastSeason"/>
+            <DivisionCard v-if="afcNorth && afcNorthSeason" :picks="afcNorth" :nflSeason="afcNorthSeason"/>
+            <DivisionCard v-if="afcSouth && afcSouthSeason" :picks="afcSouth" :nflSeason="afcSouthSeason"/>
+            <DivisionCard v-if="afcWest && afcWestSeason" :picks="afcWest" :nflSeason="afcWestSeason"/>
+
+            <DivisionCard v-if="nfcEast && nfcEastSeason" :picks="nfcEast" :nflSeason="nfcEastSeason"/>
+            <DivisionCard v-if="nfcNorth && nfcNorthSeason" :picks="nfcNorth" :nflSeason="nfcNorthSeason"/>
+            <DivisionCard v-if="nfcWest && nfcWestSeason" :picks="nfcWest" :nflSeason="nfcWestSeason"/>
+            <DivisionCard v-if="nfcSouth && nfcSouthSeason" :picks="nfcSouth" :nflSeason="nfcSouthSeason"/>
+
         </div>
     </div>
 
