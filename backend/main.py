@@ -163,6 +163,12 @@ async def root( picks: List[SeasonPicks], db: Session = Depends(get_db), token: 
 
 @app.get('/api/seasons/')
 async def root( year: str, db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
+
+    decoded_data = decode_token(token)
+
+    if decoded_data is None:
+        raise HTTPException(status_code=401, detail="Token has expired")
+
     try:
         results = db.query(Database_regular_seasons).filter(Database_regular_seasons.year == year).all()
         return results
