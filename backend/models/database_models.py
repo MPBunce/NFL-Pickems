@@ -11,6 +11,8 @@ class Database_regular_seasons(Base):
     ties = Column(Integer)
     team_division = Column(String)
     year = Column(Integer)
+    divisional_position = Column(Integer)
+
 
 # Playoff model for nfl
 

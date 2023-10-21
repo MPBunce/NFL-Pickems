@@ -93,27 +93,6 @@ async def root( form_data: OAuth2PasswordRequestForm = Depends(), db: Session = 
 
     return {"access_token": access_token, "token_type": "bearer"}
 
-@app.get('/api/get_pickspicks')
-async def root( year: str, db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
-    decoded_data = decode_token(token)
-
-    if decoded_data is None:
-        raise HTTPException(status_code=401, detail="Token has expired")
-
-    existing_user = db.query(Database_Users).filter(
-        Database_Users.username == decoded_data["Username"]
-    ).first()
-    if existing_user is None:
-        raise HTTPException(status_code=400, detail="Issues finding user details")
-    
-    user_picks = db.query(Database_Users_Regular_Season_Picks).filter(
-        (Database_Users_Regular_Season_Picks.userId == existing_user.id) &
-        (Database_Users_Regular_Season_Picks.year == year)
-    ).all()
-
-    return user_picks
-
-
 
 @app.post('/api/lockin_picks')
 async def root( picks: List[SeasonPicks], db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
@@ -159,6 +138,27 @@ async def root( picks: List[SeasonPicks], db: Session = Depends(get_db), token: 
     ).all()
 
     return len(picks)
+
+
+@app.get('/api/get_picks')
+async def root( year: str, db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
+    decoded_data = decode_token(token)
+
+    if decoded_data is None:
+        raise HTTPException(status_code=401, detail="Token has expired")
+
+    existing_user = db.query(Database_Users).filter(
+        Database_Users.username == decoded_data["Username"]
+    ).first()
+    if existing_user is None:
+        raise HTTPException(status_code=400, detail="Issues finding user details")
+    
+    user_picks = db.query(Database_Users_Regular_Season_Picks).filter(
+        (Database_Users_Regular_Season_Picks.user_id == existing_user.id) &
+        (Database_Users_Regular_Season_Picks.year == year)
+    ).all()
+
+    return user_picks
 
 
 @app.get('/api/seasons/')
