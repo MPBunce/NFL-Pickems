@@ -88,7 +88,7 @@ async def root( form_data: OAuth2PasswordRequestForm = Depends(), db: Session = 
     if verify_password(form_data.password, existing_user.hashed_password) is False:
         raise HTTPException(status_code=400, detail="Password Issue")    
 
-    access_token_exp = timedelta(hours=3)
+    access_token_exp = timedelta(hours=12)
     access_token = generate_token(data={"Username": existing_user.username}, expires_delta=access_token_exp)
 
     return {"access_token": access_token, "token_type": "bearer"}
