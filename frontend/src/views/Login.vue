@@ -1,19 +1,34 @@
 <script setup>
+    import Navbar from '../components/Navbar.vue';
+    import { authStore } from '../store/authStore.js'
     import { ref } from 'vue';
     import router from '../router'
+
+    const auth = authStore();
+
     const formData = ref({
         username: '',
         password: ''
     });
 
-    const submitForm = (e) => {
+    const submitForm = async (e) => {
         e.preventDefault(); // Prevent the default form submission behavior
         console.log('Form submitted with data:', formData.value);
 
-        formData.value.username = ''
-        formData.value.password = ''
+        try {
+            await auth.login(formData.value.username, formData.value.password);
 
-        router.push({name: 'Home'})
+            console.log(auth.token)
+            console.log('Login successful');
+            router.replace({ name: 'Home' });
+            // Reset the form fields after a successful login
+            formData.value.username = '';
+            formData.value.password = '';
+        } catch (error) {
+            // Handle login errors
+            console.error('Login failed:', error);
+        }
+
 
     };
 
@@ -21,7 +36,7 @@
 
 
 <template>
-
+    <Navbar/>
 
     <div class="flex flex-col items-center justify-center px-6 py-4 mx-auto md:h-screen lg:py-0">
 

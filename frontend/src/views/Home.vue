@@ -1,5 +1,5 @@
 <script setup>
-
+    import Navbar from '../components/Navbar.vue';
     import { ref, onMounted } from 'vue';
     import { authStore } from '../store/authStore';
     const authStoreInstance = authStore();
@@ -12,6 +12,7 @@
 </script>
 
 <template>
+    <Navbar/>
     <div>
       hello home
       <p>{{ res }}</p>

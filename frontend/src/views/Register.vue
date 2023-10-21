@@ -1,6 +1,10 @@
 <script setup>
     import { ref } from 'vue';
     import router from '../router'
+    import Navbar from '../components/Navbar.vue';
+    import { authStore } from '../store/authStore.js'
+
+    const auth = authStore()
 
     const formData = ref({
         username: '',
@@ -9,23 +13,29 @@
         passwordCheck: '' // Add this line for the passwordCheck
     });
 
-    const submitForm = (e) => {
+    const submitForm = async (e) => {
 
         e.preventDefault(); // Prevent the default form submission behavior
 
-        if (formData.value.password !== formData.value.passwordCheck) {
-            console.log("Passwords don't match");
-            return;
+        try{
+
+            if (formData.value.password !== formData.value.passwordCheck) {
+                console.log("Passwords don't match");
+                return;
+            }
+
+            await auth.register(formData.value.username, formData.value.email, formData.value.password)
+
+            formData.value.username = ''        
+            formData.value.email = ''    
+            formData.value.password = ''
+            formData.value.passwordCheck= ''
+
+            router.push({name: 'Home'})
+
+        } catch (error) {
+            console.log(error)
         }
-
-        console.log('Form submitted with data:', formData.value);
-
-        formData.value.username = ''        
-        formData.value.email = ''    
-        formData.value.password = ''
-        formData.value.passwordCheck= ''
-
-        router.push({name: 'Login'})
 
     };
 
@@ -33,6 +43,9 @@
 
 
 <template>
+
+    <Navbar/>
+
 
     <div class="flex flex-col items-center justify-center px-6 py-4 mx-auto md:h-screen lg:py-0">
 

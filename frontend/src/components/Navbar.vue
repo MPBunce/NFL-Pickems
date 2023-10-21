@@ -1,12 +1,31 @@
-<script>
+<script setup>
 
-    export default {
-        mounted() {
-            // This code will run after the component is mounted and the DOM is ready
-            document.getElementById('nav-toggle').onclick = function () {
-                document.getElementById("nav-content").classList.toggle("hidden");
-            }
+    import router from '../router';
+import { authStore } from '../store/authStore';
+    import { ref, onMounted } from 'vue';
+
+    const auth = authStore();
+
+    const toggleNav = () => {
+        const navContent = document.getElementById('nav-content');
+        if (navContent) {
+            navContent.classList.toggle('hidden');
         }
+    };
+
+    onMounted(() => {
+        // This code will run after the component is mounted and the DOM is ready
+        const navToggle = document.getElementById('nav-toggle');
+        if (navToggle) {
+            navToggle.onclick = toggleNav;
+        }
+    });
+
+
+    const logout = () => {
+        console.log("logout")
+        auth.logout()
+        router.push('/Login')
     }
 
 </script>
@@ -45,6 +64,11 @@
                             <router-link to="/Register" class="underline decoration-white text-white">Register</router-link>
                         </a>
                     </li>
+                    <li class="mr-3">
+                        <a @click="logout" class="inline-block text-gray-600 no-underline hover:text-gray-200 hover:text-underline py-2 px-4">
+                            <a  class="underline decoration-white text-white">Logout</a>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </nav>
@@ -56,4 +80,3 @@
     </div>
 
 </template>
-
