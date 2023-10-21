@@ -1,7 +1,7 @@
 <script setup>
 
     import router from '../router';
-import { authStore } from '../store/authStore';
+    import { authStore } from '../store/authStore';
     import { ref, onMounted } from 'vue';
 
     const auth = authStore();
