@@ -38,7 +38,6 @@
     const nfcWestSeason = ref(null);
     const nfcSouthSeason = ref(null);
 
-    
 
     onMounted(async () => {
         
@@ -49,16 +48,16 @@
         if(user_picks.value){
 
             //AFC
-            afcEast.value = user_picks.value.filter(pick => pick.team_division === 'AFC East');
-            afcNorth.value = user_picks.value.filter(pick => pick.team_division === 'AFC North');
-            afcWest.value = user_picks.value.filter(pick => pick.team_division === 'AFC West');
-            afcSouth.value = user_picks.value.filter(pick => pick.team_division === 'AFC South');
+            afcEast.value = user_picks.value.filter(pick => pick.team_division.trim() === 'AFC East');
+            afcNorth.value = user_picks.value.filter(pick => pick.team_division.trim() === 'AFC North');
+            afcWest.value = user_picks.value.filter(pick => pick.team_division.trim() === 'AFC West');
+            afcSouth.value = user_picks.value.filter(pick => pick.team_division.trim() === 'AFC South');
 
             //NFC
-            nfcEast.value = user_picks.value.filter(pick => pick.team_division === 'NFC East');
-            nfcNorth.value = user_picks.value.filter(pick => pick.team_division === 'NFC North');
-            nfcWest.value = user_picks.value.filter(pick => pick.team_division === 'NFC West');
-            nfcSouth.value = user_picks.value.filter(pick => pick.team_division === 'NFC South');       
+            nfcEast.value = user_picks.value.filter(pick => pick.team_division.trim() === 'NFC East');
+            nfcNorth.value = user_picks.value.filter(pick => pick.team_division.trim() === 'NFC North');
+            nfcWest.value = user_picks.value.filter(pick => pick.team_division.trim() === 'NFC West');
+            nfcSouth.value = user_picks.value.filter(pick => pick.team_division.trim() === 'NFC South');       
 
         }
 
@@ -83,12 +82,13 @@
 
         console.log("picks")
         console.log(user_picks.value)
-        console.log(user_picks.value.length)
+        console.log(regularSeason.value)
+
         if(user_picks.value.length == 0){
             displayValue.value = true
         }
 
-        console.log(displayValue.value)
+
 
     });
 

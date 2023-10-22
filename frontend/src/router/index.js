@@ -2,7 +2,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
-
+import LeaderBoard from '../views/Leaderboard.vue'
+import Standings from '../views/Standings.vue'
 import { authStore } from '../store/authStore.js'
 
 const routes = [
@@ -20,6 +21,16 @@ const routes = [
         path: '/Register',
         name: 'Register',
         component: Register
+    },
+    {
+        path: '/Leaderboard',
+        name: 'LeaderBoard',
+        component: LeaderBoard
+    },
+    {
+        path: '/Standings',
+        name: 'Standings',
+        component: Standings
     },
 ]
 

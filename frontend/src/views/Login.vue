@@ -17,9 +17,6 @@
 
         try {
             await auth.login(formData.value.username, formData.value.password);
-
-            console.log(auth.token)
-            console.log('Login successful');
             router.replace({ name: 'Home' });
             // Reset the form fields after a successful login
             formData.value.username = '';
@@ -28,14 +25,13 @@
             // Handle login errors
             console.error('Login failed:', error);
         }
-
-
     };
 
 </script>
 
 
 <template>
+
     <Navbar/>
 
     <div class="flex flex-col items-center justify-center px-6 py-4 mx-auto md:h-screen lg:py-0">
@@ -64,9 +60,4 @@
         </div>
     </div>
 
-
 </template>
-
-<style scoped>
-
-</style>
