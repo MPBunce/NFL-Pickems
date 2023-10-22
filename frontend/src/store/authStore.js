@@ -1,6 +1,9 @@
 import { defineStore } from 'pinia'
 import axios from "axios"
 
+import {nflStore} from './nflStore'
+import { picksStore } from './picksStore'
+
 const base_url = 'https://nmpymrjsvh.us-east-1.awsapprunner.com'
 
 export const authStore = defineStore('authStore', {
@@ -35,8 +38,17 @@ export const authStore = defineStore('authStore', {
             }
         },
         logout(){
+
+            const picksInstance = picksStore()
+            const nflInstance = nflStore() 
+
+            picksInstance.picks = null
+            nflInstance.standings = null
             this.token = null
+
             localStorage.removeItem('token');
+            localStorage.removeItem('picks');
+            localStorage.removeItem('nflStandings');
 
         },
         async register(input_username, input_email, input_password) {

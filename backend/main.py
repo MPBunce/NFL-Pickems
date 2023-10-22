@@ -21,6 +21,7 @@ app = FastAPI()
 origins = [
     "https://d3nsp1xpq5b06f.cloudfront.net",
     "http://192.168.2.18:5173",
+    "http://192.168.56.1:5173",
     "http://localhost:5173"
 ]
 

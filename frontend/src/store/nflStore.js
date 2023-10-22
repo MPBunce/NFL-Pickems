@@ -8,7 +8,7 @@ const this_year = 2023
 export const nflStore = defineStore('nflStore', {
     state: () => {
         return { 
-            picks: localStorage.getItem('nflStandings') ? JSON.parse(localStorage.getItem('nflStandings')) : null
+            standings: localStorage.getItem('nflStandings') ? JSON.parse(localStorage.getItem('nflStandings')) : null
         }
     },
     actions: {
@@ -27,7 +27,7 @@ export const nflStore = defineStore('nflStore', {
 
                 res = await axios.get(`${base_url}/api/seasons/?year=${this_year}`, {headers});
                 console.log(res.data)
-                this.picks = res.data;
+                this.standings = res.data;
                 localStorage.setItem('nflStandings', JSON.stringify(res.data));
 
             } catch (error) {
