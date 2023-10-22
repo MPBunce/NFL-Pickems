@@ -12,7 +12,7 @@
 
     const authStoreInstance = authStore();
     const picksStoreInstance = picksStore()
-    const user_picks = ref(null);
+    const user_picks = ref(false);
     const res = ref(null);
 
     const afcEast = ref(null);
@@ -57,7 +57,7 @@
             nfcEast.value = user_picks.value.filter(pick => pick.team_division.trim() === 'NFC East');
             nfcNorth.value = user_picks.value.filter(pick => pick.team_division.trim() === 'NFC North');
             nfcWest.value = user_picks.value.filter(pick => pick.team_division.trim() === 'NFC West');
-            nfcSouth.value = user_picks.value.filter(pick => pick.team_division.trim() === 'NFC South');       
+            nfcSouth.value = user_picks.value.filter(pick => pick.team_division.trim()=== 'NFC South');       
 
         }
 
