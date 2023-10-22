@@ -2,6 +2,9 @@
 
     import { ref, onMounted } from 'vue';
     import { VueDraggableNext } from 'vue-draggable-next'
+    import { picksStore } from '../store/picksStore'
+
+    const picksInstance = picksStore()
 
     const props = defineProps({
         regularSeason: Array,
@@ -37,12 +40,6 @@
 
     });
 
-
-    const log = () => {
-        console.log(nfcEastSeason)
-    }
-
-
     //AFC
     const newAfcEastSeason = ref([]);
     const handleAfcEastSeasonChange = (newOrder) => {
@@ -63,7 +60,6 @@
     const handleAfcSouthSeasonChange = (newOrder) => {
         newAfcSouthSeason.value = newOrder;
     }
-
 
     //NFC
     const newNfcEastSeason = ref([]);
@@ -86,10 +82,112 @@
         newNfcSouthSeason.value = newOrder;
     }
 
+
+    const log = async () => {
+        const this_year = 2023
+        const lockin_array = []
+
+        //AFC
+        for (let i = 0; i < afcEastSeason.value.length; i++) {
+            const team = afcEastSeason.value[i];
+            const data = {
+                "year": this_year,
+                "team_name": team.team_name,
+                "team_division": team.team_division,
+                "division_position": i + 1
+            };
+            lockin_array.push(data);
+        }
+        for (let i = 0; i < afcNorthSeason.value.length; i++) {
+            const team = afcNorthSeason.value[i];
+            const data = {
+                "year": this_year,
+                "team_name": team.team_name,
+                "team_division": team.team_division,
+                "division_position": i + 1
+            };
+            lockin_array.push(data);
+        }
+        for (let i = 0; i < afcWestSeason.value.length; i++) {
+            const team = afcWestSeason.value[i];
+            const data = {
+                "year": this_year,
+                "team_name": team.team_name,
+                "team_division": team.team_division,
+                "division_position": i + 1
+            };
+            lockin_array.push(data);
+        }
+        for (let i = 0; i < afcSouthSeason.value.length; i++) {
+            const team = afcSouthSeason.value[i];
+            const data = {
+                "year": this_year,
+                "team_name": team.team_name,
+                "team_division": team.team_division,
+                "division_position": i + 1
+            };
+            lockin_array.push(data);
+        }
+
+        //NFC
+        for (let i = 0; i < nfcEastSeason.value.length; i++) {
+            const team = nfcEastSeason.value[i];
+            const data = {
+                "year": this_year,
+                "team_name": team.team_name,
+                "team_division": team.team_division,
+                "division_position": i + 1
+            };
+            lockin_array.push(data);
+        }
+        for (let i = 0; i < nfcNorthSeason.value.length; i++) {
+            const team = nfcNorthSeason.value[i];
+            const data = {
+                "year": this_year,
+                "team_name": team.team_name,
+                "team_division": team.team_division,
+                "division_position": i + 1
+            };
+            lockin_array.push(data);
+        }
+        for (let i = 0; i < nfcSouthSeason.value.length; i++) {
+            const team = nfcSouthSeason.value[i];
+            const data = {
+                "year": this_year,
+                "team_name": team.team_name,
+                "team_division": team.team_division,
+                "division_position": i + 1
+            };
+            lockin_array.push(data);
+        }
+        for (let i = 0; i < nfcWestSeason.value.length; i++) {
+            const team = nfcWestSeason.value[i];
+            const data = {
+                "year": this_year,
+                "team_name": team.team_name,
+                "team_division": team.team_division,
+                "division_position": i + 1
+            };
+            lockin_array.push(data);
+        }
+        console.log(lockin_array)
+        
+        try{
+            const res = await picksInstance.lockInPicks(lockin_array)
+        } catch (error){
+            console.log(error)
+        }
+
+    }
+
 </script>
 
 <template>
-    <h1 class="my-2">Enter Your Picks for the Season!  <button @click="log">log</button></h1>
+
+    <div class="text-center">
+        <h1 class="my-2">Enter Your Picks for the Season!</h1>
+        <button class="my-8 bg-yellow-500 hover:bg-yellow-700 text-black py-2 px-8 rounded-full" @click="log">LOCK IN</button>
+    </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-1 text-white h-48">
 
@@ -98,10 +196,10 @@
             <VueDraggableNext class="dragArea list-group w-full" :list="afcNorthSeason" @change="handleAfcNorthSeasonChange">
                 <div
                     class="list-group-item bg-gray-300 m-1 p-3 rounded-md text-center text-black"
-                    v-for="team in afcNorthSeason"
+                    v-for="(team, index) in afcNorthSeason"
                     :key="team.id"
                 >
-                    {{ team.team_name }}
+                {{ index + 1 }} - {{ team.team_name }}
                 </div>
             </VueDraggableNext>
         </div>
@@ -111,10 +209,10 @@
             <VueDraggableNext class="dragArea list-group w-full" :list="afcEastSeason" @change="handleAfcEastSeasonChange">
                 <div
                     class="list-group-item bg-gray-300 m-1 p-3 rounded-md text-center text-black"
-                    v-for="team in afcEastSeason"
+                    v-for="(team, index) in afcEastSeason"
                     :key="team.id"
                 >
-                    {{ team.team_name }}
+                {{ index + 1 }} - {{ team.team_name }}
                 </div>
             </VueDraggableNext>
         </div>
@@ -124,10 +222,10 @@
             <VueDraggableNext class="dragArea list-group w-full" :list="afcSouthSeason" @change="handleAfcSouthSeasonChange">
                 <div
                     class="list-group-item bg-gray-300 m-1 p-3 rounded-md text-center text-black"
-                    v-for="team in afcSouthSeason"
+                    v-for="(team, index) in afcSouthSeason"
                     :key="team.id"
                 >
-                    {{ team.team_name }}
+                {{ index + 1 }} - {{ team.team_name }}
                 </div>
             </VueDraggableNext>
         </div>
@@ -137,10 +235,10 @@
             <VueDraggableNext class="dragArea list-group w-full" :list="afcWestSeason" @change="handleAfcWestSeasonChange">
                 <div
                     class="list-group-item bg-gray-300 m-1 p-3 rounded-md text-center text-black"
-                    v-for="team in afcWestSeason"
+                    v-for="(team, index) in afcWestSeason"
                     :key="team.id"
                 >
-                    {{ team.team_name }}
+                {{ index + 1 }} - {{ team.team_name }}
                 </div>
             </VueDraggableNext>
         </div>
@@ -150,10 +248,10 @@
             <VueDraggableNext class="dragArea list-group w-full" :list="nfcNorthSeason" @change="handleNfcNorthSeasonChange">
                 <div
                     class="list-group-item bg-gray-300 m-1 p-3 rounded-md text-center text-black"
-                    v-for="team in nfcNorthSeason"
+                    v-for="(team, index) in nfcNorthSeason"
                     :key="team.id"
                 >
-                    {{ team.team_name }}
+                {{ index + 1 }} - {{ team.team_name }}
                 </div>
             </VueDraggableNext>
         </div>
@@ -163,10 +261,10 @@
             <VueDraggableNext class="dragArea list-group w-full" :list="nfcEastSeason" @change="handleNfcEastSeasonChange">
                 <div
                     class="list-group-item bg-gray-300 m-1 p-3 rounded-md text-center text-black"
-                    v-for="team in nfcEastSeason"
+                    v-for="(team, index) in nfcEastSeason"
                     :key="team.id"
                 >
-                    {{ team.team_name }}
+                {{ index + 1 }} - {{ team.team_name }}
                 </div>
             </VueDraggableNext>
         </div>
@@ -176,10 +274,10 @@
             <VueDraggableNext class="dragArea list-group w-full" :list="nfcSouthSeason" @change="handleNfcSouthSeasonChange">
                 <div
                     class="list-group-item bg-gray-300 m-1 p-3 rounded-md text-center text-black"
-                    v-for="team in nfcSouthSeason"
+                    v-for="(team, index) in nfcSouthSeason"
                     :key="team.id"
                 >
-                    {{ team.team_name }}
+                {{ index + 1 }} - {{ team.team_name }}
                 </div>
             </VueDraggableNext>
         </div>
@@ -189,10 +287,10 @@
             <VueDraggableNext class="dragArea list-group w-full" :list="nfcWestSeason" @change="handleNfcWestSeasonChange">
                 <div
                     class="list-group-item bg-gray-300 m-1 p-3 rounded-md text-center text-black"
-                    v-for="team in nfcWestSeason"
+                    v-for="(team, index) in nfcWestSeason"
                     :key="team.id"
                 >
-                    {{ team.team_name }}
+                {{ index + 1 }} - {{ team.team_name }}
                 </div>
             </VueDraggableNext>
         </div>
