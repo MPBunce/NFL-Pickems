@@ -88,6 +88,7 @@
             displayValue.value = true
         }
 
+        console.log(displayValue.value)
 
     });
 
@@ -101,10 +102,11 @@
 
         <PicksLockin :regularSeason="regularSeason" />
 
+        
     </div>
     <div v-else>
         
-        <h1>User Picks</h1>
+        <h1 v-if="afcEast && afcEastSeason">User Picks</h1>
         <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-1 text-white h-48">
 
             <DivisionCard v-if="afcEast && afcEastSeason" :picks="afcEast" :nflSeason="afcEastSeason"/>
