@@ -6,7 +6,7 @@ import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 import LeaderBoard from '../views/Leaderboard.vue'
-import Standings from '../views/Standings.vue'
+
 
 
 const routes = [
@@ -30,11 +30,7 @@ const routes = [
         name: 'LeaderBoard',
         component: LeaderBoard
     },
-    {
-        path: '/Standings',
-        name: 'Standings',
-        component: Standings
-    },
+
 ]
 
 const router = createRouter({
@@ -59,7 +55,6 @@ router.beforeEach((to, from, next) => {
     }
 
 })
-
 
 
 export default router
