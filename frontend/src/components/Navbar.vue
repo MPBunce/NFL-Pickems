@@ -62,11 +62,11 @@
                             <router-link to="/Register" class="underline decoration-white text-white">Register</router-link>
                         </a>
                     </li>
-                    <!-- <li class="mr-3">
+                    <li class="mr-3">
                         <a class="inline-block text-gray-600 no-underline hover:text-gray-200 hover:text-underline py-2 px-4">
-                            <router-link to="/Standings" class="underline decoration-white text-white">NFL Standings</router-link>
+                            <router-link to="/Season" class="underline decoration-white text-white">NFL Standings</router-link>
                         </a>
-                    </li> -->
+                    </li>
                     <li class="mr-3">
                         <a class="inline-block text-gray-600 no-underline hover:text-gray-200 hover:text-underline py-2 px-4">
                             <router-link to="/Leaderboard" class="underline decoration-white text-white">Picks Leaderboard</router-link>

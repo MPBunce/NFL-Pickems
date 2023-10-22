@@ -6,7 +6,7 @@ import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 import LeaderBoard from '../views/Leaderboard.vue'
-
+import Season from '../views/Season.vue'
 
 
 const routes = [
@@ -30,7 +30,11 @@ const routes = [
         name: 'LeaderBoard',
         component: LeaderBoard
     },
-
+    {
+        path: '/Season',
+        name: 'Season',
+        component: Season
+    },
 ]
 
 const router = createRouter({
