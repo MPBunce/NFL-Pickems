@@ -2,10 +2,13 @@
 
     import Navbar from '../components/Navbar.vue';
     import DivisionCard from '../components/DivisionCard.vue';
+    import PicksLockin from '../components/PicksLockin.vue';
     import { ref, onMounted } from 'vue';
     import { authStore } from '../store/authStore';
     import { picksStore } from '../store/picksStore';
     import { nflStore } from '../store/nflStore';
+
+    const displayValue = ref(false);
 
     const authStoreInstance = authStore();
     const picksStoreInstance = picksStore()
@@ -34,6 +37,8 @@
     const nfcNorthSeason = ref(null);
     const nfcWestSeason = ref(null);
     const nfcSouthSeason = ref(null);
+
+    
 
     onMounted(async () => {
         
@@ -76,19 +81,29 @@
             nfcSouthSeason.value = regularSeason.value.filter(pick => pick.team_division.trim() === 'NFC South');  
         }
 
+        console.log("picks")
+        console.log(user_picks.value)
+        console.log(user_picks.value.length)
+        if(user_picks.value.length == 0){
+            displayValue.value = true
+        }
+
+
     });
 
-    const log = () => {
-        console.log(nfcSouthSeason.value);
-    };
 
 </script>
 
 <template>
 
     <Navbar/>
+    <div v-if="displayValue">
 
-    <div>
+        <PicksLockin :regularSeason="regularSeason" />
+
+    </div>
+    <div v-else>
+        
         <h1>User Picks</h1>
         <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-1 text-white h-48">
 
@@ -103,7 +118,10 @@
             <DivisionCard v-if="nfcSouth && nfcSouthSeason" :picks="nfcSouth" :nflSeason="nfcSouthSeason"/>
 
         </div>
+
     </div>
+
+
 
 </template>
 
