@@ -11,7 +11,7 @@
     const displayValue = ref(false);
 
     const authStoreInstance = authStore();
-    const picksStoreInstance = picksStore()
+    const picksStoreInstance = picksStore();
     const user_picks = ref(false);
     const res = ref(null);
 
@@ -98,7 +98,7 @@
 <template>
 
     <Navbar/>
-    <div v-if="displayValue">
+    <div v-if="picksStoreInstance.picks.length  < 1">
 
         <PicksLockin :regularSeason="regularSeason" />
 
