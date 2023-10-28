@@ -83,6 +83,7 @@ async def root( form_data: OAuth2PasswordRequestForm = Depends(), db: Session = 
     existing_user = db.query(Database_Users).filter(
         Database_Users.username == form_data.username
     ).first()
+
     if existing_user is None:
         raise HTTPException(status_code=400, detail="User does not exist")
     
@@ -164,12 +165,7 @@ async def root( year: str, db: Session = Depends(get_db), token: str = Depends(o
 
 
 @app.get('/api/seasons/')
-async def root( year: str, db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
-
-    decoded_data = decode_token(token)
-
-    if decoded_data is None:
-        raise HTTPException(status_code=401, detail="Token has expired")
+async def root( year: str, db: Session = Depends(get_db)):
 
     try:
         results = db.query(Database_regular_seasons).filter(Database_regular_seasons.year == year).all()

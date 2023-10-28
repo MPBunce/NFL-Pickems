@@ -185,112 +185,139 @@
 <template>
 
     <div class="text-center">
-        <h1 class="my-2">Enter Your Picks for the Season!</h1>
+        <h1 class="my-4 text-white text-2xl font-mono">Enter Your Picks for the Season!</h1>
         <button class="my-8 bg-yellow-500 hover:bg-yellow-700 text-black py-2 px-8 rounded-full" @click="log">LOCK IN</button>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-1 text-white h-48">
 
-        <div>
-            <h1 class="text-black">AFC North</h1>
-            <VueDraggableNext class="dragArea list-group w-full" :list="afcNorthSeason" @change="handleAfcNorthSeasonChange">
+        <div class="cursor-pointer bg-neutral-800 my-4 mx-4 px-4 py-4 rounded-lg">
+            <div class="text-center">
+                <h1 class="my-4 text-white text-2xl font-mono">AFC North</h1>
+            </div>
+            <VueDraggableNext class="dragArea list-group w-full divide-y" :list="afcNorthSeason" @change="handleAfcNorthSeasonChange">
                 <div
-                    class="list-group-item bg-gray-300 m-1 p-3 rounded-md text-center text-black"
+                    class="flex flex-row py-4"
                     v-for="(team, index) in afcNorthSeason"
                     :key="team.id"
                 >
-                {{ index + 1 }} - {{ team.team_name }}
+
+                    <div class="basis-1/4">{{ index + 1 }} </div>
+                    <div class="basis-3/4">{{ team.team_name }}</div>
+
                 </div>
             </VueDraggableNext>
         </div>
 
-        <div>
-            <h1 class="text-black">AFC East</h1>
-            <VueDraggableNext class="dragArea list-group w-full" :list="afcEastSeason" @change="handleAfcEastSeasonChange">
+        <div class="cursor-pointer bg-neutral-800 my-4 mx-4 px-4 py-4 rounded-lg">
+            <div class="text-center">
+                <h1 class="my-4 text-white text-2xl font-mono">AFC East</h1>
+            </div>
+            <VueDraggableNext class="dragArea list-group w-full divide-y" :list="afcEastSeason" @change="handleAfcEastSeasonChange">
                 <div
-                    class="list-group-item bg-gray-300 m-1 p-3 rounded-md text-center text-black"
+                    class="flex flex-row py-4"
                     v-for="(team, index) in afcEastSeason"
                     :key="team.id"
                 >
-                {{ index + 1 }} - {{ team.team_name }}
+
+                    <div class="basis-1/4">{{ index + 1 }} </div>
+                    <div class="basis-3/4">{{ team.team_name }}</div>
                 </div>
             </VueDraggableNext>
         </div>
 
-        <div>
-            <h1 class="text-black">AFC South</h1>
-            <VueDraggableNext class="dragArea list-group w-full" :list="afcSouthSeason" @change="handleAfcSouthSeasonChange">
+        <div class="cursor-pointer bg-neutral-800 my-4 mx-4 px-4 py-4 rounded-lg">
+            <div class="text-center">
+                <h1 class="my-4 text-white text-2xl font-mono">AFC South</h1>
+            </div>
+            <VueDraggableNext class="dragArea list-group w-full divide-y" :list="afcSouthSeason" @change="handleAfcSouthSeasonChange">
                 <div
-                    class="list-group-item bg-gray-300 m-1 p-3 rounded-md text-center text-black"
+                    class="flex flex-row py-4"
                     v-for="(team, index) in afcSouthSeason"
                     :key="team.id"
                 >
-                {{ index + 1 }} - {{ team.team_name }}
+                    <div class="basis-1/4">{{ index + 1 }} </div>
+                    <div class="basis-3/4">{{ team.team_name }}</div>
                 </div>
             </VueDraggableNext>
         </div>
 
-        <div>
-            <h1 class="text-black">AFC West</h1>
-            <VueDraggableNext class="dragArea list-group w-full" :list="afcWestSeason" @change="handleAfcWestSeasonChange">
+        <div class="cursor-pointer bg-neutral-800 my-4 mx-4 px-4 py-4 rounded-lg">
+            <div class="text-center">
+                <h1 class="my-4 text-white text-2xl font-mono">AFC West</h1>
+            </div>
+            <VueDraggableNext class="dragArea list-group w-full divide-y" :list="afcWestSeason" @change="handleAfcWestSeasonChange">
                 <div
-                    class="list-group-item bg-gray-300 m-1 p-3 rounded-md text-center text-black"
+                    class="flex flex-row py-4"
                     v-for="(team, index) in afcWestSeason"
                     :key="team.id"
                 >
-                {{ index + 1 }} - {{ team.team_name }}
+                    <div class="basis-1/4">{{ index + 1 }} </div>
+                    <div class="basis-3/4">{{ team.team_name }}</div>
                 </div>
             </VueDraggableNext>
         </div>
 
-        <div>
-            <h1 class="text-black">NFC North</h1>
-            <VueDraggableNext class="dragArea list-group w-full" :list="nfcNorthSeason" @change="handleNfcNorthSeasonChange">
+        <div class="cursor-pointer bg-neutral-800 my-4 mx-4 px-4 py-4 rounded-lg">
+            <div class="text-center">
+                <h1 class="my-4 text-white text-2xl font-mono">NFC North</h1>
+            </div>
+            <VueDraggableNext class="dragArea list-group w-full divide-y" :list="nfcNorthSeason" @change="handleNfcNorthSeasonChange">
                 <div
-                    class="list-group-item bg-gray-300 m-1 p-3 rounded-md text-center text-black"
+                    class="flex flex-row py-4"
                     v-for="(team, index) in nfcNorthSeason"
                     :key="team.id"
                 >
-                {{ index + 1 }} - {{ team.team_name }}
+                    <div class="basis-1/4">{{ index + 1 }} </div>
+                    <div class="basis-3/4">{{ team.team_name }}</div>
                 </div>
             </VueDraggableNext>
         </div>
 
-        <div>
-            <h1 class="text-black">NFC East</h1>
-            <VueDraggableNext class="dragArea list-group w-full" :list="nfcEastSeason" @change="handleNfcEastSeasonChange">
+        <div class="cursor-pointer bg-neutral-800 my-4 mx-4 px-4 py-4 rounded-lg">
+            <div class="text-center">
+                <h1 class="my-4 text-white text-2xl font-mono">NFC East</h1>
+            </div>
+            <VueDraggableNext class="dragArea list-group w-full divide-y" :list="nfcEastSeason" @change="handleNfcEastSeasonChange">
                 <div
-                    class="list-group-item bg-gray-300 m-1 p-3 rounded-md text-center text-black"
+                    class="flex flex-row py-4"
                     v-for="(team, index) in nfcEastSeason"
                     :key="team.id"
                 >
-                {{ index + 1 }} - {{ team.team_name }}
+                    <div class="basis-1/4">{{ index + 1 }} </div>
+                    <div class="basis-3/4">{{ team.team_name }}</div>
                 </div>
             </VueDraggableNext>
         </div>
 
-        <div>
-            <h1 class="text-black">NFC South</h1>
-            <VueDraggableNext class="dragArea list-group w-full" :list="nfcSouthSeason" @change="handleNfcSouthSeasonChange">
+        <div class="cursor-pointer bg-neutral-800 my-4 mx-4 px-4 py-4 rounded-lg">
+            <div class="text-center">
+                <h1 class="my-4 text-white text-2xl font-mono">NFC Sorth</h1>
+            </div>
+            <VueDraggableNext class="dragArea list-group w-full divide-y" :list="nfcSouthSeason" @change="handleNfcSouthSeasonChange">
                 <div
-                    class="list-group-item bg-gray-300 m-1 p-3 rounded-md text-center text-black"
+                    class="flex flex-row py-4"
                     v-for="(team, index) in nfcSouthSeason"
                     :key="team.id"
                 >
-                {{ index + 1 }} - {{ team.team_name }}
+                    <div class="basis-1/4">{{ index + 1 }} </div>
+                    <div class="basis-3/4">{{ team.team_name }}</div>
                 </div>
             </VueDraggableNext>
         </div>
 
-        <div>
-            <h1 class="text-black">NFC West</h1>
-            <VueDraggableNext class="dragArea list-group w-full" :list="nfcWestSeason" @change="handleNfcWestSeasonChange">
+        <div class="cursor-pointer bg-neutral-800 my-4 mx-4 px-4 py-4 rounded-lg">
+            <div class="text-center">
+                <h1 class="my-4 text-white text-2xl font-mono">NFC West</h1>
+            </div>
+            <VueDraggableNext class="dragArea list-group w-full divide-y" :list="nfcWestSeason" @change="handleNfcWestSeasonChange">
                 <div
-                    class="list-group-item bg-gray-300 m-1 p-3 rounded-md text-center text-black"
+                    class="flex flex-row py-4"
                     v-for="(team, index) in nfcWestSeason"
                     :key="team.id"
                 >
-                {{ index + 1 }} - {{ team.team_name }}
+                    <div class="basis-1/4">{{ index + 1 }} </div>
+                    <div class="basis-3/4">{{ team.team_name }}</div>
                 </div>
             </VueDraggableNext>
         </div>

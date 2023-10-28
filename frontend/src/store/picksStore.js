@@ -2,7 +2,11 @@ import { defineStore } from 'pinia'
 import { authStore } from './authStore'
 import axios from "axios"
 
-const base_url = 'https://nmpymrjsvh.us-east-1.awsapprunner.com'
+//Prod
+//const base_url = 'https://nmpymrjsvh.us-east-1.awsapprunner.com'
+//Dev
+const base_url = 'http://127.0.0.1:8080'
+
 const this_year = 2023
 
 export const picksStore = defineStore('picksStore', {
@@ -45,7 +49,6 @@ export const picksStore = defineStore('picksStore', {
                     console.log("Error:", error.message);
                 }
             }
-            
             return res.data
         },
         async lockInPicks(picks_array){

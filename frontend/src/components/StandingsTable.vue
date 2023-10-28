@@ -15,11 +15,14 @@
 
   <div class="flex flex-col items-center justify-center py-6 px-6 mx-auto">
 
-    <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+    <div class="w-full bg-neutral-800 rounded">
       <div v-if="props.nflSeason" class="p-6 space-y-4 md:space-y-6 sm:p-8">
-        
-        <h1>{{nflSeason[0].team_division}}</h1>
-        <table class="table-fixed border-separate border-spacing-2 ">
+      
+        <div class="text-center">
+          <h1 class="my-2 text-white text-2xl font-mono">{{nflSeason[0].team_division}}</h1>
+        </div>
+
+        <table class="table-auto">
           <thead>
 
             <th class="border-b-2 p-2">Position</th>
@@ -30,32 +33,32 @@
           </thead>
           <tbody>
             <tr>
-              <td>{{props.nflSeason[0].divisional_position}}</td>
-              <td>{{props.nflSeason[0].team_name}}</td>
-              <td>{{props.nflSeason[0].wins }}</td>
-              <td>{{props.nflSeason[0].losses }}</td>
-              <td>{{props.nflSeason[0].ties }}</td>
+              <td className="p-4 " >{{props.nflSeason[0].divisional_position}}</td>
+              <td className="p-4 ">{{props.nflSeason[0].team_name}}</td>
+              <td className="p-4 ">{{props.nflSeason[0].wins }}</td>
+              <td className="p-4 ">{{props.nflSeason[0].losses }}</td>
+              <td className="p-4 ">{{props.nflSeason[0].ties }}</td>
+            </tr>
+            <tr class="">
+              <td className="p-4 ">{{props.nflSeason[1].divisional_position}}</td>
+              <td className="p-4 ">{{props.nflSeason[1].team_name}}</td>
+              <td className="p-4 ">{{props.nflSeason[1].wins }}</td>
+              <td className="p-4 ">{{props.nflSeason[1].losses }}</td>
+              <td className="p-4 ">{{props.nflSeason[1].ties }}</td>
             </tr>
             <tr>
-              <td>{{props.nflSeason[1].divisional_position}}</td>
-              <td>{{props.nflSeason[1].team_name}}</td>
-              <td>{{props.nflSeason[1].wins }}</td>
-              <td>{{props.nflSeason[1].losses }}</td>
-              <td>{{props.nflSeason[1].ties }}</td>
+              <td className="p-4 ">{{props.nflSeason[2].divisional_position}}</td>
+              <td className="p-4 ">{{props.nflSeason[2].team_name}}</td>
+              <td className="p-4 ">{{props.nflSeason[2].wins }}</td>
+              <td className="p-4 ">{{props.nflSeason[2].losses }}</td>
+              <td className="p-4 ">{{props.nflSeason[2].ties }}</td>
             </tr>
             <tr>
-              <td>{{props.nflSeason[2].divisional_position}}</td>
-              <td>{{props.nflSeason[2].team_name}}</td>
-              <td>{{props.nflSeason[2].wins }}</td>
-              <td>{{props.nflSeason[2].losses }}</td>
-              <td>{{props.nflSeason[2].ties }}</td>
-            </tr>
-            <tr>
-              <td>{{props.nflSeason[3].divisional_position}}</td>
-              <td>{{props.nflSeason[3].team_name}}</td>
-              <td>{{props.nflSeason[3].wins }}</td>
-              <td>{{props.nflSeason[3].losses }}</td>
-              <td>{{props.nflSeason[3].ties }}</td>
+              <td className="p-4 ">{{props.nflSeason[3].divisional_position}}</td>
+              <td className="p-4 ">{{props.nflSeason[3].team_name}}</td>
+              <td className="p-4 ">{{props.nflSeason[3].wins }}</td>
+              <td className="p-4 ">{{props.nflSeason[3].losses }}</td>
+              <td className="p-4 ">{{props.nflSeason[3].ties }}</td>
             </tr>
           </tbody>
         </table>

@@ -32,7 +32,7 @@
 <template>
 
     <div class="bg-gray-400 font-sans leading-normal tracking-normal">
-        <nav class="flex items-center justify-between flex-wrap bg-gray-800 p-6 fixed w-full z-10 top-0">
+        <nav class="flex items-center justify-between flex-wrap bg-neutral-800 p-6 fixed w-full z-10 top-0">
             <div class="flex items-center flex-shrink-0 text-white mr-6">
                 <a class="text-white no-underline hover:text-white hover:no-underline" href="#">
                     <span class="text-2xl pl-2"><i class="em em-grinning"></i>NFL Pickems</span>
@@ -73,7 +73,7 @@
                         </a>
                     </li>
 
-                    <li class="mr-3" v-if="auth.token">
+                    <li class="mr-3 cursor-pointer" v-if="auth.token">
                         <a @click="logout" class="inline-block text-gray-600 no-underline hover:text-gray-200 hover:text-underline py-2 px-4">
                             <a  class="underline decoration-white text-white">Logout</a>
                         </a>
