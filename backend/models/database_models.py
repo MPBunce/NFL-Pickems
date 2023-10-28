@@ -24,6 +24,7 @@ class Database_Users(Base):
     email = Column(String, unique=True)
     hashed_password = Column(String)
 
+
 class Database_Users_Regular_Season_Picks(Base):
     __tablename__ = 'users-regular-season-picks'
     
@@ -34,3 +35,11 @@ class Database_Users_Regular_Season_Picks(Base):
     team_division = Column(String)
     division_position = Column(Integer)
 
+class Database_Users_Scores(Base):
+    __tablename__ = 'users-scores'
+    
+    id = Column(Integer, primary_key=True, index=True)
+    username = Column(String, unique=True)
+    year = Column(Integer, unique=True)
+    regular_season_score = Column(Integer)
+    playoff_score = Column(Integer)

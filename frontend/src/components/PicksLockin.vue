@@ -185,9 +185,11 @@
 <template>
 
     <div class="text-center">
-        <h1 class="my-4 text-white text-2xl font-mono">Enter Your Picks for the Season!</h1>
+        <h1 class="my-4 pt-4 text-white text-2xl font-mono">Lockin your picks for the 2023 season!</h1>
         <button class="my-8 bg-yellow-500 hover:bg-yellow-700 text-black py-2 px-8 rounded-full" @click="log">LOCK IN</button>
     </div>
+
+
 
     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-1 text-white h-48">
 

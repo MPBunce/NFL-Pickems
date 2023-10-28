@@ -6,7 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from typing_extensions import Annotated, List
 
 from models.pydantic_models import UserLogin, Users, SeasonPicks
-from models.database_models import Database_Users, Database_regular_seasons, Database_Users_Regular_Season_Picks
+from models.database_models import Database_Users, Database_regular_seasons, Database_Users_Scores, Database_Users_Regular_Season_Picks
 import models.database_models
 
 from db.database import engine, SessionLocal
@@ -169,6 +169,15 @@ async def root( year: str, db: Session = Depends(get_db)):
 
     try:
         results = db.query(Database_regular_seasons).filter(Database_regular_seasons.year == year).all()
+        return results
+    except Exception as e:
+        return JSONResponse({"error": str(e)})
+
+@app.get('/api/leaderboard/')
+async def root( year: str, db: Session = Depends(get_db)):
+
+    try:
+        results = db.query(Database_Users_Scores).filter(Database_Users_Scores.year == year).all()
         return results
     except Exception as e:
         return JSONResponse({"error": str(e)})

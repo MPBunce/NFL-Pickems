@@ -47,7 +47,7 @@
 
     <Navbar/>
     <div class="text-center">
-        <h1 class="my-4 text-white text-2xl font-mono">2023 NFL Season Standings</h1>
+        <h1 class="my-4 py-4 text-white text-2xl font-mono">2023 NFL Season Standings</h1>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-1 text-white h-48">
 

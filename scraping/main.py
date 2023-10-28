@@ -129,7 +129,7 @@ insert_sql = f"""
     SET wins = excluded.wins, losses = excluded.losses, ties = excluded.ties, team_division = excluded.team_division, divisional_position = excluded.divisional_position;
 """
 
-# Establish a connection to the database
+#Update DB
 try:
     conn = psycopg2.connect(DATABASE_URL)
     cursor = conn.cursor()    
@@ -139,6 +139,23 @@ try:
     execute_values(cursor, insert_sql, nfcArray)
 
     conn.commit()
+    cursor.close()
+    conn.close()
+
+except psycopg2.Error as e:
+    print("Error connecting to the database:", e)
+
+
+
+#Invoke SP to update scores
+try:
+    conn = psycopg2.connect(DATABASE_URL)
+    cursor = conn.cursor()    
+    
+    exeYear = int(currentYear)
+    cursor.execute('CALL public.update_regular_season_scores(%s);', (exeYear,))
+
+    
     cursor.close()
     conn.close()
 

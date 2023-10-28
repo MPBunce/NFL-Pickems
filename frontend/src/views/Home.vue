@@ -12,6 +12,8 @@
     const picksStoreInstance = picksStore();
     const nflSeason = nflStore();
 
+    const show_ref = ref(false);
+
     const afcEast = ref(null);
     const afcNorth = ref(null);
     const afcWest = ref(null);
@@ -38,6 +40,7 @@
         const result = await picksStoreInstance.getPicks();
         const season_res = await nflSeason.getStandings();
 
+        show_ref.value = true
 
     });
 
@@ -91,32 +94,36 @@
 
         <!-- <button @click="log">LOG</button> -->
 
-        <div v-if="picksStoreInstance.picks == null || picksStoreInstance.picks.length < 1">
+        <div v-if="show_ref">
+            <div v-if="picksStoreInstance.picks == null || picksStoreInstance.picks.length < 1">
 
-            <PicksLockin :regularSeason="nflSeason.standings" />
+                <PicksLockin :regularSeason="nflSeason.standings" />
+                
+            </div>
+            <div v-else>
             
+                <div class="text-center">
+                    <h1 class="my-4 py-4 text-white text-2xl font-mono">Your picks for this Season!</h1>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-1 text-white h-48">
+
+                    <DivisionCard v-if="afcEast && afcEastSeason" :picks="afcEast" :nflSeason="afcEastSeason"/>
+                    <DivisionCard v-if="afcNorth && afcNorthSeason" :picks="afcNorth" :nflSeason="afcNorthSeason"/>
+                    <DivisionCard v-if="afcSouth && afcSouthSeason" :picks="afcSouth" :nflSeason="afcSouthSeason"/>
+                    <DivisionCard v-if="afcWest && afcWestSeason" :picks="afcWest" :nflSeason="afcWestSeason"/>
+
+                    <DivisionCard v-if="nfcEast && nfcEastSeason" :picks="nfcEast" :nflSeason="nfcEastSeason"/>
+                    <DivisionCard v-if="nfcNorth && nfcNorthSeason" :picks="nfcNorth" :nflSeason="nfcNorthSeason"/>
+                    <DivisionCard v-if="nfcWest && nfcWestSeason" :picks="nfcWest" :nflSeason="nfcWestSeason"/>
+                    <DivisionCard v-if="nfcSouth && nfcSouthSeason" :picks="nfcSouth" :nflSeason="nfcSouthSeason"/>
+
+                </div>
+
+            </div>            
         </div>
-        <div v-else>
-        
-            <div class="text-center">
-                <h1 class="my-2 text-white text-2xl font-mono">Your picks for this season!</h1>
-            </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-1 text-white h-48">
 
-                <DivisionCard v-if="afcEast && afcEastSeason" :picks="afcEast" :nflSeason="afcEastSeason"/>
-                <DivisionCard v-if="afcNorth && afcNorthSeason" :picks="afcNorth" :nflSeason="afcNorthSeason"/>
-                <DivisionCard v-if="afcSouth && afcSouthSeason" :picks="afcSouth" :nflSeason="afcSouthSeason"/>
-                <DivisionCard v-if="afcWest && afcWestSeason" :picks="afcWest" :nflSeason="afcWestSeason"/>
-
-                <DivisionCard v-if="nfcEast && nfcEastSeason" :picks="nfcEast" :nflSeason="nfcEastSeason"/>
-                <DivisionCard v-if="nfcNorth && nfcNorthSeason" :picks="nfcNorth" :nflSeason="nfcNorthSeason"/>
-                <DivisionCard v-if="nfcWest && nfcWestSeason" :picks="nfcWest" :nflSeason="nfcWestSeason"/>
-                <DivisionCard v-if="nfcSouth && nfcSouthSeason" :picks="nfcSouth" :nflSeason="nfcSouthSeason"/>
-
-            </div>
-
-        </div>
     </div>
 </template>
 
