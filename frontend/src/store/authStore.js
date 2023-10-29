@@ -5,9 +5,9 @@ import {nflStore} from './nflStore'
 import { picksStore } from './picksStore'
 
 //Prod
-//const base_url = 'https://nmpymrjsvh.us-east-1.awsapprunner.com'
+const base_url = 'https://nmpymrjsvh.us-east-1.awsapprunner.com'
 //Dev
-const base_url = 'http://127.0.0.1:8080'
+//const base_url = 'http://127.0.0.1:8080'
 
 export const authStore = defineStore('authStore', {
     state: () => {
