@@ -11,7 +11,7 @@ import models.database_models
 
 from db.database import engine, SessionLocal
 from sqlalchemy.orm import Session
-
+from sqlalchemy import text
 from auth.jwt_handler import generate_token, decode_token
 from auth.password_hashing import hash_password, verify_password
 from datetime import datetime, timedelta
@@ -139,8 +139,8 @@ async def root( picks: List[SeasonPicks], db: Session = Depends(get_db), token: 
         Database_Users_Regular_Season_Picks.user_id == existing_user.id
     ).all()
 
-    #Trigger Stored Proc
-    stored_proc_call = "CALL public.update_regular_season_scores(2023);"
+        #Trigger Stored Proc
+    stored_proc_call = text("CALL public.update_regular_season_scores(2023)")
     db.execute(stored_proc_call)
     db.commit()
 

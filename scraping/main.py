@@ -155,6 +155,7 @@ try:
     exeYear = int(currentYear)
     cursor.execute('CALL public.update_regular_season_scores(%s);', (exeYear,))
 
+    print("sproc")
     
     cursor.close()
     conn.close()

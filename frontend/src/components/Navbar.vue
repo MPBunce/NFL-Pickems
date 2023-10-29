@@ -35,7 +35,11 @@
         <nav class="flex items-center justify-between flex-wrap bg-neutral-800 p-6 fixed w-full z-10 top-0">
             <div class="flex items-center flex-shrink-0 text-white mr-6">
                 <a class="text-white no-underline hover:text-white hover:no-underline" href="#">
-                    <span class="text-2xl pl-2"><i class="em em-grinning"></i>NFL Pickems</span>
+                    <span class="text-2xl pl-2 flex flex-row">
+
+                        <img class="w-10 mx-2" src="../assets/NFL.png">
+                        <a>NFL Pickems</a>
+                    </span>
                 </a>
             </div>
 
