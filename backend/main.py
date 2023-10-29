@@ -139,6 +139,12 @@ async def root( picks: List[SeasonPicks], db: Session = Depends(get_db), token: 
         Database_Users_Regular_Season_Picks.user_id == existing_user.id
     ).all()
 
+    #Trigger Stored Proc
+    stored_proc_call = "CALL public.update_regular_season_scores(2023);"
+    db.execute(stored_proc_call)
+    db.commit()
+
+    
     return len(picks)
 
 
