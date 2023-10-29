@@ -80,11 +80,6 @@
 
     })
 
-    const log = () => {
-        console.log(nflSeason.standings)
-        console.log(afcEastSeason.value)
-    }
-
 </script>
 
 <template>

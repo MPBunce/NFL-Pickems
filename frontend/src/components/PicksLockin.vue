@@ -173,11 +173,20 @@
         console.log(lockin_array)
         
         try{
+
             const res = await picksInstance.lockInPicks(lockin_array)
+            
         } catch (error){
             console.log(error)
         }
 
+    }
+
+    const getTeamLogoUrl = (teamName) => {
+        const imagePath = "src/assets/";
+        const sanitizedTeamName = teamName.replace(/\s+/g, "_");
+        console.log(imagePath + sanitizedTeamName + ".png");
+        return imagePath + sanitizedTeamName + ".png";
     }
 
 </script>
@@ -191,26 +200,40 @@
 
 
 
-    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-1 text-white h-48">
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-1 text-white">
 
-        <div class="cursor-pointer bg-neutral-800 my-4 mx-4 px-4 py-4 rounded-lg">
-            <div class="text-center">
-                <h1 class="my-4 text-white text-2xl font-mono">AFC North</h1>
-            </div>
-            <VueDraggableNext class="dragArea list-group w-full divide-y" :list="afcNorthSeason" @change="handleAfcNorthSeasonChange">
-                <div
-                    class="flex flex-row py-4"
-                    v-for="(team, index) in afcNorthSeason"
-                    :key="team.id"
-                >
 
-                    <div class="basis-1/4">{{ index + 1 }} </div>
-                    <div class="basis-3/4">{{ team.team_name }}</div>
-
+        <div class="rounded mx-4">
+            <div class="bg-neutral-900">
+                <div class="">
+                    <h1 class="my-2 py-4 ml-4 text-white text-2xl">AFC North</h1>
                 </div>
-            </VueDraggableNext>
+                <VueDraggableNext class="bg-neutral-800 cursor-pointer dragArea list-group w-full divide-y divide-black" :list="afcNorthSeason" @change="handleAfcNorthSeasonChange">
+                    <div
+                        class="flex flex-row"
+                        v-for="(team, index) in afcNorthSeason"
+                        :key="team.id"
+                    >
+
+                        <div class="basis-1/4 bg-neutral-950 text-center py-6 text-lg">{{ index + 1 }} </div>
+                        <div class="basis-1/4 object-center ml-4 mt-4">
+                            <img class="w-10 h-10 object-center" :src="getTeamLogoUrl(team.team_name)">
+                        </div>
+
+                        <div class="basis-3/4 mt-6">{{ team.team_name }}</div>
+                        <div class="mr-2 mt-6">
+                            <svg class="fill-current h-6 w-10 text-neutral-900" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/>
+                            </svg>
+                        </div>
+
+                    </div>
+                </VueDraggableNext>
+            </div>
+
         </div>
 
+        
         <div class="cursor-pointer bg-neutral-800 my-4 mx-4 px-4 py-4 rounded-lg">
             <div class="text-center">
                 <h1 class="my-4 text-white text-2xl font-mono">AFC East</h1>

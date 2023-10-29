@@ -37,8 +37,14 @@
                 <a class="text-white no-underline hover:text-white hover:no-underline" href="#">
                     <span class="text-2xl pl-2 flex flex-row">
 
-                        <img class="w-10 mx-2" src="../assets/NFL.png">
-                        <a>NFL Pickems</a>
+                        <a class="inline-block ">
+                            <router-link to="/" class="decoration-white text-white flex flex-row text-center">
+                                <img class="w-10 mx-2" src="../assets/NFL.png">
+                                <a class="pl-2 mt-2">NFL Pickems</a>                                    
+                            </router-link>
+                        </a>
+
+
                     </span>
                 </a>
             </div>
@@ -51,36 +57,42 @@
 
             <div class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden lg:block pt-6 lg:pt-0" id="nav-content">
                 <ul class="list-reset lg:flex justify-end flex-1 items-center">
-                    <li class="mr-3" v-if="auth.token">
-                        <a class="inline-block text-gray-600 no-underline hover:text-gray-200 hover:text-underline py-2 px-4">
-                            <router-link to="/" class="underline decoration-white text-white">Home</router-link>
+
+                    <li class="mr-3 hover:border-l-2 lg:hover:border-l-0 lg:hover:border-b-2" v-if="!auth.token">
+                        <a class="inline-block py-2 px-4">
+                            <router-link to="/Login" :class="{'font-bold': $route.name === 'Login'}" class="text-white">Login</router-link>
                         </a>
                     </li>
-                    <li class="mr-3" v-if="!auth.token">
-                        <a class="inline-block text-gray-600 no-underline hover:text-gray-200 hover:text-underline py-2 px-4">
-                            <router-link to="/Login" class="underline decoration-white text-white">Login</router-link>
+                    <li class="mr-3 hover:border-l-2 lg:hover:border-l-0 lg:hover:border-b-2" v-if="!auth.token">
+                        <a class="inline-block py-2 px-4">
+                            <router-link to="/Register" :class="{'font-bold': $route.name === 'Register'}" class="text-white">Register</router-link>
                         </a>
                     </li>
-                    <li class="mr-3" v-if="!auth.token">
-                        <a class="inline-block text-gray-600 no-underline hover:text-gray-200 hover:text-underline py-2 px-4">
-                            <router-link to="/Register" class="underline decoration-white text-white">Register</router-link>
+                    <li class="mr-3 hover:border-l-2 lg:hover:border-l-0 lg:hover:border-b-2" v-if="auth.token">
+                        <a class="inline-block py-2 px-4">
+                            <router-link to="/SeasonPicks" :class="{'font-bold': $route.name === 'SeasonPicks'}" class="text-white">Season Picks</router-link>
                         </a>
                     </li>
-                    <li class="mr-3">
-                        <a class="inline-block text-gray-600 no-underline hover:text-gray-200 hover:text-underline py-2 px-4">
-                            <router-link to="/Season" class="underline decoration-white text-white">NFL Standings</router-link>
+                    <li class="mr-3 hover:border-l-2 lg:hover:border-l-0 lg:hover:border-b-2" v-if="auth.token">
+                        <a class="inline-block py-2 px-4">
+                            <router-link to="/PlayoffsPicks" :class="{'font-bold': $route.name === 'PlayoffsPicks'}" class=" text-white">Playoff Picks</router-link>
                         </a>
                     </li>
-                    <li class="mr-3">
-                        <a class="inline-block text-gray-600 no-underline hover:text-gray-200 hover:text-underline py-2 px-4">
-                            <router-link to="/Leaderboard" class="underline decoration-white text-white">Picks Leaderboard</router-link>
+                    <li class="mr-3 hover:border-l-2 lg:hover:border-l-0 lg:hover:border-b-2">
+                        <a class="inline-block py-2 px-4">
+                            <router-link to="/SeasonStandings" :class="{'font-bold': $route.name === 'SeasonStandings'}" class="text-white">NFL Standings</router-link>
+                        </a>
+                    </li>
+                    <li class="mr-3 hover:border-l-2 lg:hover:border-l-0 lg:hover:border-b-2">
+                        <a class="inline-block py-2 px-4">
+                            <router-link to="/Leaderboard" :class="{'font-bold': $route.name === 'LeaderBoard'}" class="text-white">Picks Leaderboard</router-link>
                         </a>
                     </li>
 
-                    <li class="mr-3 cursor-pointer" v-if="auth.token">
-                        <a @click="logout" class="inline-block text-gray-600 no-underline hover:text-gray-200 hover:text-underline py-2 px-4">
-                            <a  class="underline decoration-white text-white">Logout</a>
-                        </a>
+                    <li class="mr-3 bg-blue-700 hover:bg-blue-500 rounded cursor max-w-10 text-center" v-if="auth.token">
+                        <button @click="logout" class="inline-block no-underline hover:text-gray-200 hover:text-underline py-2 px-4">
+                            <a  class="text-white">Logout</a>
+                        </button>
                     </li>
                 </ul>
             </div>

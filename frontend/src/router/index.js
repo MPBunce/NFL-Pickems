@@ -2,18 +2,20 @@ import { createRouter, createWebHistory } from 'vue-router'
 import { authStore } from '../store/authStore.js'
 
 //Views
-import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 import LeaderBoard from '../views/Leaderboard.vue'
-import Season from '../views/Season.vue'
 
+import About from '../views/About.vue'
+import SeasonPicks from '../views/SeasonPicks.vue'
+import SeasonStandings from '../views/SeasonStandings.vue'
+import PlayoffsPicks from '../views/PlayoffsPicks.vue'
 
 const routes = [
     {
         path: '/',
-        name: 'Home',
-        component: Home
+        name: 'About',
+        component: About
     },
     {
         path: '/Login',
@@ -31,9 +33,19 @@ const routes = [
         component: LeaderBoard
     },
     {
-        path: '/Season',
-        name: 'Season',
-        component: Season
+        path: '/SeasonStandings',
+        name: 'SeasonStandings',
+        component: SeasonStandings
+    },
+    {
+        path: '/SeasonPicks',
+        name: 'SeasonPicks',
+        component: SeasonPicks
+    },
+    {
+        path: '/PlayoffsPicks',
+        name: 'PlayoffsPicks',
+        component: PlayoffsPicks
     },
 ]
 
@@ -52,7 +64,9 @@ router.beforeEach((to, from, next) => {
         next({ name: 'Home' })
     } else if (isAuthenticated !== null && to.name === 'Login') {
         next({ name: 'Home' })
-    } else if (isAuthenticated === null && to.name === 'Home') {
+    } else if (isAuthenticated === null && to.name === 'SeasonPicks') {
+        next({ name: 'Login' })
+    } else if (isAuthenticated === null && to.name === 'PlayoffsPicks') {
         next({ name: 'Login' })
     } else {
         next()

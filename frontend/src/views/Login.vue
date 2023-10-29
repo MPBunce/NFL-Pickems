@@ -17,7 +17,7 @@
 
         try {
             await auth.login(formData.value.username, formData.value.password);
-            router.replace({ name: 'Home' });
+            router.replace({ name: 'SeasonPicks' });
             // Reset the form fields after a successful login
             formData.value.username = '';
             formData.value.password = '';
@@ -36,7 +36,7 @@
 
     <div class="flex flex-col items-center justify-center px-6 py-4 mx-auto md:h-screen lg:py-0">
 
-        <div class="w-full  bg-neutral-800 md:mt-0 sm:max-w-md xl:p-0  bg-neutral-800">
+        <div class="w-full bg-neutral-800 md:mt-0 sm:max-w-md xl:p-0  bg-neutral-800">
             <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
                 <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                     Sign in to your account
@@ -51,9 +51,9 @@
                         <input v-model="formData.password" type="password" name="password" id="password" placeholder="••••••••"  class="bg-neutral-600 text-white sm:text-sm rounded-lg block w-full p-2.5" required="">
                     </div>
 
-                    <button type="submit" class="w-full text-white focus:ring-4 focus:outline font-medium rounded-lg text-sm px-5 py-2.5 text-center">Sign in</button>
+                    <button type="submit" class="w-full text-white bg-blue-700 hover:bg-blue-500 rounded px-5 py-2.5 text-center">Sign in</button>
                     <p class="text-sm font-light text-gray-500 dark:text-gray-400">
-                        Don’t have an account yet? <router-link to="/Register" class="underline decoration-white text-white">Register</router-link>
+                        Don’t have an account yet? <router-link to="/Register" class="hover:underline decoration-white text-white">Register</router-link>
                     </p>
                 </form>
             </div>

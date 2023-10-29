@@ -31,7 +31,7 @@
             formData.value.password = ''
             formData.value.passwordCheck= ''
 
-            router.push({name: 'Home'})
+            router.push({name: 'About'})
 
         } catch (error) {
             console.log(error)
@@ -72,9 +72,9 @@
                         <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm Password</label>
                         <input v-model="formData.passwordCheck"  placeholder="••••••••"  class="bg-neutral-600 text-white sm:text-sm rounded-lg block w-full p-2.5" required="">
                     </div>
-                    <button type="submit" class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Register</button>
+                    <button type="submit" class="w-full text-white bg-blue-700 hover:bg-blue-500 rounded px-5 py-2.5 text-center">Register</button>
                     <p class="text-sm font-light text-gray-500 dark:text-gray-400">
-                        Already have an account? <router-link to="/Login" class="underline decoration-white text-white">Login</router-link>
+                        Already have an account? <router-link to="/Login" class="hover:underline decoration-white text-white">Login</router-link>
                     </p>
                 </form>
 
