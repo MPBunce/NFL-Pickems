@@ -4,6 +4,7 @@
     import { VueDraggableNext } from 'vue-draggable-next'
     import { picksStore } from '../store/picksStore'
 
+
     const picksInstance = picksStore()
 
     const props = defineProps({
@@ -185,7 +186,6 @@
     const getTeamLogoUrl = (teamName) => {
         const imagePath = "src/assets/";
         const sanitizedTeamName = teamName.replace(/\s+/g, "_");
-        console.log(imagePath + sanitizedTeamName + ".png");
         return imagePath + sanitizedTeamName + ".png";
     }
 
@@ -193,14 +193,16 @@
 
 <template>
 
-    <div class="text-center">
-        <h1 class="my-4 pt-4 text-white text-2xl font-mono">Lockin your picks for the 2023 season!</h1>
-        <button class="my-8 bg-yellow-500 hover:bg-yellow-700 text-black py-2 px-8 rounded-full" @click="log">LOCK IN</button>
+    <div class="text-center my-4">
+        <h1 class="my-4 pt-4 text-white text-2xl font-mono">Lockin's your picks for the 2023 season!</h1>
+        
+        <button type="button" class="text-center rounded max-w-sm w-full bg-gradient-to-r from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500 text-white text-2xl uppercase font-bold shadow-md mx-auto p-5">
+            <div>LOCKIN</div>
+        </button>
     </div>
 
 
-
-    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-1 text-white">
+    <div class="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-4 gap-2 text-white mb-8">
 
 
         <div class="rounded mx-4">
@@ -234,117 +236,207 @@
         </div>
 
         
-        <div class="cursor-pointer bg-neutral-800 my-4 mx-4 px-4 py-4 rounded-lg">
-            <div class="text-center">
-                <h1 class="my-4 text-white text-2xl font-mono">AFC East</h1>
-            </div>
-            <VueDraggableNext class="dragArea list-group w-full divide-y" :list="afcEastSeason" @change="handleAfcEastSeasonChange">
-                <div
-                    class="flex flex-row py-4"
-                    v-for="(team, index) in afcEastSeason"
-                    :key="team.id"
-                >
-
-                    <div class="basis-1/4">{{ index + 1 }} </div>
-                    <div class="basis-3/4">{{ team.team_name }}</div>
+        <div class="rounded mx-4">
+            <div class="bg-neutral-900">
+                <div class="">
+                    <h1 class="my-2 py-4 ml-4 text-white text-2xl">AFC East</h1>
                 </div>
-            </VueDraggableNext>
+                <VueDraggableNext class="bg-neutral-800 cursor-pointer dragArea list-group w-full divide-y divide-black" :list="afcEastSeason" @change="handleAfcEastSeasonChange">
+                    <div
+                        class="flex flex-row"
+                        v-for="(team, index) in afcEastSeason"
+                        :key="team.id"
+                    >
+
+                        <div class="basis-1/4 bg-neutral-950 text-center py-6 text-lg">{{ index + 1 }} </div>
+                        <div class="basis-1/4 object-center ml-4 mt-4">
+                            <img class="w-10 h-10 object-center" :src="getTeamLogoUrl(team.team_name)">
+                        </div>
+
+                        <div class="basis-3/4 mt-6">{{ team.team_name }}</div>
+                        <div class="mr-2 mt-6">
+                            <svg class="fill-current h-6 w-10 text-neutral-900" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/>
+                            </svg>
+                        </div>
+
+                    </div>
+                </VueDraggableNext>
+            </div>
         </div>
 
-        <div class="cursor-pointer bg-neutral-800 my-4 mx-4 px-4 py-4 rounded-lg">
-            <div class="text-center">
-                <h1 class="my-4 text-white text-2xl font-mono">AFC South</h1>
-            </div>
-            <VueDraggableNext class="dragArea list-group w-full divide-y" :list="afcSouthSeason" @change="handleAfcSouthSeasonChange">
-                <div
-                    class="flex flex-row py-4"
-                    v-for="(team, index) in afcSouthSeason"
-                    :key="team.id"
-                >
-                    <div class="basis-1/4">{{ index + 1 }} </div>
-                    <div class="basis-3/4">{{ team.team_name }}</div>
+        <div class="rounded mx-4">
+            <div class="bg-neutral-900">
+                <div class="">
+                    <h1 class="my-2 py-4 ml-4 text-white text-2xl">AFC South</h1>
                 </div>
-            </VueDraggableNext>
+                <VueDraggableNext class="bg-neutral-800 cursor-pointer dragArea list-group w-full divide-y divide-black" :list="afcSouthSeason" @change="handleAfcSouthSeasonChange">
+                    <div
+                        class="flex flex-row"
+                        v-for="(team, index) in afcSouthSeason"
+                        :key="team.id"
+                    >
+
+                        <div class="basis-1/4 bg-neutral-950 text-center py-6 text-lg">{{ index + 1 }} </div>
+                        <div class="basis-1/4 object-center ml-4 mt-4">
+                            <img class="w-10 h-10 object-center" :src="getTeamLogoUrl(team.team_name)">
+                        </div>
+
+                        <div class="basis-3/4 mt-6">{{ team.team_name }}</div>
+                        <div class="mr-2 mt-6">
+                            <svg class="fill-current h-6 w-10 text-neutral-900" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/>
+                            </svg>
+                        </div>
+
+                    </div>
+                </VueDraggableNext>
+            </div>
         </div>
 
-        <div class="cursor-pointer bg-neutral-800 my-4 mx-4 px-4 py-4 rounded-lg">
-            <div class="text-center">
-                <h1 class="my-4 text-white text-2xl font-mono">AFC West</h1>
-            </div>
-            <VueDraggableNext class="dragArea list-group w-full divide-y" :list="afcWestSeason" @change="handleAfcWestSeasonChange">
-                <div
-                    class="flex flex-row py-4"
-                    v-for="(team, index) in afcWestSeason"
-                    :key="team.id"
-                >
-                    <div class="basis-1/4">{{ index + 1 }} </div>
-                    <div class="basis-3/4">{{ team.team_name }}</div>
+        <div class="rounded mx-4">
+            <div class="bg-neutral-900">
+                <div class="">
+                    <h1 class="my-2 py-4 ml-4 text-white text-2xl">AFC West</h1>
                 </div>
-            </VueDraggableNext>
+                <VueDraggableNext class="bg-neutral-800 cursor-pointer dragArea list-group w-full divide-y divide-black" :list="afcWestSeason" @change="handleAfcWestSeasonChange">
+                    <div
+                        class="flex flex-row"
+                        v-for="(team, index) in afcWestSeason"
+                        :key="team.id"
+                    >
+
+                        <div class="basis-1/4 bg-neutral-950 text-center py-6 text-lg">{{ index + 1 }} </div>
+                        <div class="basis-1/4 object-center ml-4 mt-4">
+                            <img class="w-10 h-10 object-center" :src="getTeamLogoUrl(team.team_name)">
+                        </div>
+
+                        <div class="basis-3/4 mt-6">{{ team.team_name }}</div>
+                        <div class="mr-2 mt-6">
+                            <svg class="fill-current h-6 w-10 text-neutral-900" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/>
+                            </svg>
+                        </div>
+
+                    </div>
+                </VueDraggableNext>
+            </div>
         </div>
 
-        <div class="cursor-pointer bg-neutral-800 my-4 mx-4 px-4 py-4 rounded-lg">
-            <div class="text-center">
-                <h1 class="my-4 text-white text-2xl font-mono">NFC North</h1>
-            </div>
-            <VueDraggableNext class="dragArea list-group w-full divide-y" :list="nfcNorthSeason" @change="handleNfcNorthSeasonChange">
-                <div
-                    class="flex flex-row py-4"
-                    v-for="(team, index) in nfcNorthSeason"
-                    :key="team.id"
-                >
-                    <div class="basis-1/4">{{ index + 1 }} </div>
-                    <div class="basis-3/4">{{ team.team_name }}</div>
+        <div class="rounded mx-4">
+            <div class="bg-neutral-900">
+                <div class="">
+                    <h1 class="my-2 py-4 ml-4 text-white text-2xl">NFC North</h1>
                 </div>
-            </VueDraggableNext>
+                <VueDraggableNext class="bg-neutral-800 cursor-pointer dragArea list-group w-full divide-y divide-black" :list="nfcNorthSeason" @change="handleNfcNorthSeasonChange">
+                    <div
+                        class="flex flex-row"
+                        v-for="(team, index) in nfcNorthSeason"
+                        :key="team.id"
+                    >
+
+                        <div class="basis-1/4 bg-neutral-950 text-center py-6 text-lg">{{ index + 1 }} </div>
+                        <div class="basis-1/4 object-center ml-4 mt-4">
+                            <img class="w-10 h-10 object-center" :src="getTeamLogoUrl(team.team_name)">
+                        </div>
+
+                        <div class="basis-3/4 mt-6">{{ team.team_name }}</div>
+                        <div class="mr-2 mt-6">
+                            <svg class="fill-current h-6 w-10 text-neutral-900" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/>
+                            </svg>
+                        </div>
+
+                    </div>
+                </VueDraggableNext>
+            </div>
         </div>
 
-        <div class="cursor-pointer bg-neutral-800 my-4 mx-4 px-4 py-4 rounded-lg">
-            <div class="text-center">
-                <h1 class="my-4 text-white text-2xl font-mono">NFC East</h1>
-            </div>
-            <VueDraggableNext class="dragArea list-group w-full divide-y" :list="nfcEastSeason" @change="handleNfcEastSeasonChange">
-                <div
-                    class="flex flex-row py-4"
-                    v-for="(team, index) in nfcEastSeason"
-                    :key="team.id"
-                >
-                    <div class="basis-1/4">{{ index + 1 }} </div>
-                    <div class="basis-3/4">{{ team.team_name }}</div>
+        <div class="rounded mx-4">
+            <div class="bg-neutral-900">
+                <div class="">
+                    <h1 class="my-2 py-4 ml-4 text-white text-2xl">NFC East</h1>
                 </div>
-            </VueDraggableNext>
+                <VueDraggableNext class="bg-neutral-800 cursor-pointer dragArea list-group w-full divide-y divide-black" :list="nfcEastSeason" @change="handleNfcEastSeasonChange">
+                    <div
+                        class="flex flex-row"
+                        v-for="(team, index) in nfcEastSeason"
+                        :key="team.id"
+                    >
+
+                        <div class="basis-1/4 bg-neutral-950 text-center py-6 text-lg">{{ index + 1 }} </div>
+                        <div class="basis-1/4 object-center ml-4 mt-4">
+                            <img class="w-10 h-10 object-center" :src="getTeamLogoUrl(team.team_name)">
+                        </div>
+
+                        <div class="basis-3/4 mt-6">{{ team.team_name }}</div>
+                        <div class="mr-2 mt-6">
+                            <svg class="fill-current h-6 w-10 text-neutral-900" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/>
+                            </svg>
+                        </div>
+
+                    </div>
+                </VueDraggableNext>
+            </div>
         </div>
 
-        <div class="cursor-pointer bg-neutral-800 my-4 mx-4 px-4 py-4 rounded-lg">
-            <div class="text-center">
-                <h1 class="my-4 text-white text-2xl font-mono">NFC Sorth</h1>
-            </div>
-            <VueDraggableNext class="dragArea list-group w-full divide-y" :list="nfcSouthSeason" @change="handleNfcSouthSeasonChange">
-                <div
-                    class="flex flex-row py-4"
-                    v-for="(team, index) in nfcSouthSeason"
-                    :key="team.id"
-                >
-                    <div class="basis-1/4">{{ index + 1 }} </div>
-                    <div class="basis-3/4">{{ team.team_name }}</div>
+        <div class="rounded mx-4">
+            <div class="bg-neutral-900">
+                <div class="">
+                    <h1 class="my-2 py-4 ml-4 text-white text-2xl">NFC South</h1>
                 </div>
-            </VueDraggableNext>
+                <VueDraggableNext class="bg-neutral-800 cursor-pointer dragArea list-group w-full divide-y divide-black" :list="nfcSouthSeason" @change="handleNfcSouthSeasonChange">
+                    <div
+                        class="flex flex-row"
+                        v-for="(team, index) in nfcSouthSeason"
+                        :key="team.id"
+                    >
+
+                        <div class="basis-1/4 bg-neutral-950 text-center py-6 text-lg">{{ index + 1 }} </div>
+                        <div class="basis-1/4 object-center ml-4 mt-4">
+                            <img class="w-10 h-10 object-center" :src="getTeamLogoUrl(team.team_name)">
+                        </div>
+
+                        <div class="basis-3/4 mt-6">{{ team.team_name }}</div>
+                        <div class="mr-2 mt-6">
+                            <svg class="fill-current h-6 w-10 text-neutral-900" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/>
+                            </svg>
+                        </div>
+
+                    </div>
+                </VueDraggableNext>
+            </div>
         </div>
 
-        <div class="cursor-pointer bg-neutral-800 my-4 mx-4 px-4 py-4 rounded-lg">
-            <div class="text-center">
-                <h1 class="my-4 text-white text-2xl font-mono">NFC West</h1>
-            </div>
-            <VueDraggableNext class="dragArea list-group w-full divide-y" :list="nfcWestSeason" @change="handleNfcWestSeasonChange">
-                <div
-                    class="flex flex-row py-4"
-                    v-for="(team, index) in nfcWestSeason"
-                    :key="team.id"
-                >
-                    <div class="basis-1/4">{{ index + 1 }} </div>
-                    <div class="basis-3/4">{{ team.team_name }}</div>
+        <div class="rounded mx-4">
+            <div class="bg-neutral-900">
+                <div class="">
+                    <h1 class="my-2 py-4 ml-4 text-white text-2xl">NFC West</h1>
                 </div>
-            </VueDraggableNext>
+                <VueDraggableNext class="bg-neutral-800 cursor-pointer dragArea list-group w-full divide-y divide-black" :list="nfcWestSeason" @change="handleNfcWestSeasonChange">
+                    <div
+                        class="flex flex-row"
+                        v-for="(team, index) in nfcWestSeason"
+                        :key="team.id"
+                    >
+
+                        <div class="basis-1/4 bg-neutral-950 text-center py-6 text-lg">{{ index + 1 }} </div>
+                        <div class="basis-1/4 object-center ml-4 mt-4">
+                            <img class="w-10 h-10 object-center" :src="getTeamLogoUrl(team.team_name)">
+                        </div>
+
+                        <div class="basis-3/4 mt-6">{{ team.team_name }}</div>
+                        <div class="mr-2 mt-6">
+                            <svg class="fill-current h-6 w-10 text-neutral-900" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/>
+                            </svg>
+                        </div>
+
+                    </div>
+                </VueDraggableNext>
+            </div>
         </div>
 
     </div>
