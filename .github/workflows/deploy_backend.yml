@@ -12,10 +12,9 @@ jobs:
 
   CI:
 
-    deploy-backend:
-      defaults:
-        run:
-          working-directory: ./backend
+    defaults:
+      run:
+        working-directory: ./backend
 
     runs-on: ubuntu-latest
     steps:   
@@ -64,11 +63,10 @@ jobs:
           path: api.zip
 
   CD:
-  
-    deploy-backend:
-      defaults:
-        run:
-          working-directory: ./backend
+
+    defaults:
+      run:
+        working-directory: ./backend
 
     runs-on: ubuntu-latest
     needs: [CI]
