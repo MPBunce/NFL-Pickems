@@ -10,7 +10,11 @@ on:
 # The Job defines a series of steps that execute on the same runner.
 jobs:
 
-  CI:
+  build-backend:
+    defaults:
+      run:
+        working-directory: ./frontend
+
     # Define the runner used in the workflow
     runs-on: ubuntu-latest
     steps:   
@@ -58,7 +62,7 @@ jobs:
           name: api
           path: api.zip
 
-  CD:
+  deploy-backend:
 
     defaults:
       run:
