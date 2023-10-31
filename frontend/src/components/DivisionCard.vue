@@ -42,15 +42,15 @@
             <div class="basis-1/4 object-center ml-4 mt-4">
                 <img class="w-10 h-10 object-center" :src="getTeamLogoUrl(team.team_name)">
             </div>
-            <div class="basis-3/4 mt-6">{{ team.team_name }}</div>
+            <div class="basis-3/4 mt-6 overflow-visible">{{ team.team_name }}</div>
 
             <div v-if="team.division_position === getTeamPosition(team.team_name)">
-              <div class="basis-1/4 bg-emerald-500 text-center py-6 text-lg px-4">
+              <div class="basis-1/4 bg-emerald-500 text-center py-6 px-6 text-lg">
                 {{ getTeamPosition(team.team_name) }}                  
               </div>
             </div>
             <div v-else>
-              <div class="basis-1/4 bg-rose-600 text-center py-6 text-lg px-4">
+              <div class="basis-1/4 bg-rose-600 text-center py-6 px-6 text-lg">
                 {{ getTeamPosition(team.team_name) }}                  
               </div>
             </div>
