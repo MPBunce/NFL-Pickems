@@ -51,7 +51,7 @@ export const authStore = defineStore('authStore', {
 
             localStorage.removeItem('token');
             localStorage.removeItem('picks');
-            localStorage.removeItem('nflStandings');
+
 
         },
         async register(input_username, input_email, input_password) {
