@@ -24,39 +24,7 @@ url = 'https://www.pro-football-reference.com/years/' + currentYear + '/index.ht
 requestPage = requests.get(url)
 soup = BeautifulSoup(requestPage.text, "html.parser")
 
-AFC = soup.find("div", {"id": "all_afc_playoff_standings"})
-NFC = soup.find("div", {"id": "all_nfc_playoff_standings"})
 PLAYOFFS = soup.find("div", {"id": "all_playoff_results"})
-
-afcArray = []
-commentsAFC = AFC.find_all(string=lambda text: isinstance(text, Comment))
-for comment in commentsAFC:
-    commented_html = comment.extract()
-
-    commented_soup = BeautifulSoup(commented_html, 'html.parser')
-
-    tbody = commented_soup.find('tbody')
-    for row in tbody.find_all('tr'):
-        team_name = row.find('th').a.text
-        afcArray.append(team_name)
-
-for n in afcArray:
-    print(n)  
-
-nfcArray = []
-commentsNFC = NFC.find_all(string=lambda text: isinstance(text, Comment))
-for comment in commentsNFC:
-    commented_html = comment.extract()
-
-    commented_soup = BeautifulSoup(commented_html, 'html.parser')
-
-    tbody = commented_soup.find('tbody')
-    for row in tbody.find_all('tr'):
-        team_name = row.find('th').a.text
-        nfcArray.append(team_name)
-
-for n in nfcArray:
-    print(n)  
 
 playoffsArray = []
 commentsPLAYOFFS = PLAYOFFS.find_all(string=lambda text: isinstance(text, Comment))
