@@ -1,4 +1,5 @@
-from pydantic import BaseModel
+#from pydantic import BaseModel
+from aws_lambda_powertools.utilities.parser import event_parser, BaseModel, envelopes
 
 class Token(BaseModel):
     access_token: str
