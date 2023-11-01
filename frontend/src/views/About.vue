@@ -29,7 +29,7 @@
 
                     <li class="mt-4 font-bold"><a class="border-b-2">Phase 1 - Pre-Season Predictions</a></li>
                     <p class="my-2">Before the NFL season begins, you can make your regular season picks. Here's how:</p>
-                    <ul class="ml-20">
+                    <ul class="sm:ml-20">
                         <li>- Create an account if you don't have one!</li>
                         <li>- Login and access the Season Picks section.</li>
                         <li>- Predict the divisional standings for all eight NFL conferences based on your football knowledge and insights.</li>
@@ -39,7 +39,7 @@
 
                     <li class="mt-4 font-bold"><a class="border-b-2">Phase 2 - Playoff Predictions</a></li>
                     <p class="my-2">Once the regular season ends, it's time to predict the playoff outcomes:</p>
-                    <ul class="ml-20">
+                    <ul class="sm:ml-20">
                         <li>- Login and navigate to the Playoff Picks section.</li>
                         <li>- Make your predictions for which teams will advance and ultimately emerged as the Super Bowl champion.</li>
                         <li>- Submit your playoff predictions to complete Phase 2.</li>
@@ -47,7 +47,7 @@
 
                     <li class="mt-4 font-bold"><a class="border-b-2">Scoring and Leaderboard</a></li>
                     <p class="my-2">Stay engaged and competitive with our scoring system and leaderboard:</p>
-                    <ul class="ml-20">
+                    <ul class="sm:ml-20">
                         <li>- For each correct prediction you make, you will earn a point.</li>
                         <li>- Track your total score and see how your predictions stack up against others in the leaderboard tab.</li>
                     </ul>

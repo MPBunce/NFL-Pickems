@@ -210,4 +210,4 @@ async def read_items(token: str = Depends(oauth2_scheme), db: Session = Depends(
 async def root():
     return JSONResponse(content={"message": "Health check, service is running!"})
 
-handler = Mangum(app, lifespan="auto")
+handler = Mangum(app=app)
