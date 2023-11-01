@@ -16,7 +16,7 @@ from auth.jwt_handler import generate_token, decode_token
 from auth.password_hashing import hash_password, verify_password
 from datetime import datetime, timedelta
 
-from mangum import Mangum
+
 
 app = FastAPI()
 
@@ -210,4 +210,3 @@ async def read_items(token: str = Depends(oauth2_scheme), db: Session = Depends(
 async def root():
     return JSONResponse(content={"message": "Health check, service is running!"})
 
-handler = Mangum(app=app)
