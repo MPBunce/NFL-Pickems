@@ -184,7 +184,7 @@
     }
 
     const getTeamLogoUrl = (teamName) => {
-        const imagePath = "src/assets/";
+        const imagePath = "../assets/";
         const sanitizedTeamName = teamName.replace(/\s+/g, "_");
         return imagePath + sanitizedTeamName + ".png";
     }
