@@ -7,4 +7,4 @@ this is the file # Ignore everything
 !go.sum
 !makefile
 !.gitignore
-!api/*
+!api/**
