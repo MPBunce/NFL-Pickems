@@ -22,8 +22,9 @@ type config struct {
 }
 
 type application struct {
-	config config
-	logger *log.Logger
+	config   config
+	logger   *log.Logger
+	dbClient *mongo.Client
 }
 
 func main() {
@@ -32,14 +33,20 @@ func main() {
 
 	flag.IntVar(&cfg.port, "port", 4000, "API server port")
 	flag.StringVar(&cfg.env, "env", "development", "Environment (development|staging|production)")
-	flag.StringVar(&cfg.db, "db", "?", "MongoDB Connection String")
+	flag.StringVar(&cfg.db, "db", "", "mongoDB")
 	flag.Parse()
 
 	logger := log.New(os.Stdout, "", log.Ldate|log.Ltime)
 
+	mongoClient, b := openDB(cfg)
+	if b != nil {
+		fmt.Printf("?")
+	}
+
 	app := &application{
-		config: cfg,
-		logger: logger,
+		config:   cfg,
+		logger:   logger,
+		dbClient: mongoClient,
 	}
 
 	srv := &http.Server{
@@ -51,11 +58,6 @@ func main() {
 	}
 
 	logger.Printf("starting %s server on %s", cfg.env, srv.Addr)
-
-	_, b := openDB(cfg)
-	if b != nil {
-		fmt.Printf("?")
-	}
 
 	err := srv.ListenAndServe()
 	logger.Fatal(err)

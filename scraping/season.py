@@ -7,7 +7,6 @@ from pymongo import MongoClient
 import os
 from dotenv import load_dotenv
 
-
 class Team:
     def __init__(self, id, name, wins, loses):
         self.id = id

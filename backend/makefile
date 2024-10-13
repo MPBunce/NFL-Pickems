@@ -1,5 +1,5 @@
 make run:
-	go run api/*
+	go run api/* -db="""
 
 make build:
 	go build -o main api/*
