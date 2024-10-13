@@ -1,6 +1,9 @@
 # NFL-Pickems
 
 
+APPLICATION STATUS: Undergoing Upgrades api and frontend are temporarily down
+
+
 Vue Frontend:
 https://d3nsp1xpq5b06f.cloudfront.net
 

@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup
 import requests
 
+from pymongo import MongoClient
 
 import psycopg2
 from psycopg2.extras import RealDictCursor
@@ -18,7 +19,10 @@ class Team:
         self.wins = wins
         self.loses = loses
 
-currentYear = '2023'
+
+load_dotenv() 
+
+currentYear = str(os.getenv("YEAR"))
 
 url = 'https://www.pro-football-reference.com/years/' + currentYear + '/index.htm'
 requestPage = requests.get(url)
@@ -96,9 +100,23 @@ for n in range(len(afcArray)):
     else:   
         afcArray[n].append(position)
 
-print("\n")
-for n in afcArray:
-    print(n)
+# print("\n")
+# for n in afcArray:
+#     print(n)
+
+#AFC in Json
+afc_json_data = []
+for team in afcArray:
+    team_data = {
+        'team': team[0],
+        'wins': int(team[1]),
+        'losses': int(team[2]),
+        'ties': team[3],
+        'division': team[4],
+        'division_rank': team[6],
+        'year': team[5],
+    }
+    afc_json_data.append(team_data)    
 
 for n in range(len(nfcArray)):
     position = (n + 1) % 4
@@ -107,58 +125,100 @@ for n in range(len(nfcArray)):
     else:   
         nfcArray[n].append(position)
 
-print("\n")
-for n in nfcArray:
-    print(n)
+# print("\n")
+# for n in nfcArray:
+#     print(n)
+
+#nfc in Json
+nfc_json_data = []
+for team in nfcArray:
+    team_data = {
+        'team': team[0],
+        'wins': int(team[1]),
+        'losses': int(team[2]),
+        'ties': team[3],
+        'division': team[4],
+        'division_rank': team[6],
+        'year': team[5],
+    }
+    nfc_json_data.append(team_data)    
+
+total_standings = afc_json_data + nfc_json_data
 
 
-load_dotenv()
+data = {
+    "year" : currentYear,
+    "teams" : total_standings
+}
 
-POSTGRES_USER : str = os.getenv("POSTGRES_USER")
-POSTGRES_PASSWORD = os.getenv("POSTGRES_PASSWORD")
-POSTGRES_SERVER : str = os.getenv("POSTGRES_SERVER","localhost")
-POSTGRES_PORT : str = os.getenv("POSTGRES_PORT",5432) # default postgres port is 5432
-POSTGRES_DB : str = os.getenv("POSTGRES_DB")
-DATABASE_URL = f"postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_SERVER}:{POSTGRES_PORT}/{POSTGRES_DB}"
 
-# Define the SQL INSERT statement template with ON CONFLICT
-insert_sql = f"""
-    INSERT INTO "nfl-seasons" (team_name, wins, losses, ties, team_division, year, divisional_position)
-    VALUES %s
-    ON CONFLICT (team_name, year) DO UPDATE
-    SET wins = excluded.wins, losses = excluded.losses, ties = excluded.ties, team_division = excluded.team_division, divisional_position = excluded.divisional_position;
-"""
+print("\ndb:\n")
+# Database Time
+uri = os.getenv("MONGO_URI")
+client = MongoClient(uri)
+db = client['NFL-Pickems']
 
-#Update DB
-try:
-    conn = psycopg2.connect(DATABASE_URL)
-    cursor = conn.cursor()    
+table = db['Season Standings']
+count = table.count_documents({'year': currentYear})
+
+
+if count > 0:
+    result = table.update_one(
+        {'year': currentYear},
+        {'$set': data}      
+    )
+else:
+    print("new data?")
+    table.insert_one(data)
+
+
+# load_dotenv()
+
+# POSTGRES_USER : str = os.getenv("POSTGRES_USER")
+# POSTGRES_PASSWORD = os.getenv("POSTGRES_PASSWORD")
+# POSTGRES_SERVER : str = os.getenv("POSTGRES_SERVER","localhost")
+# POSTGRES_PORT : str = os.getenv("POSTGRES_PORT",5432) # default postgres port is 5432
+# POSTGRES_DB : str = os.getenv("POSTGRES_DB")
+# DATABASE_URL = f"postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_SERVER}:{POSTGRES_PORT}/{POSTGRES_DB}"
+
+# # Define the SQL INSERT statement template with ON CONFLICT
+# insert_sql = f"""
+#     INSERT INTO "nfl-seasons" (team_name, wins, losses, ties, team_division, year, divisional_position)
+#     VALUES %s
+#     ON CONFLICT (team_name, year) DO UPDATE
+#     SET wins = excluded.wins, losses = excluded.losses, ties = excluded.ties, team_division = excluded.team_division, divisional_position = excluded.divisional_position;
+# """
+
+# #Update DB
+# try:
+#     conn = psycopg2.connect(DATABASE_URL)
+#     cursor = conn.cursor()    
     
-    # Assuming afcArray and nfcArray are lists of tuples containing data
-    execute_values(cursor, insert_sql, afcArray)
-    execute_values(cursor, insert_sql, nfcArray)
+#     # Assuming afcArray and nfcArray are lists of tuples containing data
+#     execute_values(cursor, insert_sql, afcArray)
+#     execute_values(cursor, insert_sql, nfcArray)
 
-    conn.commit()
-    cursor.close()
-    conn.close()
+#     conn.commit()
+#     cursor.close()
+#     conn.close()
 
-except psycopg2.Error as e:
-    print("Error connecting to the database:", e)
+# except psycopg2.Error as e:
+#     print("Error connecting to the database:", e)
 
 
 
-#Invoke SP to update scores
-try:
-    conn = psycopg2.connect(DATABASE_URL)
-    cursor = conn.cursor()    
+# #Invoke SP to update scores
+# try:
+#     conn = psycopg2.connect(DATABASE_URL)
+#     cursor = conn.cursor()    
     
-    exeYear = int(currentYear)
-    cursor.execute('CALL public.update_regular_season_scores(%s);', (exeYear,))
+#     exeYear = int(currentYear)
+#     cursor.execute('CALL public.update_regular_season_scores(%s);', (exeYear,))
 
-    print("sproc")
+#     print("sproc")
     
-    cursor.close()
-    conn.close()
+#     cursor.close()
+#     conn.close()
 
-except psycopg2.Error as e:
-    print("Error connecting to the database:", e)
+# except psycopg2.Error as e:
+#     print("Error connecting to the database:", e)
