@@ -9,7 +9,6 @@ import (
 	"os"
 	"time"
 
-	"github.com/joho/godotenv"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
@@ -33,17 +32,10 @@ func main() {
 
 	flag.IntVar(&cfg.port, "port", 4000, "API server port")
 	flag.StringVar(&cfg.env, "env", "development", "Environment (development|staging|production)")
+	flag.StringVar(&cfg.db, "db", "?", "MongoDB Connection String")
 	flag.Parse()
 
 	logger := log.New(os.Stdout, "", log.Ldate|log.Ltime)
-
-	envErr := godotenv.Load(".env")
-	if envErr != nil {
-		log.Fatalf("Error loading .env file: %s", envErr)
-	}
-	cfg.db = os.Getenv("MONGO_URI")
-
-	fmt.Print(cfg.db)
 
 	app := &application{
 		config: cfg,
