@@ -3,10 +3,6 @@ import requests
 
 from pymongo import MongoClient
 
-import psycopg2
-from psycopg2.extras import RealDictCursor
-from psycopg2.extras import execute_values
-
 
 import os
 from dotenv import load_dotenv
