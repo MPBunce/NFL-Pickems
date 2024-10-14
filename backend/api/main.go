@@ -42,6 +42,11 @@ func main() {
 	if b != nil {
 		fmt.Printf("?")
 	}
+	defer func() {
+		if b = mongoClient.Disconnect(context.TODO()); b != nil {
+			panic(b)
+		}
+	}()
 
 	app := &application{
 		config:   cfg,
@@ -72,12 +77,6 @@ func openDB(cfg config) (*mongo.Client, error) {
 	if err != nil {
 		panic(err)
 	}
-
-	defer func() {
-		if err = client.Disconnect(context.TODO()); err != nil {
-			panic(err)
-		}
-	}()
 
 	err = client.Ping(context.TODO(), nil)
 	if err != nil {
