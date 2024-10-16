@@ -5,17 +5,17 @@ import (
 )
 
 type SeasonStandings struct {
-	ID    primitive.ObjectID `bson:"_id,omitempty"`
-	Year  string             `bson:"year"`
-	Teams []TeamData         `bson:"teams"`
+	ID    primitive.ObjectID `json:"id" bson:"_id,omitempty"`
+	Year  string             `json:"year" bson:"year"`
+	Teams []TeamData         `json:"teams" bson:"teams"`
 }
 
 type TeamData struct {
-	Team         string `bson:"team"`
-	Wins         int    `bson:"wins"`
-	Losses       int    `bson:"losses"`
-	Ties         int    `bson:"ties"`
-	Division     string `bson:"division"`
-	DivisionRank int    `bson:"division_rank"`
-	Year         string `bson:"year"`
+	Team         string `json:"team" bson:"team"`
+	Wins         int    `json:"wins" bson:"wins"`
+	Losses       int    `json:"losses" bson:"losses"`
+	Ties         int    `json:"ties" bson:"ties"`
+	Division     string `json:"division" bson:"division"`
+	DivisionRank int    `json:"division_rank" bson:"division_rank"`
+	Year         string `json:"year" bson:"year"`
 }

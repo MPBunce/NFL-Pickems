@@ -40,7 +40,7 @@ func main() {
 
 	mongoClient, b := openDB(cfg)
 	if b != nil {
-		fmt.Printf("?")
+		fmt.Printf("Error")
 	}
 	defer func() {
 		if b = mongoClient.Disconnect(context.TODO()); b != nil {
@@ -71,19 +71,11 @@ func main() {
 
 func openDB(cfg config) (*mongo.Client, error) {
 
-	opts := options.Client().ApplyURI(cfg.db)
-
-	client, err := mongo.Connect(context.TODO(), opts)
+	clientOptions := options.Client().ApplyURI(cfg.db)
+	client, err := mongo.Connect(context.Background(), clientOptions)
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
-
-	err = client.Ping(context.TODO(), nil)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	fmt.Println("Successfully connected to MongoDB!")
-
 	return client, nil
+
 }
