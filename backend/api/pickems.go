@@ -13,9 +13,10 @@ func (app *application) allSeasonStandings(w http.ResponseWriter, r *http.Reques
 
 	var data []SeasonStandings
 	collection := app.dbClient.Database("NFL-Pickems").Collection("Season Standings")
+
 	cursor, err := collection.Find(context.TODO(), bson.D{})
 	if err != nil {
-		panic(err)
+		http.Error(w, "Data Not Found", http.StatusNotFound)
 	}
 	if err = cursor.All(context.TODO(), &data); err != nil {
 		panic(err)
