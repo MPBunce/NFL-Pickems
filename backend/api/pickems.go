@@ -3,7 +3,6 @@ package main
 import (
 	"context"
 	"encoding/json"
-	"fmt"
 	"net/http"
 
 	"github.com/julienschmidt/httprouter"
@@ -21,12 +20,16 @@ func (app *application) allSeasonStandings(w http.ResponseWriter, r *http.Reques
 	if err = cursor.All(context.TODO(), &data); err != nil {
 		panic(err)
 	}
-	fmt.Println("displaying all results from the search query")
-	for _, result := range data {
-		fmt.Println(result)
-		fmt.Println("\n")
-	}
 
+	// fmt.Println("displaying all results from the search query")
+	// for _, result := range data {
+	// 	fmt.Println(result)
+	// 	fmt.Println("\n")
+	// }
+	if data == nil {
+		http.Error(w, "Data Not Found", http.StatusNotFound)
+		return
+	}
 	json.NewEncoder(w).Encode(data)
 
 }
@@ -34,7 +37,6 @@ func (app *application) allSeasonStandings(w http.ResponseWriter, r *http.Reques
 func (app *application) seasonStandings(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 
 	year := ps.ByName("year")
-	fmt.Println("%s", year)
 	var data []SeasonStandings
 	filter := bson.D{{"year", year}}
 
@@ -46,10 +48,15 @@ func (app *application) seasonStandings(w http.ResponseWriter, r *http.Request, 
 	if err = cursor.All(context.TODO(), &data); err != nil {
 		panic(err)
 	}
-	fmt.Println("displaying all results from the search query")
-	for _, result := range data {
-		fmt.Println(result)
-		fmt.Println("\n")
+
+	// fmt.Println("displaying all results from the search query")
+	// for _, result := range data {
+	// 	fmt.Println(result)
+	// 	fmt.Println("\n")
+	// }
+	if data == nil {
+		http.Error(w, "Data Not Found", http.StatusNotFound)
+		return
 	}
 
 	json.NewEncoder(w).Encode(data)
