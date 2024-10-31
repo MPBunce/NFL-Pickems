@@ -9,7 +9,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 )
 
-func (app *application) allSeasonStandings(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+func (app *application) allSeasonStandings(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 
 	var data []SeasonStandings
 	collection := app.dbClient.Database("NFL-Pickems").Collection("Season Standings")

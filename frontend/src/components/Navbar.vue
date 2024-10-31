@@ -63,11 +63,11 @@
                             <router-link to="/Login" :class="{'font-bold': $route.name === 'Login'}" class="text-white">Login</router-link>
                         </a>
                     </li>
-                    <li class="mr-3 hover:border-l-2 lg:hover:border-l-0 lg:hover:border-b-2" v-if="!auth.token">
+                    <!-- <li class="mr-3 hover:border-l-2 lg:hover:border-l-0 lg:hover:border-b-2" v-if="!auth.token">
                         <a class="inline-block py-2 px-4">
                             <router-link to="/Register" :class="{'font-bold': $route.name === 'Register'}" class="text-white">Register</router-link>
                         </a>
-                    </li>
+                    </li> -->
                     <li class="mr-3 hover:border-l-2 lg:hover:border-l-0 lg:hover:border-b-2" v-if="auth.token">
                         <a class="inline-block py-2 px-4">
                             <router-link to="/SeasonPicks" :class="{'font-bold': $route.name === 'SeasonPicks'}" class="text-white">Season Picks</router-link>

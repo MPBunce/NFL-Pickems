@@ -17,7 +17,8 @@ func (app *application) routes() *httprouter.Router {
 	router.GET("/v1/seasons", app.allSeasonStandings)
 	router.GET("/v1/seasons/:year", app.seasonStandings)
 
-	//Picks And Standings Routes
+	//User Profile
+	router.GET("/v1/user", app.getUser)
 
 	return router
 }
