@@ -62,3 +62,15 @@ func (app *application) seasonStandings(w http.ResponseWriter, r *http.Request, 
 
 	json.NewEncoder(w).Encode(data)
 }
+
+func (app *application) lockinPicks(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+
+}
+
+func (app *application) getPicks(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+
+}
+
+func (app *application) picksStandings(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+
+}

@@ -17,19 +17,19 @@ func (app *application) getUser(w http.ResponseWriter, r *http.Request, _ httpro
 	payload, err := idtoken.ParsePayload(tokenString)
 	if err != nil {
 		w.WriteHeader(http.StatusNotFound)
-		json.NewEncoder(w).Encode(map[string]string{"error": "Error with google auth"})
+		json.NewEncoder(w).Encode(map[string]string{"error": "Error with google auth token"})
 		return
 	}
 
 	doc := UserProfile{
-		Token:      payload.Subject,
+		Id:         payload.Subject,
 		Email:      payload.Claims["email"].(string),
 		Name:       payload.Claims["name"].(string),
 		ProfilePic: payload.Claims["picture"].(string),
 	}
 
 	var data []UserProfile
-	filter := bson.D{{"token", payload.Subject}}
+	filter := bson.D{{"_id", payload.Subject}}
 	collection := app.dbClient.Database("NFL-Pickems").Collection("UserProfile")
 
 	cursor, err := collection.Find(context.TODO(), filter)
