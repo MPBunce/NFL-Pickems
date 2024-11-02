@@ -19,3 +19,10 @@ type TeamData struct {
 	DivisionRank int    `json:"division_rank" bson:"division_rank"`
 	Year         string `json:"year" bson:"year"`
 }
+
+type UserProfile struct {
+	Token      string `bson:"token"`
+	Email      string `bson:"email"`
+	Name       string `bson:"name"`
+	ProfilePic string `bson:"profilePic"`
+}

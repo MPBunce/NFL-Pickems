@@ -40,7 +40,8 @@ func main() {
 
 	mongoClient, b := openDB(cfg)
 	if b != nil {
-		fmt.Printf("Error")
+		fmt.Printf("Error with database \n")
+		fmt.Println(b)
 	}
 	defer func() {
 		if b = mongoClient.Disconnect(context.TODO()); b != nil {
