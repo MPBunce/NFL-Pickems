@@ -10,8 +10,6 @@ import (
 )
 
 func (app *application) allSeasonStandings(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
-	//CORS
-	enableCors(&w)
 
 	var data []SeasonStandings
 	collection := app.dbClient.Database("NFL-Pickems").Collection("Season Standings")
@@ -38,8 +36,6 @@ func (app *application) allSeasonStandings(w http.ResponseWriter, r *http.Reques
 }
 
 func (app *application) seasonStandings(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
-	//CORS
-	enableCors(&w)
 
 	year := ps.ByName("year")
 	var data []SeasonStandings

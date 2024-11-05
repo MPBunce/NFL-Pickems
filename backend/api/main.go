@@ -9,6 +9,7 @@ import (
 	"os"
 	"time"
 
+	"github.com/rs/cors"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
@@ -49,6 +50,12 @@ func main() {
 		}
 	}()
 
+	//Cors
+	c := cors.New(cors.Options{
+		AllowedOrigins:   []string{"http://localhost:5173"}, // Replace with your frontend origin
+		AllowCredentials: true,
+	})
+
 	app := &application{
 		config:   cfg,
 		logger:   logger,
@@ -57,7 +64,7 @@ func main() {
 
 	srv := &http.Server{
 		Addr:         fmt.Sprintf(":%d", cfg.port),
-		Handler:      app.routes(),
+		Handler:      c.Handler(app.routes()),
 		IdleTimeout:  time.Minute,
 		ReadTimeout:  10 * time.Second,
 		WriteTimeout: 30 * time.Second,

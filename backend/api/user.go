@@ -12,8 +12,6 @@ import (
 )
 
 func (app *application) getUser(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	//CORS
-	enableCors(&w)
 
 	tokenString := r.Header.Get("Authorization")
 	payload, err := idtoken.ParsePayload(tokenString)
