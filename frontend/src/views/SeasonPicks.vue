@@ -4,11 +4,9 @@
     import DivisionCard from '../components/DivisionCard.vue';
     import PicksLockin from '../components/PicksLockin.vue';
     import { ref, onMounted, watch } from 'vue';
-    import { authStore } from '../store/authStore';
     import { picksStore } from '../store/picksStore';
     import { nflStore } from '../store/nflStore';
 
-    const authStoreInstance = authStore();
     const picksStoreInstance = picksStore();
     const nflSeason = nflStore();
 
@@ -36,7 +34,6 @@
 
     onMounted(async () => {
         
-        const res = await authStoreInstance.test();
         const result = await picksStoreInstance.getPicks();
         const season_res = await nflSeason.getStandings();
 

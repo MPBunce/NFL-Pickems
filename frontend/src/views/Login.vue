@@ -1,31 +1,7 @@
 <script setup>
+
     import Navbar from '../components/Navbar.vue';
-    import { authStore } from '../store/authStore.js'
-    import { ref } from 'vue';
     import GoogleLogin from '../components/GoogleLogin.vue';
-
-    const auth = authStore();
-
-    const formData = ref({
-        username: '',
-        password: ''
-    });
-
-    const submitForm = async (e) => {
-        e.preventDefault(); // Prevent the default form submission behavior
-        console.log('Form submitted with data:', formData.value);
-
-        // try {
-        //     await auth.login(formData.value.username, formData.value.password);
-        //     router.replace({ name: 'SeasonPicks' });
-        //     // Reset the form fields after a successful login
-        //     formData.value.username = '';
-        //     formData.value.password = '';
-        // } catch (error) {
-        //     // Handle login errors
-        //     console.error('Login failed:', error);
-        // }
-    };
 
 </script>
 

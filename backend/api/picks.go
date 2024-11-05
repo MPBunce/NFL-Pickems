@@ -12,6 +12,8 @@ import (
 )
 
 func (app *application) lockinPicks(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+	//CORS
+	enableCors(&w)
 
 	tokenString := r.Header.Get("Authorization")
 	payload, err := idtoken.ParsePayload(tokenString)
@@ -82,6 +84,8 @@ func (app *application) lockinPicks(w http.ResponseWriter, r *http.Request, ps h
 }
 
 func (app *application) getPicks(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+	//CORS
+	enableCors(&w)
 
 	year := ps.ByName("year")
 	tokenString := r.Header.Get("Authorization")
@@ -114,7 +118,7 @@ func (app *application) getPicks(w http.ResponseWriter, r *http.Request, ps http
 	}
 
 	w.WriteHeader(http.StatusOK)
-	json.NewEncoder(w).Encode(data)
+	json.NewEncoder(w).Encode(data[0])
 
 }
 

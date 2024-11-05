@@ -19,23 +19,23 @@
     onMounted(async () => {
 
         const season_res = await nflSeason.getStandings();
-
+        console.log(season_res)
     });
 
     watch( () => nflSeason.standings , (newPicks, oldPicks) => {
 
         if(nflSeason.standings != null){
             //AFC
-            afcEastSeason.value = nflSeason.standings.filter(pick => pick.team_division.trim() === 'AFC East');
-            afcNorthSeason.value = nflSeason.standings.filter(pick => pick.team_division.trim() === 'AFC North');
-            afcWestSeason.value = nflSeason.standings.filter(pick => pick.team_division.trim() === 'AFC West');
-            afcSouthSeason.value = nflSeason.standings.filter(pick => pick.team_division.trim() === 'AFC South');
+            afcEastSeason.value = nflSeason.standings.filter(pick => pick.division.trim() === 'AFC East');
+            afcNorthSeason.value = nflSeason.standings.filter(pick => pick.division.trim() === 'AFC North');
+            afcWestSeason.value = nflSeason.standings.filter(pick => pick.division.trim() === 'AFC West');
+            afcSouthSeason.value = nflSeason.standings.filter(pick => pick.division.trim() === 'AFC South');
 
             //NFC
-            nfcEastSeason.value = nflSeason.standings.filter(pick => pick.team_division.trim() === 'NFC East');
-            nfcNorthSeason.value = nflSeason.standings.filter(pick => pick.team_division.trim() === 'NFC North');
-            nfcWestSeason.value = nflSeason.standings.filter(pick => pick.team_division.trim() === 'NFC West');
-            nfcSouthSeason.value = nflSeason.standings.filter(pick => pick.team_division.trim() === 'NFC South');              
+            nfcEastSeason.value = nflSeason.standings.filter(pick => pick.division.trim() === 'NFC East');
+            nfcNorthSeason.value = nflSeason.standings.filter(pick => pick.division.trim() === 'NFC North');
+            nfcWestSeason.value = nflSeason.standings.filter(pick => pick.division.trim() === 'NFC West');
+            nfcSouthSeason.value = nflSeason.standings.filter(pick => pick.division.trim() === 'NFC South');              
         }
 
     })
