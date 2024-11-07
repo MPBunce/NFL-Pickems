@@ -73,11 +73,11 @@
                             <router-link to="/SeasonPicks" :class="{'font-bold': $route.name === 'SeasonPicks'}" class="text-white">Season Picks</router-link>
                         </a>
                     </li>
-                    <li class="mr-3 hover:border-l-2 lg:hover:border-l-0 lg:hover:border-b-2" v-if="auth.token">
+                    <!-- <li class="mr-3 hover:border-l-2 lg:hover:border-l-0 lg:hover:border-b-2" v-if="auth.token">
                         <a class="inline-block py-2 px-4">
                             <router-link to="/PlayoffsPicks" :class="{'font-bold': $route.name === 'PlayoffsPicks'}" class=" text-white">Playoff Picks</router-link>
                         </a>
-                    </li>
+                    </li> -->
                     <li class="mr-3 hover:border-l-2 lg:hover:border-l-0 lg:hover:border-b-2">
                         <a class="inline-block py-2 px-4">
                             <router-link to="/SeasonStandings" :class="{'font-bold': $route.name === 'SeasonStandings'}" class="text-white">NFL Standings</router-link>
@@ -89,8 +89,8 @@
                         </a>
                     </li>
 
-                    <li class="mr-3 bg-blue-700 hover:bg-blue-500 rounded cursor max-w-10 text-center" v-if="auth.token">
-                        <button @click="logout" class="inline-block no-underline hover:text-gray-200 hover:text-underline py-2 px-4">
+                    <li class="mr-16  rounded cursor max-w-10 text-center" v-if="auth.token">
+                        <button @click="logout" class="bg-blue-700 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded-full">
                             <a  class="text-white">Logout</a>
                         </button>
                     </li>

@@ -33,12 +33,12 @@ func (app *application) lockinPicks(w http.ResponseWriter, r *http.Request, ps h
 	e := decoder.Decode(&inputPicks)
 	if e != nil {
 		w.WriteHeader(http.StatusNotFound)
-		json.NewEncoder(w).Encode(map[string]string{"error": "Bruh Error"})
+		json.NewEncoder(w).Encode(map[string]string{"error": "User has picks"})
 		return
 	}
 	if inputPicks == nil || len(inputPicks) != 32 {
 		w.WriteHeader(http.StatusNotFound)
-		json.NewEncoder(w).Encode(map[string]string{"error": "Bad picks"})
+		json.NewEncoder(w).Encode(map[string]string{"error": "Array Len?"})
 		return
 	}
 
@@ -62,7 +62,7 @@ func (app *application) lockinPicks(w http.ResponseWriter, r *http.Request, ps h
 	}
 	if err = cursor.All(context.TODO(), &data); err != nil {
 		w.WriteHeader(http.StatusNotFound)
-		json.NewEncoder(w).Encode(map[string]string{"error": "Bruh Error"})
+		json.NewEncoder(w).Encode(map[string]string{"error": "Bruh Error 2"})
 		return
 	}
 	if data != nil {
@@ -112,7 +112,11 @@ func (app *application) getPicks(w http.ResponseWriter, r *http.Request, ps http
 		json.NewEncoder(w).Encode(map[string]string{"error": "Bruh Error"})
 		return
 	}
-
+	if data == nil {
+		w.WriteHeader(http.StatusNotFound)
+		json.NewEncoder(w).Encode(map[string]string{"error": "data not found"})
+		return
+	}
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(data[0])
 

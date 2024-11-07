@@ -84,48 +84,48 @@
     }
 
 
-    const log = async () => {
-        const this_year = 2023
+    const lockin = async () => {
+        const this_year = "2024"
         const lockin_array = []
-
+        console.log("lockin")
         //AFC
         for (let i = 0; i < afcEastSeason.value.length; i++) {
             const team = afcEastSeason.value[i];
             const data = {
-                "year": this_year,
                 "team": team.team,
                 "division": team.division,
-                "division_position": i + 1
+                "division_rank": i + 1,
+                "year": this_year,
             };
             lockin_array.push(data);
         }
         for (let i = 0; i < afcNorthSeason.value.length; i++) {
             const team = afcNorthSeason.value[i];
             const data = {
-                "year": this_year,
                 "team": team.team,
                 "division": team.division,
-                "division_position": i + 1
+                "division_rank": i + 1,
+                "year": this_year,
             };
             lockin_array.push(data);
         }
         for (let i = 0; i < afcWestSeason.value.length; i++) {
             const team = afcWestSeason.value[i];
             const data = {
-                "year": this_year,
                 "team": team.team,
                 "division": team.division,
-                "division_position": i + 1
+                "division_rank": i + 1,
+                "year": this_year,
             };
             lockin_array.push(data);
         }
         for (let i = 0; i < afcSouthSeason.value.length; i++) {
             const team = afcSouthSeason.value[i];
             const data = {
-                "year": this_year,
                 "team": team.team,
                 "division": team.division,
-                "division_position": i + 1
+                "division_rank": i + 1,
+                "year": this_year,
             };
             lockin_array.push(data);
         }
@@ -134,40 +134,40 @@
         for (let i = 0; i < nfcEastSeason.value.length; i++) {
             const team = nfcEastSeason.value[i];
             const data = {
-                "year": this_year,
                 "team": team.team,
                 "division": team.division,
-                "division_position": i + 1
+                "division_rank": i + 1,
+                "year": this_year,
             };
             lockin_array.push(data);
         }
         for (let i = 0; i < nfcNorthSeason.value.length; i++) {
             const team = nfcNorthSeason.value[i];
             const data = {
-                "year": this_year,
                 "team": team.team,
                 "division": team.division,
-                "division_position": i + 1
+                "division_rank": i + 1,
+                "year": this_year,
             };
             lockin_array.push(data);
         }
         for (let i = 0; i < nfcSouthSeason.value.length; i++) {
             const team = nfcSouthSeason.value[i];
             const data = {
-                "year": this_year,
                 "team": team.team,
                 "division": team.division,
-                "division_position": i + 1
+                "division_rank": i + 1,
+                "year": this_year,
             };
             lockin_array.push(data);
         }
         for (let i = 0; i < nfcWestSeason.value.length; i++) {
             const team = nfcWestSeason.value[i];
             const data = {
-                "year": this_year,
                 "team": team.team,
                 "division": team.division,
-                "division_position": i + 1
+                "division_rank": i + 1,
+                "year": this_year,
             };
             lockin_array.push(data);
         }
@@ -194,9 +194,8 @@
 <template>
 
     <div class="text-center my-4">
-        <h1 class="my-4 pt-4 text-white text-2xl font-mono">Lockin's your picks for the 2023 season!</h1>
-        
-        <button type="button" class="text-center rounded max-w-sm w-full bg-gradient-to-r from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500 text-white text-2xl uppercase font-bold shadow-md mx-auto p-5">
+        <h1 class="my-4 pt-4 text-white text-2xl font-mono">Lockin's your picks for the 2023 season!</h1>       
+        <button @click="lockin()" type="button" class="text-center rounded max-w-sm w-full bg-gradient-to-r from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500 text-white text-2xl uppercase font-bold shadow-md mx-auto p-5">
             <div>LOCKIN</div>
         </button>
     </div>

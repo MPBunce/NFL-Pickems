@@ -18,30 +18,27 @@ export const picksStore = defineStore('picksStore', {
     actions: {
         async getPicks(){ 
 
+            var res
             const auth = authStore()
             const bearerToken = auth.token
 
-            var res
-
             const headers = {
-                'Authorization': `Bearer ${bearerToken}`
+                'Authorization': `Bearer ${bearerToken}`,
             };
 
-            console.log(headers)
             try {
-                console.log("Working")
                 res = await axios.get(`${base_url}/v1/get/picks/${this_year}`, {headers});
-                console.log("working?" + res.data)
-                this.picks = res.data;
-                localStorage.setItem('picks', JSON.stringify(res.data));
-
+                console.log(res.data)
+                this.picks = res.data.picks;
+                localStorage.setItem('picks', JSON.stringify(res.data.picks));                    
             } catch (error) {
-
-
                 console.log("Error:", error.message);
-
+                this.picks = []
+                return
             }
-            return res.data
+
+            return res.data.picks
+
         },
         async lockInPicks(picks_array){
             
@@ -55,7 +52,7 @@ export const picksStore = defineStore('picksStore', {
             };
             
             try{
-                res = await axios.post(`${base_url}/api/lockin_picks`, picks_array, {headers})
+                res = await axios.post(`${base_url}/v1/lockin/picks/${this_year}`, picks_array, {headers})
             
                 this.picks = picks_array
                 localStorage.setItem('picks', JSON.stringify(picks_array));
@@ -63,7 +60,7 @@ export const picksStore = defineStore('picksStore', {
                 console.log(error);
             }
 
-            return "locked in"
+            return "locked in fr fr"
 
         }
     }
