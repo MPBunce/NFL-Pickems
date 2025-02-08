@@ -22,11 +22,11 @@ const routes = [
         name: 'Login',
         component: Login
     },
-    {
-        path: '/Register',
-        name: 'Register',
-        component: Register
-    },
+    // {
+    //     path: '/Register',
+    //     name: 'Register',
+    //     component: Register
+    // },
     {
         path: '/Leaderboard',
         name: 'LeaderBoard',

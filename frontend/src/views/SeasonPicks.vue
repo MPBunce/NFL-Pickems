@@ -4,11 +4,9 @@
     import DivisionCard from '../components/DivisionCard.vue';
     import PicksLockin from '../components/PicksLockin.vue';
     import { ref, onMounted, watch } from 'vue';
-    import { authStore } from '../store/authStore';
     import { picksStore } from '../store/picksStore';
     import { nflStore } from '../store/nflStore';
 
-    const authStoreInstance = authStore();
     const picksStoreInstance = picksStore();
     const nflSeason = nflStore();
 
@@ -36,7 +34,6 @@
 
     onMounted(async () => {
         
-        const res = await authStoreInstance.test();
         const result = await picksStoreInstance.getPicks();
         const season_res = await nflSeason.getStandings();
 
@@ -48,16 +45,16 @@
 
         if(picksStoreInstance.picks != null){
             //AFC
-            afcEast.value =  picksStoreInstance.picks.filter(pick => pick.team_division.trim() === 'AFC East');
-            afcNorth.value =  picksStoreInstance.picks.filter(pick => pick.team_division.trim() === 'AFC North');
-            afcWest.value =  picksStoreInstance.picks.filter(pick => pick.team_division.trim() === 'AFC West');
-            afcSouth.value =  picksStoreInstance.picks.filter(pick => pick.team_division.trim() === 'AFC South');
+            afcEast.value =  picksStoreInstance.picks.filter(pick => pick.division.trim() === 'AFC East');
+            afcNorth.value =  picksStoreInstance.picks.filter(pick => pick.division.trim() === 'AFC North');
+            afcWest.value =  picksStoreInstance.picks.filter(pick => pick.division.trim() === 'AFC West');
+            afcSouth.value =  picksStoreInstance.picks.filter(pick => pick.division.trim() === 'AFC South');
 
             //NFC
-            nfcEast.value =  picksStoreInstance.picks.filter(pick => pick.team_division.trim() === 'NFC East');
-            nfcNorth.value =  picksStoreInstance.picks.filter(pick => pick.team_division.trim() === 'NFC North');
-            nfcWest.value =  picksStoreInstance.picks.filter(pick => pick.team_division.trim() === 'NFC West');
-            nfcSouth.value =  picksStoreInstance.picks.filter(pick => pick.team_division.trim()=== 'NFC South');                 
+            nfcEast.value =  picksStoreInstance.picks.filter(pick => pick.division.trim() === 'NFC East');
+            nfcNorth.value =  picksStoreInstance.picks.filter(pick => pick.division.trim() === 'NFC North');
+            nfcWest.value =  picksStoreInstance.picks.filter(pick => pick.division.trim() === 'NFC West');
+            nfcSouth.value =  picksStoreInstance.picks.filter(pick => pick.division.trim()=== 'NFC South');                 
         } 
   
     })
@@ -66,16 +63,16 @@
 
         if(nflSeason.standings != null){
             //AFC
-            afcEastSeason.value = nflSeason.standings.filter(pick => pick.team_division.trim() === 'AFC East');
-            afcNorthSeason.value = nflSeason.standings.filter(pick => pick.team_division.trim() === 'AFC North');
-            afcWestSeason.value = nflSeason.standings.filter(pick => pick.team_division.trim() === 'AFC West');
-            afcSouthSeason.value = nflSeason.standings.filter(pick => pick.team_division.trim() === 'AFC South');
+            afcEastSeason.value = nflSeason.standings.filter(pick => pick.division.trim() === 'AFC East');
+            afcNorthSeason.value = nflSeason.standings.filter(pick => pick.division.trim() === 'AFC North');
+            afcWestSeason.value = nflSeason.standings.filter(pick => pick.division.trim() === 'AFC West');
+            afcSouthSeason.value = nflSeason.standings.filter(pick => pick.division.trim() === 'AFC South');
 
             //NFC
-            nfcEastSeason.value = nflSeason.standings.filter(pick => pick.team_division.trim() === 'NFC East');
-            nfcNorthSeason.value = nflSeason.standings.filter(pick => pick.team_division.trim() === 'NFC North');
-            nfcWestSeason.value = nflSeason.standings.filter(pick => pick.team_division.trim() === 'NFC West');
-            nfcSouthSeason.value = nflSeason.standings.filter(pick => pick.team_division.trim() === 'NFC South');              
+            nfcEastSeason.value = nflSeason.standings.filter(pick => pick.division.trim() === 'NFC East');
+            nfcNorthSeason.value = nflSeason.standings.filter(pick => pick.division.trim() === 'NFC North');
+            nfcWestSeason.value = nflSeason.standings.filter(pick => pick.division.trim() === 'NFC West');
+            nfcSouthSeason.value = nflSeason.standings.filter(pick => pick.division.trim() === 'NFC South');              
         }
 
     })
@@ -103,8 +100,8 @@
 
                 <div class="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-4 gap-1 text-white mb-8">
 
-                    <DivisionCard v-if="afcEast && afcEastSeason" :picks="afcEast" :nflSeason="afcEastSeason"/>
                     <DivisionCard v-if="afcNorth && afcNorthSeason" :picks="afcNorth" :nflSeason="afcNorthSeason"/>
+                    <DivisionCard v-if="afcEast && afcEastSeason" :picks="afcEast" :nflSeason="afcEastSeason"/>
                     <DivisionCard v-if="afcSouth && afcSouthSeason" :picks="afcSouth" :nflSeason="afcSouthSeason"/>
                     <DivisionCard v-if="afcWest && afcWestSeason" :picks="afcWest" :nflSeason="afcWestSeason"/>
 

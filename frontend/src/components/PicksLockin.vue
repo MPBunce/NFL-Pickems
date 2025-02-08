@@ -27,16 +27,16 @@
         if(props.regularSeason){
 
             //AFC
-            afcEastSeason.value = props.regularSeason.filter(pick => pick.team_division.trim() === 'AFC East');
-            afcNorthSeason.value = props.regularSeason.filter(pick => pick.team_division.trim() === 'AFC North');
-            afcWestSeason.value = props.regularSeason.filter(pick => pick.team_division.trim() === 'AFC West');
-            afcSouthSeason.value = props.regularSeason.filter(pick => pick.team_division.trim() === 'AFC South');
+            afcEastSeason.value = props.regularSeason.filter(pick => pick.division.trim() === 'AFC East');
+            afcNorthSeason.value = props.regularSeason.filter(pick => pick.division.trim() === 'AFC North');
+            afcWestSeason.value = props.regularSeason.filter(pick => pick.division.trim() === 'AFC West');
+            afcSouthSeason.value = props.regularSeason.filter(pick => pick.division.trim() === 'AFC South');
 
             //NFC
-            nfcEastSeason.value = props.regularSeason.filter(pick => pick.team_division.trim() === 'NFC East');
-            nfcNorthSeason.value = props.regularSeason.filter(pick => pick.team_division.trim() === 'NFC North');
-            nfcWestSeason.value = props.regularSeason.filter(pick => pick.team_division.trim() === 'NFC West');
-            nfcSouthSeason.value = props.regularSeason.filter(pick => pick.team_division.trim() === 'NFC South');  
+            nfcEastSeason.value = props.regularSeason.filter(pick => pick.division.trim() === 'NFC East');
+            nfcNorthSeason.value = props.regularSeason.filter(pick => pick.division.trim() === 'NFC North');
+            nfcWestSeason.value = props.regularSeason.filter(pick => pick.division.trim() === 'NFC West');
+            nfcSouthSeason.value = props.regularSeason.filter(pick => pick.division.trim() === 'NFC South');  
         }
 
     });
@@ -84,48 +84,48 @@
     }
 
 
-    const log = async () => {
-        const this_year = 2023
+    const lockin = async () => {
+        const this_year = "2024"
         const lockin_array = []
-
+        console.log("lockin")
         //AFC
         for (let i = 0; i < afcEastSeason.value.length; i++) {
             const team = afcEastSeason.value[i];
             const data = {
+                "team": team.team,
+                "division": team.division,
+                "division_rank": i + 1,
                 "year": this_year,
-                "team_name": team.team_name,
-                "team_division": team.team_division,
-                "division_position": i + 1
             };
             lockin_array.push(data);
         }
         for (let i = 0; i < afcNorthSeason.value.length; i++) {
             const team = afcNorthSeason.value[i];
             const data = {
+                "team": team.team,
+                "division": team.division,
+                "division_rank": i + 1,
                 "year": this_year,
-                "team_name": team.team_name,
-                "team_division": team.team_division,
-                "division_position": i + 1
             };
             lockin_array.push(data);
         }
         for (let i = 0; i < afcWestSeason.value.length; i++) {
             const team = afcWestSeason.value[i];
             const data = {
+                "team": team.team,
+                "division": team.division,
+                "division_rank": i + 1,
                 "year": this_year,
-                "team_name": team.team_name,
-                "team_division": team.team_division,
-                "division_position": i + 1
             };
             lockin_array.push(data);
         }
         for (let i = 0; i < afcSouthSeason.value.length; i++) {
             const team = afcSouthSeason.value[i];
             const data = {
+                "team": team.team,
+                "division": team.division,
+                "division_rank": i + 1,
                 "year": this_year,
-                "team_name": team.team_name,
-                "team_division": team.team_division,
-                "division_position": i + 1
             };
             lockin_array.push(data);
         }
@@ -134,40 +134,40 @@
         for (let i = 0; i < nfcEastSeason.value.length; i++) {
             const team = nfcEastSeason.value[i];
             const data = {
+                "team": team.team,
+                "division": team.division,
+                "division_rank": i + 1,
                 "year": this_year,
-                "team_name": team.team_name,
-                "team_division": team.team_division,
-                "division_position": i + 1
             };
             lockin_array.push(data);
         }
         for (let i = 0; i < nfcNorthSeason.value.length; i++) {
             const team = nfcNorthSeason.value[i];
             const data = {
+                "team": team.team,
+                "division": team.division,
+                "division_rank": i + 1,
                 "year": this_year,
-                "team_name": team.team_name,
-                "team_division": team.team_division,
-                "division_position": i + 1
             };
             lockin_array.push(data);
         }
         for (let i = 0; i < nfcSouthSeason.value.length; i++) {
             const team = nfcSouthSeason.value[i];
             const data = {
+                "team": team.team,
+                "division": team.division,
+                "division_rank": i + 1,
                 "year": this_year,
-                "team_name": team.team_name,
-                "team_division": team.team_division,
-                "division_position": i + 1
             };
             lockin_array.push(data);
         }
         for (let i = 0; i < nfcWestSeason.value.length; i++) {
             const team = nfcWestSeason.value[i];
             const data = {
+                "team": team.team,
+                "division": team.division,
+                "division_rank": i + 1,
                 "year": this_year,
-                "team_name": team.team_name,
-                "team_division": team.team_division,
-                "division_position": i + 1
             };
             lockin_array.push(data);
         }
@@ -194,9 +194,8 @@
 <template>
 
     <div class="text-center my-4">
-        <h1 class="my-4 pt-4 text-white text-2xl font-mono">Lockin's your picks for the 2023 season!</h1>
-        
-        <button type="button" class="text-center rounded max-w-sm w-full bg-gradient-to-r from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500 text-white text-2xl uppercase font-bold shadow-md mx-auto p-5">
+        <h1 class="my-4 pt-4 text-white text-2xl font-mono">Lockin's your picks for the 2023 season!</h1>       
+        <button @click="lockin()" type="button" class="text-center rounded max-w-sm w-full bg-gradient-to-r from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500 text-white text-2xl uppercase font-bold shadow-md mx-auto p-5">
             <div>LOCKIN</div>
         </button>
     </div>
@@ -219,10 +218,10 @@
 
                         <div class="basis-1/4 bg-neutral-950 text-center py-6 text-lg">{{ index + 1 }} </div>
                         <div class="basis-1/4 object-center ml-4 mt-4">
-                            <img class="w-10 h-10 object-center" :src="getTeamLogoUrl(team.team_name)">
+                            <img class="w-10 h-10 object-center" :src="getTeamLogoUrl(team.team)">
                         </div>
 
-                        <div class="basis-3/4 mt-6">{{ team.team_name }}</div>
+                        <div class="basis-3/4 mt-6">{{ team.team }}</div>
                         <div class="mr-2 mt-6">
                             <svg class="fill-current h-6 w-10 text-neutral-900" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/>
@@ -250,10 +249,10 @@
 
                         <div class="basis-1/4 bg-neutral-950 text-center py-6 text-lg">{{ index + 1 }} </div>
                         <div class="basis-1/4 object-center ml-4 mt-4">
-                            <img class="w-10 h-10 object-center" :src="getTeamLogoUrl(team.team_name)">
+                            <img class="w-10 h-10 object-center" :src="getTeamLogoUrl(team.team)">
                         </div>
 
-                        <div class="basis-3/4 mt-6">{{ team.team_name }}</div>
+                        <div class="basis-3/4 mt-6">{{ team.team }}</div>
                         <div class="mr-2 mt-6">
                             <svg class="fill-current h-6 w-10 text-neutral-900" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/>
@@ -279,10 +278,10 @@
 
                         <div class="basis-1/4 bg-neutral-950 text-center py-6 text-lg">{{ index + 1 }} </div>
                         <div class="basis-1/4 object-center ml-4 mt-4">
-                            <img class="w-10 h-10 object-center" :src="getTeamLogoUrl(team.team_name)">
+                            <img class="w-10 h-10 object-center" :src="getTeamLogoUrl(team.team)">
                         </div>
 
-                        <div class="basis-3/4 mt-6">{{ team.team_name }}</div>
+                        <div class="basis-3/4 mt-6">{{ team.team }}</div>
                         <div class="mr-2 mt-6">
                             <svg class="fill-current h-6 w-10 text-neutral-900" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/>
@@ -308,10 +307,10 @@
 
                         <div class="basis-1/4 bg-neutral-950 text-center py-6 text-lg">{{ index + 1 }} </div>
                         <div class="basis-1/4 object-center ml-4 mt-4">
-                            <img class="w-10 h-10 object-center" :src="getTeamLogoUrl(team.team_name)">
+                            <img class="w-10 h-10 object-center" :src="getTeamLogoUrl(team.team)">
                         </div>
 
-                        <div class="basis-3/4 mt-6">{{ team.team_name }}</div>
+                        <div class="basis-3/4 mt-6">{{ team.team }}</div>
                         <div class="mr-2 mt-6">
                             <svg class="fill-current h-6 w-10 text-neutral-900" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/>
@@ -337,10 +336,10 @@
 
                         <div class="basis-1/4 bg-neutral-950 text-center py-6 text-lg">{{ index + 1 }} </div>
                         <div class="basis-1/4 object-center ml-4 mt-4">
-                            <img class="w-10 h-10 object-center" :src="getTeamLogoUrl(team.team_name)">
+                            <img class="w-10 h-10 object-center" :src="getTeamLogoUrl(team.team)">
                         </div>
 
-                        <div class="basis-3/4 mt-6">{{ team.team_name }}</div>
+                        <div class="basis-3/4 mt-6">{{ team.team }}</div>
                         <div class="mr-2 mt-6">
                             <svg class="fill-current h-6 w-10 text-neutral-900" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/>
@@ -366,10 +365,10 @@
 
                         <div class="basis-1/4 bg-neutral-950 text-center py-6 text-lg">{{ index + 1 }} </div>
                         <div class="basis-1/4 object-center ml-4 mt-4">
-                            <img class="w-10 h-10 object-center" :src="getTeamLogoUrl(team.team_name)">
+                            <img class="w-10 h-10 object-center" :src="getTeamLogoUrl(team.team)">
                         </div>
 
-                        <div class="basis-3/4 mt-6">{{ team.team_name }}</div>
+                        <div class="basis-3/4 mt-6">{{ team.team }}</div>
                         <div class="mr-2 mt-6">
                             <svg class="fill-current h-6 w-10 text-neutral-900" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/>
@@ -395,10 +394,10 @@
 
                         <div class="basis-1/4 bg-neutral-950 text-center py-6 text-lg">{{ index + 1 }} </div>
                         <div class="basis-1/4 object-center ml-4 mt-4">
-                            <img class="w-10 h-10 object-center" :src="getTeamLogoUrl(team.team_name)">
+                            <img class="w-10 h-10 object-center" :src="getTeamLogoUrl(team.team)">
                         </div>
 
-                        <div class="basis-3/4 mt-6">{{ team.team_name }}</div>
+                        <div class="basis-3/4 mt-6">{{ team.team }}</div>
                         <div class="mr-2 mt-6">
                             <svg class="fill-current h-6 w-10 text-neutral-900" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/>
@@ -424,10 +423,10 @@
 
                         <div class="basis-1/4 bg-neutral-950 text-center py-6 text-lg">{{ index + 1 }} </div>
                         <div class="basis-1/4 object-center ml-4 mt-4">
-                            <img class="w-10 h-10 object-center" :src="getTeamLogoUrl(team.team_name)">
+                            <img class="w-10 h-10 object-center" :src="getTeamLogoUrl(team.team)">
                         </div>
 
-                        <div class="basis-3/4 mt-6">{{ team.team_name }}</div>
+                        <div class="basis-3/4 mt-6">{{ team.team }}</div>
                         <div class="mr-2 mt-6">
                             <svg class="fill-current h-6 w-10 text-neutral-900" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/>

@@ -3,14 +3,9 @@ import requests
 
 from pymongo import MongoClient
 
-import psycopg2
-from psycopg2.extras import RealDictCursor
-from psycopg2.extras import execute_values
-
 
 import os
 from dotenv import load_dotenv
-
 
 class Team:
     def __init__(self, id, name, wins, loses):
@@ -100,9 +95,9 @@ for n in range(len(afcArray)):
     else:   
         afcArray[n].append(position)
 
-# print("\n")
-# for n in afcArray:
-#     print(n)
+print("\n")
+for n in afcArray:
+    print(n)
 
 #AFC in Json
 afc_json_data = []
@@ -125,9 +120,9 @@ for n in range(len(nfcArray)):
     else:   
         nfcArray[n].append(position)
 
-# print("\n")
-# for n in nfcArray:
-#     print(n)
+print("\n")
+for n in nfcArray:
+    print(n)
 
 #nfc in Json
 nfc_json_data = []
