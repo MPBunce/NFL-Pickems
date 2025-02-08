@@ -5,7 +5,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-
+	"strings"
+	"sort"
 	"github.com/julienschmidt/httprouter"
 	"go.mongodb.org/mongo-driver/bson"
 	"google.golang.org/api/idtoken"
@@ -124,6 +125,59 @@ func (app *application) getPicks(w http.ResponseWriter, r *http.Request, ps http
 
 func (app *application) picksStandings(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 
+	var userPicks []UserPicks;
+	var userProfile []UserProfile;
+	var seasonStandings []SeasonStandings;
+	year := ps.ByName("year");
+	filter := bson.D{}
+
+
+	collection := app.dbClient.Database("NFL-Pickems").Collection("UserProfile")
+	cursor, err := collection.Find(context.TODO(), filter)
+	if err != nil {
+		w.WriteHeader(http.StatusNotFound)
+		json.NewEncoder(w).Encode(map[string]string{"error": "Bruh Error"})
+		return
+	}
+	if err = cursor.All(context.TODO(), &userProfile); err != nil {
+		w.WriteHeader(http.StatusNotFound)
+		json.NewEncoder(w).Encode(map[string]string{"error": "Bruh Error"})
+		return
+	}
+
+	filterByYear := bson.D{{"year", year}}
+
+	collectionTwo := app.dbClient.Database("NFL-Pickems").Collection("UserPicks")
+	cursorTwo, errTwo := collectionTwo.Find(context.TODO(), filterByYear)
+	if errTwo != nil {
+		w.WriteHeader(http.StatusNotFound)
+		json.NewEncoder(w).Encode(map[string]string{"error": "Bruh Error"})
+		return
+	}
+	if errTwo = cursorTwo.All(context.TODO(), &userPicks); err != nil {
+		w.WriteHeader(http.StatusNotFound)
+		json.NewEncoder(w).Encode(map[string]string{"error": "Bruh Error"})
+		return
+	}
+
+	collectionThree := app.dbClient.Database("NFL-Pickems").Collection("Season Standings")
+	cursorThree, errThree := collectionThree.Find(context.TODO(), filterByYear)
+	if errThree != nil {
+		w.WriteHeader(http.StatusNotFound)
+		json.NewEncoder(w).Encode(map[string]string{"error": "Bruh Error"})
+		return
+	}
+	if errThree = cursorThree.All(context.TODO(), &seasonStandings); err != nil {
+		w.WriteHeader(http.StatusNotFound)
+		json.NewEncoder(w).Encode(map[string]string{"error": "Bruh Error"})
+		return
+	}
+
+	output := app.calcLeaderBoard(userPicks, userProfile, seasonStandings[0]);
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(output)
+
+
 }
 
 func (app *application) confirmUser(subject string) bool {
@@ -145,5 +199,51 @@ func (app *application) confirmUser(subject string) bool {
 	} else {
 		return false
 	}
+
+}
+
+func (app *application) calcLeaderBoard(userPicks []UserPicks, userProfiles []UserProfile,  seasonStandings SeasonStandings) []LeaderBoard {
+
+	var output []LeaderBoard
+
+	for _, user := range userProfiles {
+		score := 0
+
+		// Find the user's picks
+		for _, picks := range userPicks {
+			if picks.Id == user.Id { // Match user ID to their picks
+				fmt.Println("Processing picks for:", user.Name)
+				// Compare each pick with the actual standings
+				for _, pick := range picks.Picks {
+					fmt.Println("User Pick:", pick) 
+					for _, team := range seasonStandings.Teams {
+						// Normalize and compare team name, division, and ranking
+						if(strings.ToLower(strings.TrimSpace(team.Team)) == strings.ToLower(strings.TrimSpace(pick.Team))) && pick.DivisionRank == team.DivisionRank {
+							fmt.Println("works!")
+							fmt.Println("Pick Rank: ", pick.DivisionRank, "Standing Rank", team.DivisionRank)
+							fmt.Println(pick.DivisionRank == team.DivisionRank)
+							score += 1
+						}
+
+					}
+				}
+			}
+		}
+
+		// Create leaderboard entry
+		entry := LeaderBoard{
+			Id:      user.Id,
+			Name:    user.Name,
+			Picture: user.ProfilePic,
+			Score:   score,
+		}
+
+		// Append to output slice
+		output = append(output, entry)
+	}
+	sort.Slice(output, func(i, j int) bool {
+		return output[i].Score > output[j].Score // Highest scores first
+	})
+	return output
 
 }

@@ -41,8 +41,8 @@ type UserGuess struct {
 }
 
 type LeaderBoard struct {
-	Id    string `json:"id" bson:"_id,omitempty"`
-	Name  string `bson:"name"`
-	Year  string `json:"year" bson:"year"`
-	Score int    `json:"score" bson:"score"`
+	Id    string 
+	Name  string 
+	Picture  string 
+	Score int    
 }

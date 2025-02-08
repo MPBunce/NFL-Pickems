@@ -16,9 +16,9 @@ export const leaderboardStore = defineStore('leaderboardStore', {
         async getLeaderboard() {
 
 
-
             try {
-                const res = await axios.get(`${base_url}/api/leaderboard/?year=${this_year}`)
+                console.log(`${base_url}v1/leaderboard/${this_year}`)
+                const res = await axios.get(`${base_url}v1/leaderboard/${this_year}`)
                 console.log(res)
                 this.leaderboard = res.data
                 localStorage.setItem('leaderboard', JSON.stringify(res.data));

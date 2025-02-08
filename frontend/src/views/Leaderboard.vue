@@ -51,14 +51,14 @@
                                 Position
                             </th>
                             <th scope="col" class="px-6 py-3">
-                                Username
+                                User
                             </th>
-                            <th scope="col" class="px-6 py-3">
+                            <!-- <th scope="col" class="px-6 py-3">
                                 Regular Season Score
                             </th>
                             <th scope="col" class="px-6 py-3">
                                 Playoffs Score
-                            </th>
+                            </th> -->
                             <th scope="col" class="px-6 py-3">
                                 Total
                             </th>
@@ -67,19 +67,27 @@
                     <tbody>
                         <tr v-for="( item, index) in sorted" class="text-white bg-neutral-800">
                             <td class="px-6 py-4">
-                                {{ index + 1 }}
+                                <div class="mt-2 text-2xl">
+                                    {{ index + 1 }}
+                                </div>
                             </td>
-                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                {{ item.username }}
-                            </th>
-                            <td class="px-6 py-4">
+                            <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white  flex flex-row gap-2">
+
+                                <div class="h-12 w-12 ml-8">
+                                    <img class="rounded-2xl" v-bind:src="item.Picture" /> 
+                                </div>
+                                <div class="mt-4">
+                                    {{ item.Name }}
+                                </div>                            
+                            </td>
+                            <!-- <td class="px-6 py-4">
                                 {{ item.regular_season_score }}
                             </td>
                             <td class="px-6 py-4">
                                 {{ item.playoff_score }}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{ item.total_score }}
+                            </td> -->
+                            <td class="px-6 py-4 text-2xl">
+                                {{ item.Score }}
                             </td>
                         </tr>
 

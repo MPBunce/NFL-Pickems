@@ -14,7 +14,6 @@
     };
 
     onMounted(() => {
-        // This code will run after the component is mounted and the DOM is ready
         const navToggle = document.getElementById('nav-toggle');
         if (navToggle) {
             navToggle.onclick = toggleNav;
