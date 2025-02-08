@@ -73,7 +73,7 @@
                             </td>
                             <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white  flex flex-row gap-2">
 
-                                <div class="h-12 w-12 ml-8">
+                                <div class="h-12 w-12">
                                     <img class="rounded-2xl" v-bind:src="item.Picture" /> 
                                 </div>
                                 <div class="mt-4">
