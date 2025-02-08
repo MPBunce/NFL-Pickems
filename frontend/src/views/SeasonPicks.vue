@@ -105,8 +105,8 @@
                     <DivisionCard v-if="afcSouth && afcSouthSeason" :picks="afcSouth" :nflSeason="afcSouthSeason"/>
                     <DivisionCard v-if="afcWest && afcWestSeason" :picks="afcWest" :nflSeason="afcWestSeason"/>
 
-                    <DivisionCard v-if="nfcEast && nfcEastSeason" :picks="nfcEast" :nflSeason="nfcEastSeason"/>
                     <DivisionCard v-if="nfcNorth && nfcNorthSeason" :picks="nfcNorth" :nflSeason="nfcNorthSeason"/>
+                    <DivisionCard v-if="nfcEast && nfcEastSeason" :picks="nfcEast" :nflSeason="nfcEastSeason"/>
                     <DivisionCard v-if="nfcWest && nfcWestSeason" :picks="nfcWest" :nflSeason="nfcWestSeason"/>
                     <DivisionCard v-if="nfcSouth && nfcSouthSeason" :picks="nfcSouth" :nflSeason="nfcSouthSeason"/>
 

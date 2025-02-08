@@ -1,13 +1,8 @@
 import { defineStore } from 'pinia'
 import axios from "axios"
 
-
-//Prod
-//const base_url = 'https://nmpymrjsvh.us-east-1.awsapprunner.com'
-//Dev
-const base_url = 'http://127.0.0.1:4000'
-const this_year = 2024
-
+const base_url = import.meta.env.VITE_API_URL;
+const this_year = import.meta.env.VITE_YEAR;
 
 export const leaderboardStore = defineStore('leaderboardStore', {
     state: () => {

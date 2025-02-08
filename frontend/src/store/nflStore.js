@@ -2,12 +2,8 @@ import { defineStore } from 'pinia'
 import { authStore } from './authStore'
 import axios from "axios"
 
-//Prod
-//const base_url = 'https://nmpymrjsvh.us-east-1.awsapprunner.com'
-//Dev
-const base_url = 'http://localhost:4000'
-
-const this_year = 2024
+const base_url = import.meta.env.VITE_API_URL;
+const this_year = import.meta.env.VITE_YEAR;
 
 export const nflStore = defineStore('nflStore', {
     state: () => {
@@ -19,6 +15,7 @@ export const nflStore = defineStore('nflStore', {
         async getStandings(){ 
             var res
             try {
+                console.log(`${base_url}/v1/seasons/${this_year}`)
                 res = await axios.get(`${base_url}/v1/seasons/${this_year}`);
                 this.standings = res.data.teams;
                 localStorage.setItem('nflStandings', JSON.stringify(res.data));
