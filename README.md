@@ -1,12 +1,48 @@
 # NFL-Pickems
 
+APPLICATION STATUS: Upgrades Complete sorting out hosting.
 
-APPLICATION STATUS: Undergoing Upgrades api and frontend are temporarily down
+### Frontend
+
+Utilized Vue,js Pinia and Tailwind-CSS for state managment
+![alt text](misc/Frontend.gif)
+
+##### Env Variables:
+- VITE_GOOGLE_CLIENT_ID
+- VITE_API_URL
+- VITE_YEAR
+
+##### Local Setup:
+- npm Install
+- npm run dev
+
+### Golang Backend
+
+Run API Locally:
+	go run api/* -db="MongoUriHere"
 
 
-Vue Frontend:
-https://d3nsp1xpq5b06f.cloudfront.net
+I Utilized 
+	//Health Check Routes
+	router.HandlerFunc(http.MethodGet, "/", app.healthcheckHandler)
 
+	//Season Routes
+	router.GET("/v1/seasons", app.allSeasonStandings)
+	router.GET("/v1/seasons/:year", app.seasonStandings)
 
-FastAPI Backend:
-https://nmpymrjsvh.us-east-1.awsapprunner.com/docs
+	//User Profile
+	router.GET("/v1/user", app.getUser)
+
+	//Picks
+	router.GET("/v1/get/picks/:year", app.getPicks)
+	router.POST("/v1/lockin/picks/:year", app.lockinPicks)
+
+	//Leaderboard
+	router.GET("/v1/leaderboard/:year", app.picksStandings)
+
+### Python Scraping
+I utilized pythons beautiful soup 
+
+##### Env Variables:
+- YEAR
+- MONGO_URI
