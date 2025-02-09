@@ -32,7 +32,7 @@ for row in afcTable.find_all('tr'):
 
     conference = row.find("td", {'data-stat': 'onecell'}) 
     if conference is not None:
-        currentConference = conference.contents[0]
+        currentConference = conference.contents[0].strip() 
 
     team = row.find("a")
     if (team != None):
@@ -64,7 +64,7 @@ for row in nfcTable.find_all('tr'):
 
     conference = row.find("td", {'data-stat': 'onecell'}) 
     if conference is not None:
-        currentConference = conference.contents[0]
+        currentConference = conference.contents[0].strip() 
 
     team = row.find("a")
     if (team != None):
@@ -149,7 +149,7 @@ data = {
 
 print("\ndb:\n")
 # Database Time
-uri = os.getenv("MONGO_URI")
+uri = str(os.getenv("MONGO_URI"))
 client = MongoClient(uri)
 db = client['NFL-Pickems']
 
@@ -162,58 +162,7 @@ if count > 0:
         {'year': currentYear},
         {'$set': data}      
     )
+    print("Updated data")
 else:
-    print("new data?")
     table.insert_one(data)
-
-
-# load_dotenv()
-
-# POSTGRES_USER : str = os.getenv("POSTGRES_USER")
-# POSTGRES_PASSWORD = os.getenv("POSTGRES_PASSWORD")
-# POSTGRES_SERVER : str = os.getenv("POSTGRES_SERVER","localhost")
-# POSTGRES_PORT : str = os.getenv("POSTGRES_PORT",5432) # default postgres port is 5432
-# POSTGRES_DB : str = os.getenv("POSTGRES_DB")
-# DATABASE_URL = f"postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_SERVER}:{POSTGRES_PORT}/{POSTGRES_DB}"
-
-# # Define the SQL INSERT statement template with ON CONFLICT
-# insert_sql = f"""
-#     INSERT INTO "nfl-seasons" (team_name, wins, losses, ties, team_division, year, divisional_position)
-#     VALUES %s
-#     ON CONFLICT (team_name, year) DO UPDATE
-#     SET wins = excluded.wins, losses = excluded.losses, ties = excluded.ties, team_division = excluded.team_division, divisional_position = excluded.divisional_position;
-# """
-
-# #Update DB
-# try:
-#     conn = psycopg2.connect(DATABASE_URL)
-#     cursor = conn.cursor()    
-    
-#     # Assuming afcArray and nfcArray are lists of tuples containing data
-#     execute_values(cursor, insert_sql, afcArray)
-#     execute_values(cursor, insert_sql, nfcArray)
-
-#     conn.commit()
-#     cursor.close()
-#     conn.close()
-
-# except psycopg2.Error as e:
-#     print("Error connecting to the database:", e)
-
-
-
-# #Invoke SP to update scores
-# try:
-#     conn = psycopg2.connect(DATABASE_URL)
-#     cursor = conn.cursor()    
-    
-#     exeYear = int(currentYear)
-#     cursor.execute('CALL public.update_regular_season_scores(%s);', (exeYear,))
-
-#     print("sproc")
-    
-#     cursor.close()
-#     conn.close()
-
-# except psycopg2.Error as e:
-#     print("Error connecting to the database:", e)
+    print("Inserted new data")
